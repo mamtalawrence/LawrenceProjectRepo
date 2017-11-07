@@ -57,7 +57,7 @@ public class StudentData {
 
     @SerializedName("STUDENT_COURSES")
     @Expose
-    private List<StudentCourse> studentCourses = null;
+    private List<StudentCourse> mStudentCourses = null;
 
     public String getStudentID() {
         return mStudentID;
@@ -148,11 +148,11 @@ public class StudentData {
     }
 
     public List<StudentCourse> getStudentCourses() {
-        return studentCourses;
+        return mStudentCourses;
     }
 
     public void setStudentCourses(List<StudentCourse> studentCourses) {
-        this.studentCourses = studentCourses;
+        this.mStudentCourses = studentCourses;
     }
 
 }

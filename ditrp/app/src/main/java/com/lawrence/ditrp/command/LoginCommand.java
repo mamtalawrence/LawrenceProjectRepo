@@ -3,9 +3,11 @@ package com.lawrence.ditrp.command;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import com.google.gson.Gson;
 import com.lawrence.ditrp.Constants.CommandConstant;
 import com.lawrence.ditrp.Constants.Utils;
 import com.lawrence.ditrp.activities.DashBoardActivity;
+import com.lawrence.ditrp.dataModel.StudentData;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -44,6 +46,8 @@ public class LoginCommand implements Command {
                 if (jsonBodyObject.get("success").toString().equalsIgnoreCase("true")) {
                     // json parsing
                     Utils.showToast(mContext, jsonBodyObject.get("message").toString());
+                    Gson gson = new Gson();
+                    StudentData studentData = gson.fromJson(jsonBodyObject.get("data").toString(), StudentData.class);
                     showDashBoardActivity();
                 } else {
                     // fail handling

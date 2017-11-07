@@ -33,7 +33,7 @@ public class StudentCourse {
 
     @SerializedName("QUESTION_BANK")
     @Expose
-    private List<QuestionBank> questionBank = null;
+    private List<QuestionBank> mQuestionBank = null;
 
     public String getCourseId() {
         return mCourseId;
@@ -76,10 +76,10 @@ public class StudentCourse {
     }
 
     public List<QuestionBank> getQuestionBank() {
-        return questionBank;
+        return mQuestionBank;
     }
 
     public void setQuestionBank(List<QuestionBank> questionBank) {
-        this.questionBank = questionBank;
+        this.mQuestionBank = questionBank;
     }
 }
