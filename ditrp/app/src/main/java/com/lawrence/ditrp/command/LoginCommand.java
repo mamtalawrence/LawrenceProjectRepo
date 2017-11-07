@@ -1,8 +1,11 @@
 package com.lawrence.ditrp.command;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import com.lawrence.ditrp.Constants.CommandConstant;
 import com.lawrence.ditrp.Constants.Utils;
+import com.lawrence.ditrp.activities.DashBoardActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -41,6 +44,7 @@ public class LoginCommand implements Command {
                 if (jsonBodyObject.get("success").toString().equalsIgnoreCase("true")) {
                     // json parsing
                     Utils.showToast(mContext, jsonBodyObject.get("message").toString());
+                    showDashBoardActivity();
                 } else {
                     // fail handling
                     Utils.showToast(mContext, ((JSONObject) jsonBodyObject.get("errors")).get
@@ -56,4 +60,13 @@ public class LoginCommand implements Command {
             Utils.showToast(mContext, e.getMessage().toString());
         }
     };
+
+    /**
+     * Lunch Dashboard on login success
+     */
+    private void showDashBoardActivity() {
+        Intent dashBoardLunchIntent = new Intent((Activity) mContext, DashBoardActivity.class);
+        mContext.startActivity(dashBoardLunchIntent);
+        ((Activity) mContext).finish();
+    }
 }
