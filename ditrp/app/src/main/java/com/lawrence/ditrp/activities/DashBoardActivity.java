@@ -29,11 +29,6 @@ public class DashBoardActivity extends AppCompatActivity {
         DashBoardAdapter adapter = new DashBoardAdapter(setData(), getApplication());
         mDashBoardRecyclerView.setAdapter(adapter);
         mDashBoardRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        //Animation
-        RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
-        itemAnimator.setAddDuration(1000);
-        itemAnimator.setRemoveDuration(1000);
-        mDashBoardRecyclerView.setItemAnimator(itemAnimator);
 
         mDashBoardRecyclerView.addOnItemTouchListener(new CustomRVItemTouchListener(this, mDashBoardRecyclerView,
                 new RecyclerViewItemClickListener() {

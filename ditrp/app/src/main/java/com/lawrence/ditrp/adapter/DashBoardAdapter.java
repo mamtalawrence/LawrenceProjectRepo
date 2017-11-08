@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+
 import com.lawrence.ditrp.R;
 import com.lawrence.ditrp.dataModel.DashBoardData;
 
@@ -41,9 +43,9 @@ public class DashBoardAdapter extends RecyclerView.Adapter<DashBoardViewHolder> 
         holder.mDescription.setText(list.get(position).description);
         holder.mLogo.setImageResource(list.get(position).imageId);
 
-        //animate(holder);
-
-    }
+        //animation
+        holder.mCardView.setAnimation(AnimationUtils.loadAnimation(context,R.anim.zoom_in));
+        }
 
     @Override
     public int getItemCount() {
