@@ -5,9 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Toast;
 import com.lawrence.ditrp.R;
+import com.lawrence.ditrp.adapter.CustomRVItemTouchListener;
 import com.lawrence.ditrp.adapter.DashBoardAdapter;
 import com.lawrence.ditrp.dataModel.DashBoardData;
+import com.lawrence.ditrp.listener.RecyclerViewItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +34,20 @@ public class DashBoardActivity extends AppCompatActivity {
         itemAnimator.setAddDuration(1000);
         itemAnimator.setRemoveDuration(1000);
         mDashBoardRecyclerView.setItemAnimator(itemAnimator);
+
+        mDashBoardRecyclerView.addOnItemTouchListener(new CustomRVItemTouchListener(this, mDashBoardRecyclerView,
+                new RecyclerViewItemClickListener() {
+                    @Override
+                    public void onClick(View view, int position) {
+                        //Add click action
+                        Toast.makeText(DashBoardActivity.this, "click " + position, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onLongClick(View view, int position) {
+                        Toast.makeText(DashBoardActivity.this, "long click " + position, Toast.LENGTH_SHORT).show();
+                    }
+                }));
     }
 
     /**
