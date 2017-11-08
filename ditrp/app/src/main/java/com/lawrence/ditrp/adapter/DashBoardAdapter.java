@@ -37,9 +37,9 @@ public class DashBoardAdapter extends RecyclerView.Adapter<DashBoardViewHolder> 
     @Override
     public void onBindViewHolder(DashBoardViewHolder holder, int position) {
         //Use the provided View Holder on the onCreateViewHolder method to populate the current row on the RecyclerView
-        holder.title.setText(list.get(position).title);
-        holder.description.setText(list.get(position).description);
-        holder.imageView.setImageResource(list.get(position).imageId);
+        holder.mTitle.setText(list.get(position).title);
+        holder.mDescription.setText(list.get(position).description);
+        holder.mLogo.setImageResource(list.get(position).imageId);
 
         //animate(holder);
 
