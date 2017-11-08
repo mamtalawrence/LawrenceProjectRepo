@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 import com.lawrence.ditrp.Constants.CommandConstant;
+import com.lawrence.ditrp.R;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
@@ -38,7 +39,7 @@ public class NetworkTask extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        progressDialog = new ProgressDialog(mApiRequestBuilder.mContext);
+        progressDialog = new ProgressDialog(mApiRequestBuilder.mContext, R.style.AppCompatAlertDialogStyle);
         progressDialog.setMessage("Login...");
         progressDialog.setCancelable(false);
         progressDialog.show();
