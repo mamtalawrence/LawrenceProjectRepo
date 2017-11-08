@@ -21,8 +21,8 @@
 
         <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginRight="16dp"/>
@@ -35,7 +35,7 @@
                 android:layout_toRightOf="@+id/imageView"
                 android:text="Title"
                 android:textColor="@android:color/black"
-                android:textSize="22sp"/>
+                android:textSize="20sp"/>
 
         <TextView
                 android:id="@+id/description"

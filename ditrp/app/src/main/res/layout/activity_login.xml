@@ -32,7 +32,7 @@
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:inputType="text"
-                  android:drawableRight="@android:drawable/ic_secure"
+                  android:drawableRight="@drawable/perm_group_personal_info"
                   android:hint="User Name"
                   android:text="17P6933"/>
 
@@ -42,7 +42,7 @@
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:inputType="textPassword"
-                  android:drawableRight="@android:drawable/ic_secure"
+                  android:drawableRight="@drawable/perm_group_screenlock"
                   android:hint="Password"
                   android:text="YWDLTVNS"/>
 
