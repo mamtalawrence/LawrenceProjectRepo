@@ -87,7 +87,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     public void insertQuestionBank(QuestionBank questionBank) {
 
-        if (getQuestionBank(Integer.parseInt(questionBank.getQuestionID())).getQuestionID() == null) {
             SQLiteDatabase db = this.getWritableDatabase();
 
             ContentValues values = new ContentValues();
@@ -103,8 +102,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
             // insert row
             db.insert(QUESTION_BANK, null, values);
-        }
-
     }
 
     /**
