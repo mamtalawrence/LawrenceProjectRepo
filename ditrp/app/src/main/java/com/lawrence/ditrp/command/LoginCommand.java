@@ -48,6 +48,7 @@ public class LoginCommand implements Command {
                     Utils.showToast(mContext, jsonBodyObject.get("message").toString());
                     Gson gson = new Gson();
                     StudentData studentData = gson.fromJson(jsonBodyObject.get("data").toString(), StudentData.class);
+                    Utils.saveQuestionIntoDB(mContext, studentData.getStudentCourses().get(0).getQuestionBank());
                     showDashBoardActivity();
                 } else {
                     // fail handling
