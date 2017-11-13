@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">DITRP</string>
     <string name="title_activity_login2">Sign in</string>
+    <string name="practice_session_name">Practice Test</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">User Name</string>

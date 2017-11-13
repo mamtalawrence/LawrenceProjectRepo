@@ -21,7 +21,8 @@
         </activity>
         <activity android:name=".activities.DashBoardActivity">
         </activity>
-        <activity android:name=".activities.PracticeSessionActivity">
+        <activity android:name=".activities.PracticeSessionActivity"
+                  android:label="@string/practice_session_name">
         </activity>
         <activity android:name=".activities.ViewPagerActivity">
         </activity>
