@@ -3,14 +3,15 @@ package com.lawrence.ditrp.Constants;
 import android.app.Activity;
 import android.content.Context;
 import android.widget.Toast;
-
 import com.lawrence.ditrp.dataModel.CustomSharedPreferences;
 import com.lawrence.ditrp.dataModel.QuestionBank;
 import com.lawrence.ditrp.dataModel.StudentCourse;
 import com.lawrence.ditrp.dataModel.StudentData;
 import com.lawrence.ditrp.db.DatabaseHelper;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by mamta.lawrence on 11/6/2017.
@@ -57,7 +58,8 @@ public class Utils {
         return qb;
     }
 
-    public static void saveStudentData(Context mContext,CustomSharedPreferences sharedPreferences, StudentData studentData ){
+    public static void saveStudentData(Context mContext, CustomSharedPreferences sharedPreferences, StudentData
+            studentData) {
         sharedPreferences = CustomSharedPreferences.getInstance(mContext);
         sharedPreferences.saveStringData(CommandConstant.STD_ID, studentData.getStudentID());
         sharedPreferences.saveStringData(CommandConstant.STD_FIRST_NAME, studentData.getStudentFirstName());
@@ -71,13 +73,15 @@ public class Utils {
         sharedPreferences.saveStringData(CommandConstant.STD_INSTITUTE_NAME, studentData.getInstituteName());
     }
 
-    public static void saveStudentCourseData(Context context,List<StudentCourse> studentCourses,CustomSharedPreferences sharedPreferences){
+    public static void saveStudentCourseData(Context context, List<StudentCourse> studentCourses,
+                                             CustomSharedPreferences sharedPreferences) {
         for (int i = 0; i < studentCourses.size(); i++) {
-            insertCourse(context,sharedPreferences,studentCourses.get(i));
+            insertCourse(context, sharedPreferences, studentCourses.get(i));
         }
     }
 
-    public static void insertCourse(Context mContext,CustomSharedPreferences sharedPreferences,StudentCourse studentCourse){
+    public static void insertCourse(Context mContext, CustomSharedPreferences sharedPreferences, StudentCourse
+            studentCourse) {
         sharedPreferences = CustomSharedPreferences.getInstance(mContext);
         sharedPreferences.saveStringData(CommandConstant.COURSE_ID, studentCourse.getCourseId());
         sharedPreferences.saveStringData(CommandConstant.COURSE_NAME, studentCourse.getCourseName());
@@ -86,4 +90,25 @@ public class Utils {
         sharedPreferences.saveStringData(CommandConstant.COURSE_DURATION, studentCourse.getCourseDuration());
     }
 
+    /**
+     * Get random 60 number between 0 and max number provided by user
+     *
+     * @param minRange
+     * @param maxRange
+     * @return list of random numbers
+     */
+    public static ArrayList<Integer> getRandom60(int minRange, int maxRange) {
+
+        ArrayList<Integer> random = new ArrayList();
+        for (int i = 0; i < 1000; i++) {
+            int randomNum = ThreadLocalRandom.current().nextInt(minRange, maxRange + 1);
+            if (!random.contains(randomNum)) {
+                random.add(randomNum);
+                if (random.size() == 60) {
+                    break;
+                }
+            }
+        }
+        return random;
+    }
 }
