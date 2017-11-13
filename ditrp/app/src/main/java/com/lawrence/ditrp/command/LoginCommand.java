@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.lawrence.ditrp.Constants.CommandConstant;
 import com.lawrence.ditrp.Constants.Utils;
 import com.lawrence.ditrp.activities.DashBoardActivity;
+import com.lawrence.ditrp.dataModel.CustomSharedPreferences;
 import com.lawrence.ditrp.dataModel.StudentData;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,6 +20,7 @@ public class LoginCommand implements Command {
     private Context mContext = null;
     private String mUserName = null;
     private String mPassword = null;
+    CustomSharedPreferences sharedPreferences;
 
     public LoginCommand(Context context, String username, String password) {
         this.mContext = context;
@@ -48,7 +50,9 @@ public class LoginCommand implements Command {
                     Utils.showToast(mContext, jsonBodyObject.get("message").toString());
                     Gson gson = new Gson();
                     StudentData studentData = gson.fromJson(jsonBodyObject.get("data").toString(), StudentData.class);
+                    Utils.saveStudentData(mContext, sharedPreferences,studentData);
                     Utils.saveQuestionIntoDB(mContext, studentData.getStudentCourses().get(0).getQuestionBank());
+                    Utils.saveStudentCourseData(mContext, studentData.getStudentCourses(),sharedPreferences);
                     showDashBoardActivity();
                 } else {
                     // fail handling

@@ -1,5 +1,6 @@
 package com.lawrence.ditrp.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -34,6 +35,18 @@ public class DashBoardActivity extends AppCompatActivity {
                 new RecyclerViewItemClickListener() {
                     @Override
                     public void onClick(View view, int position) {
+
+                       switch (position){
+                           case 0:
+                               break;
+                           case 1:
+                           case 2:
+                               Intent intent = new Intent(DashBoardActivity.this, PracticeSessionActivity.class);
+                               startActivity(intent);
+                               break;
+                           case 3:
+                               break;
+                       }
                         //Add click action
                         Toast.makeText(DashBoardActivity.this, "click " + position, Toast.LENGTH_SHORT).show();
                     }

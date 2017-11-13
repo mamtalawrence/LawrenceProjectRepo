@@ -67,11 +67,11 @@ public class StudentData {
         this.mStudentID = mStudentID;
     }
 
-    public String getINSTITUTENAME() {
+    public String getInstituteName() {
         return mInstituteName;
     }
 
-    public void setINSTITUTENAME(String mInstituteName) {
+    public void setInstituteName(String mInstituteName) {
         this.mInstituteName = mInstituteName;
     }
 
