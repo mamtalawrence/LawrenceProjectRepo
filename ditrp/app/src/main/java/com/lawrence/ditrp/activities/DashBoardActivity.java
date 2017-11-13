@@ -3,7 +3,6 @@ package com.lawrence.ditrp.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -36,20 +35,22 @@ public class DashBoardActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view, int position) {
 
-                       switch (position){
-                           case 0:
-                               break;
-                           case 1:
-                               Intent intent = new Intent(DashBoardActivity.this, PracticeSessionActivity.class);
-                               startActivity(intent);
-                               break;
-                           case 2:
-                               Intent intentExam = new Intent(DashBoardActivity.this, ExamPracticeActivity.class);
-                               startActivity(intentExam);
-                               break;
-                           case 3:
-                               break;
-                       }
+                        switch (position) {
+                            case 0:
+                                break;
+                            case 1:
+                                Intent intent = new Intent(DashBoardActivity.this, PracticeSessionActivity.class);
+                                startActivity(intent);
+                                break;
+                            case 2:
+                                Intent intentExam = new Intent(DashBoardActivity.this, ExamPracticeActivity.class);
+                                startActivity(intentExam);
+                                break;
+                            case 3:
+                                Intent intentSetting = new Intent(DashBoardActivity.this, SettingActivity.class);
+                                startActivity(intentSetting);
+                                break;
+                        }
                         //Add click action
                         Toast.makeText(DashBoardActivity.this, "click " + position, Toast.LENGTH_SHORT).show();
                     }
