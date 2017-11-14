@@ -20,8 +20,8 @@
     <TextView
         android:id="@+id/text_answer_a"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:textSize="18sp"
+        android:layout_height="70dp"
+        android:textSize="16sp"
         android:gravity="center_vertical"/>
 
     <View
@@ -33,8 +33,8 @@
     <TextView
         android:id="@+id/text_answer_b"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:textSize="18sp"
+        android:layout_height="70dp"
+        android:textSize="16sp"
         android:gravity="center_vertical"/>
 
     <View android:background="@android:color/darker_gray"
@@ -44,8 +44,8 @@
     <TextView
         android:id="@+id/text_answer_c"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:textSize="18sp"
+        android:layout_height="70dp"
+        android:textSize="16sp"
         android:gravity="center_vertical"/>
 
     <View
@@ -58,8 +58,8 @@
     <TextView
         android:id="@+id/text_answer_d"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:textSize="18sp"
+        android:layout_height="70dp"
+        android:textSize="16sp"
         android:gravity="center_vertical"/>
 
     <View
