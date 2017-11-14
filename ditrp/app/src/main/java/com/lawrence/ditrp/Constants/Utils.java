@@ -2,7 +2,12 @@ package com.lawrence.ditrp.Constants;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
+import com.lawrence.ditrp.R;
 import com.lawrence.ditrp.dataModel.CustomSharedPreferences;
 import com.lawrence.ditrp.dataModel.QuestionBank;
 import com.lawrence.ditrp.dataModel.StudentCourse;
@@ -110,5 +115,21 @@ public class Utils {
             }
         }
         return random;
+    }
+
+    /**
+     * Added custom action bar to view
+     *
+     * @param context
+     */
+    public static void setCustomActionBar(Context context, String titletext) {
+        ((AppCompatActivity) context).getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        ((AppCompatActivity) context).getSupportActionBar().setDisplayShowCustomEnabled(true);
+        ((AppCompatActivity) context).getSupportActionBar().setCustomView(R.layout.custom_action_bar_layout);
+
+        if (titletext != null) {
+            View view = ((AppCompatActivity) context).getSupportActionBar().getCustomView();
+            ((TextView) view.findViewById(R.id.action_bar_title)).setText(titletext);
+        }
     }
 }

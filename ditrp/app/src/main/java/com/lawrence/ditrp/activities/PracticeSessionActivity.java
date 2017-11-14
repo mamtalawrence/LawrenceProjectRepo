@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import com.lawrence.ditrp.Constants.Utils;
 import com.lawrence.ditrp.R;
 import com.lawrence.ditrp.adapter.CustomRVItemTouchListener;
 import com.lawrence.ditrp.adapter.PracticeSessionAdapter;
@@ -23,6 +24,7 @@ public class PracticeSessionActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_practice_session);
+        Utils.setCustomActionBar(this, getResources().getString(R.string.practice_session_name));
 
         mPracticeSessionRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         PracticeSessionAdapter adapter = new PracticeSessionAdapter(this);

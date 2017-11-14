@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
+import com.lawrence.ditrp.Constants.Utils;
 import com.lawrence.ditrp.R;
 import com.lawrence.ditrp.adapter.CustomRVItemTouchListener;
 import com.lawrence.ditrp.adapter.DashBoardAdapter;
@@ -24,6 +25,8 @@ public class DashBoardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
+        Utils.setCustomActionBar(this, null);
+
         // Set View with adapter
         mDashBoardRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         DashBoardAdapter adapter = new DashBoardAdapter(setData(), getApplication());

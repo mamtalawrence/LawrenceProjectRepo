@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import com.lawrence.ditrp.Constants.Utils;
 import com.lawrence.ditrp.R;
 import com.lawrence.ditrp.adapter.CustomRVItemTouchListener;
 import com.lawrence.ditrp.adapter.ExamPracticeAdapter;
@@ -19,6 +20,7 @@ public class ExamPracticeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exam);
+        Utils.setCustomActionBar(this, getResources().getString(R.string.exam_practice_name));
 
         mExamPracticeRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         ExamPracticeAdapter adapter = new ExamPracticeAdapter(this);
