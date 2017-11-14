@@ -25,6 +25,8 @@
         <activity android:name=".activities.ViewPagerActivity"/>
         <activity android:name=".activities.ExamPracticeActivity"/>
         <activity android:name=".activities.SettingActivity"/>
+        <activity android:name=".activities.QuestionBankActivity">
+        </activity>
     </application>
 
 </manifest>

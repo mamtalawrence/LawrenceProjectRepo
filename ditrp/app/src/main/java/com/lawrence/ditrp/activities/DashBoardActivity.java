@@ -37,25 +37,22 @@ public class DashBoardActivity extends AppCompatActivity {
                 new RecyclerViewItemClickListener() {
                     @Override
                     public void onClick(View view, int position) {
-
+                        Intent intent = null;
                         switch (position) {
                             case 0:
+                                intent = new Intent(DashBoardActivity.this, QuestionBankActivity.class);
                                 break;
                             case 1:
-                                Intent intent = new Intent(DashBoardActivity.this, PracticeSessionActivity.class);
-                                startActivity(intent);
+                                intent = new Intent(DashBoardActivity.this, PracticeSessionActivity.class);
                                 break;
                             case 2:
-                                Intent intentExam = new Intent(DashBoardActivity.this, ExamPracticeActivity.class);
-                                startActivity(intentExam);
+                                intent = new Intent(DashBoardActivity.this, ExamPracticeActivity.class);
                                 break;
                             case 3:
-                                Intent intentSetting = new Intent(DashBoardActivity.this, SettingActivity.class);
-                                startActivity(intentSetting);
+                                intent = new Intent(DashBoardActivity.this, SettingActivity.class);
                                 break;
                         }
-                        //Add click action
-                        Toast.makeText(DashBoardActivity.this, "click " + position, Toast.LENGTH_SHORT).show();
+                        startActivity(intent);
                     }
 
                     @Override
@@ -72,14 +69,14 @@ public class DashBoardActivity extends AppCompatActivity {
      */
     private List<DashBoardData> setData() {
         List<DashBoardData> dashBoardData = new ArrayList<>();
-        dashBoardData.add(new DashBoardData("Question Bank", "List of questions & answers and meaning of road sign ",
-                R.drawable.book_bank));
-        dashBoardData.add(new DashBoardData("Practice", "Test your knowledge without worrying about time ", R
-                .drawable.practics));
-        dashBoardData.add(new DashBoardData("Exam", "Time and question bound test exactly same as exam", R.drawable
-                .exam));
-        dashBoardData.add(new DashBoardData("Setting & Help", "Language selection, forms, information and more", R
-                .drawable.setting));
+        dashBoardData.add(new DashBoardData(getResources().getString(R.string.question_bank),
+                "List of questions & answers and meaning of road sign ", R.drawable.book_bank));
+        dashBoardData.add(new DashBoardData(getResources().getString(R.string.practice_session_name),
+                "Test your knowledge without worrying about time ", R.drawable.practics));
+        dashBoardData.add(new DashBoardData(getResources().getString(R.string.exam_practice_name),
+                "Time and question bound test exactly same as exam", R.drawable.exam));
+        dashBoardData.add(new DashBoardData(getResources().getString(R.string.title_activity_settings),
+                "Language selection, forms, information and more", R.drawable.setting));
         return dashBoardData;
     }
 }

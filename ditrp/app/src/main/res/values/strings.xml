@@ -4,6 +4,7 @@
     <string name="practice_session_name">Practice Test</string>
     <string name="exam_practice_name">Exam Practice</string>
     <string name="title_activity_settings">Settings &amp; Help</string>
+    <string name="question_bank">Question Bank</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">User Name</string>
