@@ -43,6 +43,16 @@ public class QuestionBank {
     @Expose
     private String mCorrectAns;
 
+    private String mStudentAns;
+
+    public String getStudentAns() {
+        return mStudentAns;
+    }
+
+    public void setStudentAns(String mStudentAns) {
+        this.mStudentAns = mStudentAns;
+    }
+
     public String getQuestionID() {
         return mQuestionId;
     }
