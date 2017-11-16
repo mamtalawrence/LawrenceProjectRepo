@@ -171,4 +171,23 @@ public class Utils {
                 .QUESTION_SESSION_LIST), type);
         return questionListKey;
     }
+
+    public static List<StudentData> getStudentData(Context mContext, CustomSharedPreferences sharedPreferences){
+        List<StudentData> studentDataList = new ArrayList<StudentData>();
+        StudentData studentData = new StudentData();
+        sharedPreferences = CustomSharedPreferences.getInstance(mContext);
+        studentData.setStudentID(sharedPreferences.getStringData(CommandConstant.STD_ID));
+        studentData.setStudentFirstName(sharedPreferences.getStringData(CommandConstant.STD_FIRST_NAME));
+        studentData.setStudentMiddleName(sharedPreferences.getStringData(CommandConstant.STD_MIDDLE_NAME));
+        studentData.setStudentLastName(sharedPreferences.getStringData(CommandConstant.STD_LAST_NAME));
+        studentData.setStudentGender(sharedPreferences.getStringData(CommandConstant.STD_GENDER));
+        studentData.setStudentMail(sharedPreferences.getStringData(CommandConstant.STD_EMAIL));
+        studentData.setStudentCode(sharedPreferences.getStringData(CommandConstant.STD_CODE));
+        studentData.setStudentDOB(sharedPreferences.getStringData(CommandConstant.STD_DOB));
+        studentData.setStudentMobileNo(sharedPreferences.getStringData(CommandConstant.STD_MOBILE_NO));
+        studentData.setInstituteName(sharedPreferences.getStringData(CommandConstant.STD_INSTITUTE_NAME));
+
+        studentDataList.add(studentData);
+        return studentDataList;
+    }
 }
