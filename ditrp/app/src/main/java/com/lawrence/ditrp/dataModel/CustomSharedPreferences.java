@@ -7,9 +7,9 @@ import android.content.SharedPreferences;
  * Created by Anagha.Mahajan on 09-Nov-17.
  */
 public class CustomSharedPreferences {
-
     private static CustomSharedPreferences customSharedPreferences;
     private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor mEditor;
 
     public static CustomSharedPreferences getInstance(Context context) {
         if (customSharedPreferences == null) {
@@ -18,37 +18,72 @@ public class CustomSharedPreferences {
         return customSharedPreferences;
     }
 
-
-    public CustomSharedPreferences(Context context) {
+    /**
+     * Constructor
+     *
+     * @param context
+     */
+    private CustomSharedPreferences(Context context) {
         sharedPreferences = context.getSharedPreferences("CustomSharedPreferences", Context.MODE_PRIVATE);
+        mEditor = sharedPreferences.edit();
     }
 
+    /**
+     * save string value by key
+     *
+     * @param key   for save the value
+     * @param value which needs to be save
+     */
     public void saveStringData(String key, String value) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(key, value);
-        editor.apply();
+        mEditor.putString(key, value).apply();
     }
 
+    /**
+     * get string value by key
+     *
+     * @param key which value needed
+     * @return value by key
+     */
     public String getStringData(String key) {
         return sharedPreferences.getString(key, "");
     }
 
+    /**
+     * save int value by key
+     *
+     * @param key   for save the value
+     * @param value which needs to be save
+     */
     public void saveIntData(String key, int value) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt(key, value);
-        editor.apply();
+        mEditor.putInt(key, value).apply();
     }
 
+    /**
+     * get int value by key
+     *
+     * @param key which value needed
+     * @return value by key
+     */
     public int getIntData(String key) {
         return sharedPreferences.getInt(key, 0);
     }
 
+    /**
+     * save Boolean value by key
+     *
+     * @param key    for save the value
+     * @param isTrue which needs to be save
+     */
     public void saveBoolean(String key, boolean isTrue) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(key, isTrue);
-        editor.apply();
+        mEditor.putBoolean(key, isTrue).apply();
     }
 
+    /**
+     * get Boolean value by key
+     *
+     * @param key which value needed
+     * @return value by key
+     */
     public boolean getBoolean(String key) {
         return sharedPreferences.getBoolean(key, false);
     }

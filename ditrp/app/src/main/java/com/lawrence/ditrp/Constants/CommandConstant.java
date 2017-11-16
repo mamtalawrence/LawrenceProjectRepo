@@ -38,4 +38,10 @@ public class CommandConstant {
     public static final String COURSE_CODE = "course_code";
     public static final String COURSE_AWARD = "course_award";
     public static final String COURSE_DURATION = "course_duration";
+
+    //Login
+    public static final String IS_LOGIN_DONE = "is_login_done";
+
+    //Data list
+    public static final String QUESTION_SESSION_LIST = "question_session_list";
 }

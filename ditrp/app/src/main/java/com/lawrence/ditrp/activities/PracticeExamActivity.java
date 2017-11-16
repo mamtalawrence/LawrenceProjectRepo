@@ -13,6 +13,7 @@ import com.lawrence.ditrp.adapter.ViewPagerAdapter;
 import com.lawrence.ditrp.dataModel.QuestionBank;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -24,6 +25,8 @@ public class PracticeExamActivity extends AppCompatActivity implements View.OnCl
     private Button mNextButton;
     private Button mPreviousButton;
     private TextView countText;
+    private HashMap<Integer, ArrayList<Integer>> mQuestionListKey;
+    private int mPosition;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,6 +36,8 @@ public class PracticeExamActivity extends AppCompatActivity implements View.OnCl
         View view = getSupportActionBar().getCustomView();
         countText = (TextView) view.findViewById(R.id.action_bar_right_text);
         countText.setVisibility(View.VISIBLE);
+
+        mPosition = getIntent().getIntExtra("position", 0);
 
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         mPreviousButton = (Button) findViewById(R.id.button_previous);
@@ -71,12 +76,19 @@ public class PracticeExamActivity extends AppCompatActivity implements View.OnCl
         });
     }
 
+    /**
+     * Get question list from DB
+     *
+     * @return list of question
+     */
     private List<QuestionBank> getPracticeSessionList() {
+        mQuestionListKey = Utils.getPracticeListKey(this);
         List<QuestionBank> questionBanksAllData = Utils.getQuestionIntoDB(this);
-        ArrayList<Integer> dataPointers = Utils.getRandom60(0, questionBanksAllData.size() - 1);
+        ArrayList<Integer> dataPointers = mQuestionListKey.get(mPosition);
         List<QuestionBank> questionBanks = new ArrayList<QuestionBank>();
         for (int i = 0; i < dataPointers.size(); i++) {
-            questionBanks.add(questionBanksAllData.get(dataPointers.get(i)));
+            Integer j = dataPointers.get(i);
+            questionBanks.add(questionBanksAllData.get(j));
         }
         return questionBanks;
     }

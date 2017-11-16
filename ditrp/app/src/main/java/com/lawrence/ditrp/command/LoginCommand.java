@@ -50,9 +50,10 @@ public class LoginCommand implements Command {
                     Utils.showToast(mContext, jsonBodyObject.get("message").toString());
                     Gson gson = new Gson();
                     StudentData studentData = gson.fromJson(jsonBodyObject.get("data").toString(), StudentData.class);
-                    Utils.saveStudentData(mContext, sharedPreferences,studentData);
+                    Utils.saveStudentData(mContext, sharedPreferences, studentData);
                     Utils.saveQuestionIntoDB(mContext, studentData.getStudentCourses().get(0).getQuestionBank());
-                    Utils.saveStudentCourseData(mContext, studentData.getStudentCourses(),sharedPreferences);
+                    Utils.setPracticeListKey(mContext, studentData.getStudentCourses().get(0).getQuestionBank().size());
+                    Utils.saveStudentCourseData(mContext, studentData.getStudentCourses(), sharedPreferences);
                     showDashBoardActivity();
                 } else {
                     // fail handling
@@ -74,6 +75,8 @@ public class LoginCommand implements Command {
      * Lunch Dashboard on login success
      */
     private void showDashBoardActivity() {
+        CustomSharedPreferences customSharedPreferences = CustomSharedPreferences.getInstance(mContext);
+        customSharedPreferences.saveBoolean(CommandConstant.IS_LOGIN_DONE, true);
         Intent dashBoardLunchIntent = new Intent((Activity) mContext, DashBoardActivity.class);
         mContext.startActivity(dashBoardLunchIntent);
         ((Activity) mContext).finish();

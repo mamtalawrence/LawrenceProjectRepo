@@ -4,9 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.lawrence.ditrp.R;
 import com.lawrence.ditrp.dataModel.CustomSharedPreferences;
 import com.lawrence.ditrp.dataModel.QuestionBank;
@@ -14,7 +17,9 @@ import com.lawrence.ditrp.dataModel.StudentCourse;
 import com.lawrence.ditrp.dataModel.StudentData;
 import com.lawrence.ditrp.db.DatabaseHelper;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -131,5 +136,39 @@ public class Utils {
             View view = ((AppCompatActivity) context).getSupportActionBar().getCustomView();
             ((TextView) view.findViewById(R.id.action_bar_title)).setText(titletext);
         }
+    }
+
+    /**
+     * Save practice and exam session question id list
+     *
+     * @param context
+     * @param size
+     */
+    public static void setPracticeListKey(Context context, int size) {
+        LinkedHashMap<Integer, ArrayList<Integer>> questionListKey = new LinkedHashMap<>();
+        for (int i = 0; i < 33; i++) {
+            questionListKey.put(i, getRandom60(0, size - 1));
+        }
+        Gson gson = new Gson();
+        String jsonQuestionListKey = gson.toJson(questionListKey);
+        Log.d("TAG", "jsonQuestionListKey = " + jsonQuestionListKey);
+        CustomSharedPreferences.getInstance(context).saveStringData(CommandConstant.QUESTION_SESSION_LIST,
+                jsonQuestionListKey);
+    }
+
+    /**
+     * Get practice and exam session question id list
+     *
+     * @param context
+     */
+    public static LinkedHashMap<Integer, ArrayList<Integer>> getPracticeListKey(Context context) {
+
+        LinkedHashMap<Integer, ArrayList<Integer>> questionListKey = new LinkedHashMap<Integer, ArrayList<Integer>>();
+        Gson gson = new Gson();
+        Type type = new TypeToken<LinkedHashMap<Integer, ArrayList<Integer>>>() {
+        }.getType();
+        questionListKey = gson.fromJson(CustomSharedPreferences.getInstance(context).getStringData(CommandConstant
+                .QUESTION_SESSION_LIST), type);
+        return questionListKey;
     }
 }
