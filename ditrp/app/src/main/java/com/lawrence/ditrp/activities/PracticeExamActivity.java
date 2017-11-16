@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.lawrence.ditrp.Constants.Utils;
 import com.lawrence.ditrp.R;
 import com.lawrence.ditrp.adapter.ViewPagerAdapter;
@@ -21,12 +22,13 @@ import java.util.List;
  */
 public class PracticeExamActivity extends AppCompatActivity implements View.OnClickListener {
 
-    public ViewPager viewPager;
+    public ViewPager mViewPager;
     private Button mNextButton;
     private Button mPreviousButton;
     private TextView countText;
     private HashMap<Integer, ArrayList<Integer>> mQuestionListKey;
     private int mPosition;
+    private ViewPagerAdapter mViewPagerAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,15 +41,16 @@ public class PracticeExamActivity extends AppCompatActivity implements View.OnCl
 
         mPosition = getIntent().getIntExtra("position", 0);
 
-        viewPager = (ViewPager) findViewById(R.id.view_pager);
+        mViewPager = (ViewPager) findViewById(R.id.view_pager);
         mPreviousButton = (Button) findViewById(R.id.button_previous);
         mPreviousButton.setOnClickListener(this);
         mNextButton = (Button) findViewById(R.id.button_next);
         mNextButton.setOnClickListener(this);
 
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this, getPracticeSessionList());
-        viewPager.setAdapter(viewPagerAdapter);
-        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mViewPagerAdapter = new ViewPagerAdapter(this, getPracticeSessionList());
+        mViewPager.setAdapter(mViewPagerAdapter);
+        //mViewPager.setCurrentItem(58, true);   //for testing only
+        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 countText.setText((position + 1) + "/60");
@@ -58,9 +61,9 @@ public class PracticeExamActivity extends AppCompatActivity implements View.OnCl
                 }
 
                 if (position == 59) {
-                    mNextButton.setVisibility(View.INVISIBLE);
+                    mNextButton.setText("FINISHED");
                 } else {
-                    mNextButton.setVisibility(View.VISIBLE);
+                    mNextButton.setText("Next");
                 }
             }
 
@@ -94,20 +97,25 @@ public class PracticeExamActivity extends AppCompatActivity implements View.OnCl
     }
 
     private int getItem(int i) {
-        return viewPager.getCurrentItem() + i;
+        return mViewPager.getCurrentItem() + i;
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button_previous:
-                viewPager.setCurrentItem(getItem(-1), true);
-                if (viewPager.getCurrentItem() == 0) {
+                mViewPager.setCurrentItem(getItem(-1), true);
+                if (mViewPager.getCurrentItem() == 0) {
                     mPreviousButton.setVisibility(View.INVISIBLE);
                 }
                 break;
             case R.id.button_next:
-                viewPager.setCurrentItem(getItem(+1), true);
+                if (mViewPager.getCurrentItem() == 59) {
+                    Toast.makeText(PracticeExamActivity.this, "Ready for report?", Toast.LENGTH_SHORT).show();
+                    //Get list
+                    mViewPagerAdapter.getQuestionBanksObjectList();
+                }
+                mViewPager.setCurrentItem(getItem(+1), true);
                 mPreviousButton.setVisibility(View.VISIBLE);
                 break;
         }
