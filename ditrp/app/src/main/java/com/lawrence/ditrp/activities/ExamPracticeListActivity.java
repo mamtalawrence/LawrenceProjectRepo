@@ -33,7 +33,7 @@ public class ExamPracticeListActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view, int position) {
                         Intent intent = new Intent(ExamPracticeListActivity.this, PracticeExamActivity.class);
-                        intent.putExtra("position", position);
+                        intent.putExtra("position", position + 30);
                         startActivity(intent);
                     }
 
