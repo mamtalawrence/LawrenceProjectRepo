@@ -12,7 +12,7 @@ import com.lawrence.ditrp.adapter.CustomRVItemTouchListener;
 import com.lawrence.ditrp.adapter.ExamPracticeAdapter;
 import com.lawrence.ditrp.listener.RecyclerViewItemClickListener;
 
-public class ExamPracticeActivity extends AppCompatActivity {
+public class ExamPracticeListActivity extends AppCompatActivity {
 
     RecyclerView mExamPracticeRecyclerView;
 
@@ -32,14 +32,14 @@ public class ExamPracticeActivity extends AppCompatActivity {
                 new RecyclerViewItemClickListener() {
                     @Override
                     public void onClick(View view, int position) {
-                        Intent intent = new Intent(ExamPracticeActivity.this, ViewPagerActivity.class);
+                        Intent intent = new Intent(ExamPracticeListActivity.this, PracticeExamActivity.class);
                         intent.putExtra("position", position);
                         startActivity(intent);
                     }
 
                     @Override
                     public void onLongClick(View view, int position) {
-                        Intent intent = new Intent(ExamPracticeActivity.this, ViewPagerActivity.class);
+                        Intent intent = new Intent(ExamPracticeListActivity.this, PracticeExamActivity.class);
                         intent.putExtra("position", position);
                         startActivity(intent);
                     }

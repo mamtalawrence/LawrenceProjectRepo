@@ -20,10 +20,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activities.DashBoardActivity"/>
-        <activity android:name=".activities.PracticeSessionActivity"/>
-        <activity android:name=".activities.ViewPagerActivity"/>
-        <activity android:name=".activities.ExamPracticeActivity"/>
+        <activity android:name=".activities.DashBoardActivity">
+        </activity>
+        <activity android:name=".activities.PracticeSessionListActivity"/>
+        <activity android:name=".activities.PracticeExamActivity"/>
+        <activity android:name=".activities.ExamPracticeListActivity"/>
         <activity android:name=".activities.SettingActivity"/>
         <activity android:name=".activities.QuestionBankActivity">
         </activity>

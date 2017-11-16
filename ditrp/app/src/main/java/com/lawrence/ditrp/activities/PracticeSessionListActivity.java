@@ -16,7 +16,7 @@ import com.lawrence.ditrp.listener.RecyclerViewItemClickListener;
 /**
  * Created by Anagha.Mahajan on 10-Nov-17.
  */
-public class PracticeSessionActivity extends AppCompatActivity {
+public class PracticeSessionListActivity extends AppCompatActivity {
 
     RecyclerView mPracticeSessionRecyclerView;
 
@@ -36,14 +36,14 @@ public class PracticeSessionActivity extends AppCompatActivity {
                 new RecyclerViewItemClickListener() {
                     @Override
                     public void onClick(View view, int position) {
-                        Intent intent = new Intent(PracticeSessionActivity.this, ViewPagerActivity.class);
+                        Intent intent = new Intent(PracticeSessionListActivity.this, PracticeExamActivity.class);
                         intent.putExtra("position", position);
                         startActivity(intent);
                     }
 
                     @Override
                     public void onLongClick(View view, int position) {
-                        Intent intent = new Intent(PracticeSessionActivity.this, ViewPagerActivity.class);
+                        Intent intent = new Intent(PracticeSessionListActivity.this, PracticeExamActivity.class);
                         intent.putExtra("position", position);
                         startActivity(intent);
                     }

@@ -38,25 +38,13 @@ public class ViewPagerAdapter extends PagerAdapter {
         viewHolder.questionTextView = (TextView) itemView.findViewById(R.id.text_question);
         viewHolder.questionTextView.setText("Q. " + questionBanks.get(position).getQuestion());
 
+        String studentAns = questionBanks.get(position).getStudentAns();
+
         viewHolder.answerATextView = (TextView) itemView.findViewById(R.id.text_answer_a);
         viewHolder.answerATextView.setText("A. " + questionBanks.get(position).getOptionA());
-        viewHolder.answerATextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                questionBanks.get(position).setStudentAns("option_a");
-                notifyDataSetChanged();
-            }
-        });
 
         viewHolder.answerBTextView = (TextView) itemView.findViewById(R.id.text_answer_b);
         viewHolder.answerBTextView.setText("B. " + questionBanks.get(position).getOptionB());
-        viewHolder.answerBTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                questionBanks.get(position).setStudentAns("option_b");
-                notifyDataSetChanged();
-            }
-        });
 
         viewHolder.answerCTextView = (TextView) itemView.findViewById(R.id.text_answer_c);
         if (!questionBanks.get(position).getOptionC().equals("")) {
@@ -64,13 +52,6 @@ public class ViewPagerAdapter extends PagerAdapter {
             viewHolder.view3.setVisibility(View.VISIBLE);
             viewHolder.answerCTextView.setVisibility(View.VISIBLE);
         }
-        viewHolder.answerCTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                questionBanks.get(position).setStudentAns("option_c");
-                notifyDataSetChanged();
-            }
-        });
 
         viewHolder.answerDTextView = (TextView) itemView.findViewById(R.id.text_answer_d);
         if (!questionBanks.get(position).getOptionD().equals("")) {
@@ -78,14 +59,41 @@ public class ViewPagerAdapter extends PagerAdapter {
             viewHolder.view4.setVisibility(View.VISIBLE);
             viewHolder.answerDTextView.setVisibility(View.VISIBLE);
         }
-        viewHolder.answerDTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                questionBanks.get(position).setStudentAns("option_d");
-                notifyDataSetChanged();
-            }
-        });
 
+        //Check it attempted or not
+        if(studentAns == null) {
+            viewHolder.answerATextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    questionBanks.get(position).setStudentAns("option_a");
+                    notifyDataSetChanged();
+                }
+            });
+
+            viewHolder.answerBTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    questionBanks.get(position).setStudentAns("option_b");
+                    notifyDataSetChanged();
+                }
+            });
+
+            viewHolder.answerCTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    questionBanks.get(position).setStudentAns("option_c");
+                    notifyDataSetChanged();
+                }
+            });
+
+            viewHolder.answerDTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    questionBanks.get(position).setStudentAns("option_d");
+                    notifyDataSetChanged();
+                }
+            });
+        }
         setSelected(position);
         container.addView(itemView);
         return new ViewHolderMain(itemView, position);

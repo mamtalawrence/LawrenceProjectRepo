@@ -43,10 +43,10 @@ public class DashBoardActivity extends AppCompatActivity {
                                 intent = new Intent(DashBoardActivity.this, QuestionBankActivity.class);
                                 break;
                             case 1:
-                                intent = new Intent(DashBoardActivity.this, PracticeSessionActivity.class);
+                                intent = new Intent(DashBoardActivity.this, PracticeSessionListActivity.class);
                                 break;
                             case 2:
-                                intent = new Intent(DashBoardActivity.this, ExamPracticeActivity.class);
+                                intent = new Intent(DashBoardActivity.this, ExamPracticeListActivity.class);
                                 break;
                             case 3:
                                 intent = new Intent(DashBoardActivity.this, SettingActivity.class);

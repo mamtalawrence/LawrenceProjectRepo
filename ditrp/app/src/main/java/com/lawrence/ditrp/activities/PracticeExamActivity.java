@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by Anagha.Mahajan on 10-Nov-17.
  */
-public class ViewPagerActivity extends AppCompatActivity implements View.OnClickListener {
+public class PracticeExamActivity extends AppCompatActivity implements View.OnClickListener {
 
     public ViewPager viewPager;
     private Button mNextButton;
