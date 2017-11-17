@@ -5,23 +5,32 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-
 import com.lawrence.ditrp.R;
-import com.lawrence.ditrp.dataModel.StudentData;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Set;
 
 public class SettingsAdapter extends BaseAdapter {
 
-    public Context mContext;
-    private ArrayList<StudentData> studentDataList;
-    LayoutInflater mLayoutInflater;
+    private Context mContext;
+    private LinkedHashMap<String, String> studentDataList;
+    private LayoutInflater mLayoutInflater;
+    private ArrayList mDataKey = new ArrayList();
 
-    public SettingsAdapter(Context mContext, ArrayList<StudentData> studentDataList) {
+    public SettingsAdapter(Context mContext, LinkedHashMap<String, String> studentDataList) {
         this.mContext = mContext;
         this.studentDataList = studentDataList;
         mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        getAllKeys();
+    }
+
+    private void getAllKeys() {
+        Set<String> keys = studentDataList.keySet();
+        for (String key : keys) {
+            mDataKey.add(key);
+        }
+
     }
 
     @Override
@@ -48,13 +57,10 @@ public class SettingsAdapter extends BaseAdapter {
             convertView.setTag(settingsViewHolder);
         }
         settingsViewHolder = (SettingsViewHolder) convertView.getTag();
-        settingsViewHolder.mSettingsTitle.setText("Name");
-        Iterator iterator = studentDataList.iterator();
-        while (iterator.hasNext()){
-            StudentData studentData = (StudentData) iterator.next();
-            System.out.print("Value....................."+studentData.getStudentDOB());
-            settingsViewHolder.mSettingsDescription.setText(studentData.getStudentFirstName()+" "+studentData.getStudentMiddleName()+" "+studentData.getStudentLastName());
-        }
+
+        settingsViewHolder.mSettingsTitle.setText(mDataKey.get(position).toString());
+        settingsViewHolder.mSettingsDescription.setText(studentDataList.get(mDataKey.get(position)));
         return convertView;
     }
+
 }

@@ -172,22 +172,22 @@ public class Utils {
         return questionListKey;
     }
 
-    public static List<StudentData> getStudentData(Context mContext, CustomSharedPreferences sharedPreferences){
-        List<StudentData> studentDataList = new ArrayList<StudentData>();
-        StudentData studentData = new StudentData();
-        sharedPreferences = CustomSharedPreferences.getInstance(mContext);
-        studentData.setStudentID(sharedPreferences.getStringData(CommandConstant.STD_ID));
-        studentData.setStudentFirstName(sharedPreferences.getStringData(CommandConstant.STD_FIRST_NAME));
-        studentData.setStudentMiddleName(sharedPreferences.getStringData(CommandConstant.STD_MIDDLE_NAME));
-        studentData.setStudentLastName(sharedPreferences.getStringData(CommandConstant.STD_LAST_NAME));
-        studentData.setStudentGender(sharedPreferences.getStringData(CommandConstant.STD_GENDER));
-        studentData.setStudentMail(sharedPreferences.getStringData(CommandConstant.STD_EMAIL));
-        studentData.setStudentCode(sharedPreferences.getStringData(CommandConstant.STD_CODE));
-        studentData.setStudentDOB(sharedPreferences.getStringData(CommandConstant.STD_DOB));
-        studentData.setStudentMobileNo(sharedPreferences.getStringData(CommandConstant.STD_MOBILE_NO));
-        studentData.setInstituteName(sharedPreferences.getStringData(CommandConstant.STD_INSTITUTE_NAME));
+    public static LinkedHashMap<String, String> getStudentData(Context context) {
+        CustomSharedPreferences.getInstance(context);
+        LinkedHashMap<String, String> studentDataList = new LinkedHashMap<>();
+        CustomSharedPreferences sharedPreferences = CustomSharedPreferences.getInstance(context);
+        studentDataList.put("Student ID", sharedPreferences.getStringData(CommandConstant.STD_ID));
+        studentDataList.put("Name", sharedPreferences.getStringData(CommandConstant.STD_FIRST_NAME));
+        studentDataList.put("Middle Name", sharedPreferences.getStringData(CommandConstant.STD_MIDDLE_NAME));
+        studentDataList.put("Last Name", sharedPreferences.getStringData(CommandConstant.STD_LAST_NAME));
+        studentDataList.put("Gender", sharedPreferences.getStringData(CommandConstant.STD_GENDER));
+        studentDataList.put("Email ID", sharedPreferences.getStringData(CommandConstant.STD_EMAIL));
+        studentDataList.put("Student Code", sharedPreferences.getStringData(CommandConstant.STD_CODE));
+        studentDataList.put("Date OF Birth", sharedPreferences.getStringData(CommandConstant.STD_DOB));
+        studentDataList.put("Mobile Number", sharedPreferences.getStringData(CommandConstant.STD_MOBILE_NO));
+        studentDataList.put("Institute Name", sharedPreferences.getStringData(CommandConstant
+                .STD_INSTITUTE_NAME));
 
-        studentDataList.add(studentData);
         return studentDataList;
     }
 }
