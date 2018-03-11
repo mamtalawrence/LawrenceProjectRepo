@@ -3,6 +3,7 @@ package com.lawrence.ditrp.adapter;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.view.PagerAdapter;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ public class ViewPagerAdapter extends PagerAdapter {
     private LayoutInflater inflater;
     private List<QuestionBank> mQuestionBanksObjectList;
     private ViewHolder viewHolder;
+    private int totalCorrectAnswer;
 
     public ViewPagerAdapter(Context context, List<QuestionBank> questionBanks) {
         this.context = context;
@@ -36,32 +38,35 @@ public class ViewPagerAdapter extends PagerAdapter {
         viewHolder.view3 = itemView.findViewById(R.id.view3);
         viewHolder.view4 = itemView.findViewById(R.id.view4);
         viewHolder.questionTextView = (TextView) itemView.findViewById(R.id.text_question);
-        viewHolder.questionTextView.setText("Q. " + mQuestionBanksObjectList.get(position).getQuestion());
+        viewHolder.questionTextView.setText(String.format("Q. %s", mQuestionBanksObjectList.get(position)
+                .getQuestion()));
 
         String studentAns = mQuestionBanksObjectList.get(position).getStudentAns();
 
         viewHolder.answerATextView = (TextView) itemView.findViewById(R.id.text_answer_a);
-        viewHolder.answerATextView.setText("A. " + mQuestionBanksObjectList.get(position).getOptionA());
+        viewHolder.answerATextView.setText(String.format("A. %s", mQuestionBanksObjectList.get(position).getOptionA()));
 
         viewHolder.answerBTextView = (TextView) itemView.findViewById(R.id.text_answer_b);
-        viewHolder.answerBTextView.setText("B. " + mQuestionBanksObjectList.get(position).getOptionB());
+        viewHolder.answerBTextView.setText(String.format("B. %s", mQuestionBanksObjectList.get(position).getOptionB()));
 
         viewHolder.answerCTextView = (TextView) itemView.findViewById(R.id.text_answer_c);
-        if (!mQuestionBanksObjectList.get(position).getOptionC().equals("")) {
-            viewHolder.answerCTextView.setText("C. " + mQuestionBanksObjectList.get(position).getOptionC());
+        if (!TextUtils.isEmpty(mQuestionBanksObjectList.get(position).getOptionC())) {
+            viewHolder.answerCTextView.setText(String.format("C. %s", mQuestionBanksObjectList.get(position)
+                    .getOptionC()));
             viewHolder.view3.setVisibility(View.VISIBLE);
             viewHolder.answerCTextView.setVisibility(View.VISIBLE);
         }
 
         viewHolder.answerDTextView = (TextView) itemView.findViewById(R.id.text_answer_d);
-        if (!mQuestionBanksObjectList.get(position).getOptionD().equals("")) {
-            viewHolder.answerDTextView.setText("D. " + mQuestionBanksObjectList.get(position).getOptionD());
+        if (!TextUtils.isEmpty(mQuestionBanksObjectList.get(position).getOptionD())) {
+            viewHolder.answerDTextView.setText(String.format("D. %s", mQuestionBanksObjectList.get(position)
+                    .getOptionD()));
             viewHolder.view4.setVisibility(View.VISIBLE);
             viewHolder.answerDTextView.setVisibility(View.VISIBLE);
         }
 
         //Check it attempted or not
-        if (studentAns == null) {
+        if (TextUtils.isEmpty(studentAns)) {
             viewHolder.answerATextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -107,12 +112,13 @@ public class ViewPagerAdapter extends PagerAdapter {
      */
     private void setSelected(int position) {
 
-        if (mQuestionBanksObjectList.get(position).getStudentAns() != null) {
+        if (!TextUtils.isEmpty(mQuestionBanksObjectList.get(position).getStudentAns())) {
 
             String correctAns = mQuestionBanksObjectList.get(position).getCorrectAns();
             String studentAns = mQuestionBanksObjectList.get(position).getStudentAns();
 
             if (correctAns.equalsIgnoreCase(studentAns)) {
+                totalCorrectAnswer++;
                 if (mQuestionBanksObjectList.get(position).getStudentAns().equalsIgnoreCase("option_a")) {
                     viewHolder.answerATextView.setTextColor(Color.WHITE);
                     viewHolder.answerATextView.setBackgroundResource(android.R.color.holo_green_light);
@@ -212,5 +218,13 @@ public class ViewPagerAdapter extends PagerAdapter {
      */
     public List<QuestionBank> getQuestionBanksObjectList() {
         return mQuestionBanksObjectList;
+    }
+
+    public int getTotalCorrectAnswer() {
+        return totalCorrectAnswer;
+    }
+
+    public void resetCorrectAnswer(){
+        totalCorrectAnswer = 0;
     }
 }

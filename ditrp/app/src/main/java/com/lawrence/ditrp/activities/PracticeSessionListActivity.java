@@ -18,32 +18,32 @@ import com.lawrence.ditrp.listener.RecyclerViewItemClickListener;
  */
 public class PracticeSessionListActivity extends AppCompatActivity {
 
-    RecyclerView mPracticeSessionRecyclerView;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_practice_session);
         Utils.setCustomActionBar(this, getResources().getString(R.string.practice_session_name));
 
-        mPracticeSessionRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+        RecyclerView practiceSessionRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         PracticeSessionAdapter adapter = new PracticeSessionAdapter(this);
-        mPracticeSessionRecyclerView.setAdapter(adapter);
-        mPracticeSessionRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        practiceSessionRecyclerView.setAdapter(adapter);
+        practiceSessionRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mPracticeSessionRecyclerView.addOnItemTouchListener(new CustomRVItemTouchListener(this,
-                mPracticeSessionRecyclerView,
+        practiceSessionRecyclerView.addOnItemTouchListener(new CustomRVItemTouchListener(this,
+                practiceSessionRecyclerView,
                 new RecyclerViewItemClickListener() {
                     @Override
                     public void onClick(View view, int position) {
-                        Intent intent = new Intent(PracticeSessionListActivity.this, PracticeExamActivity.class);
+                        Intent intent = new Intent(PracticeSessionListActivity.this,
+                                PracticeExamActivity.class);
                         intent.putExtra("position", position);
                         startActivity(intent);
                     }
 
                     @Override
                     public void onLongClick(View view, int position) {
-                        Intent intent = new Intent(PracticeSessionListActivity.this, PracticeExamActivity.class);
+                        Intent intent = new Intent(PracticeSessionListActivity.this,
+                                PracticeExamActivity.class);
                         intent.putExtra("position", position);
                         startActivity(intent);
                     }

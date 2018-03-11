@@ -19,8 +19,6 @@ import java.util.List;
 
 public class DashBoardActivity extends AppCompatActivity {
 
-    RecyclerView mDashBoardRecyclerView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,12 +26,12 @@ public class DashBoardActivity extends AppCompatActivity {
         Utils.setCustomActionBar(this, null);
 
         // Set View with adapter
-        mDashBoardRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+        RecyclerView dashBoardRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         DashBoardAdapter adapter = new DashBoardAdapter(setData(), getApplication());
-        mDashBoardRecyclerView.setAdapter(adapter);
-        mDashBoardRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        dashBoardRecyclerView.setAdapter(adapter);
+        dashBoardRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mDashBoardRecyclerView.addOnItemTouchListener(new CustomRVItemTouchListener(this, mDashBoardRecyclerView,
+        dashBoardRecyclerView.addOnItemTouchListener(new CustomRVItemTouchListener(this, dashBoardRecyclerView,
                 new RecyclerViewItemClickListener() {
                     @Override
                     public void onClick(View view, int position) {

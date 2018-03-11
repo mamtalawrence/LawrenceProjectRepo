@@ -1,27 +1,22 @@
 package com.lawrence.ditrp.command;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.text.TextUtils;
 import android.util.Log;
 import com.lawrence.ditrp.Constants.CommandConstant;
 import com.lawrence.ditrp.R;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.NameValuePair;
-import org.apache.http.StatusLine;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.net.ssl.HttpsURLConnection;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 /**
  * Created by mamta.lawrence on 11/6/2017.
@@ -29,17 +24,18 @@ import java.util.List;
 public class NetworkTask extends AsyncTask<Void, Void, Void> {
 
     private ProgressDialog progressDialog;
-    private boolean isConnect = false;
     private APIRequestBuilder mApiRequestBuilder = null;
+    private Context mContext;
 
-    public NetworkTask(APIRequestBuilder apiRequestBuilder) {
+    NetworkTask(APIRequestBuilder apiRequestBuilder) {
         this.mApiRequestBuilder = apiRequestBuilder;
+        mContext = mApiRequestBuilder.mContext;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        progressDialog = new ProgressDialog(mApiRequestBuilder.mContext, R.style.AppCompatAlertDialogStyle);
+        progressDialog = new ProgressDialog(mContext, R.style.AppCompatAlertDialogStyle);
         progressDialog.setMessage("Login...");
         progressDialog.setCancelable(false);
         progressDialog.show();
@@ -47,28 +43,10 @@ public class NetworkTask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... params) {
-        try {
-            final String jsonString = connectAPI(getHttpPostParams());
-            if (jsonString != null) {
-                Log.e("json response :-", jsonString + "");
-                isConnect = true;
-                mApiRequestBuilder.mResponseListener.onSuccess(jsonString);
-            } else {
-                isConnect = false;
-            }
-            // Validate User End
-        } catch (Exception e) {
-            isConnect = false;
-            e.printStackTrace();
-        } finally {
-            if (!isConnect) {
-                Exception e = new RuntimeException("Sorry, could not connect to server.\nPlease try again later!");
-                mApiRequestBuilder.mResponseListener.onError(e);
-            }
-            if (progressDialog != null && progressDialog.isShowing()) {
-                progressDialog.dismiss();
-                progressDialog = null;
-            }
+        final String jsonString = sendPostRequestToConnectAPI();
+        if (!TextUtils.isEmpty(jsonString)) {
+            Log.v("json response :-", jsonString + "");
+            mApiRequestBuilder.mResponseListener.onSuccess(jsonString);
         }
         return null;
     }
@@ -76,83 +54,105 @@ public class NetworkTask extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPostExecute(Void result) {
         super.onPostExecute(result);
-    }
-
-    /**
-     * Add param in request
-     *
-     * @return httpPostParams object
-     */
-    private List<NameValuePair> getHttpPostParams() {
-        // Validate User
-        List<NameValuePair> httpPostParams = null;
-        httpPostParams = new ArrayList<NameValuePair>();
-        httpPostParams.add(new BasicNameValuePair("service", mApiRequestBuilder.mCommandName));
-        httpPostParams.add(new BasicNameValuePair("uname", mApiRequestBuilder.mUserName));
-        httpPostParams.add(new BasicNameValuePair("pword", mApiRequestBuilder.mPassword));
-        return httpPostParams;
-    }
-
-    /**
-     * @param rowJsonString
-     * @return
-     * @throws JSONException
-     */
-    @SuppressWarnings("null")
-    private String proceedForParsing(String rowJsonString) throws JSONException {
-
-        if (rowJsonString != null || rowJsonString.length() > 1) {
-            JSONObject responseObject = new JSONObject(rowJsonString);
-            return responseObject.toString();
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+            progressDialog = null;
         }
-        return rowJsonString;
-
     }
 
     /**
-     * Http API call
+     * Send post request to getting the response from the server.
      *
-     * @param httpPostParams
-     * @return
+     * @return response
      */
-    public String connectAPI(List<NameValuePair> httpPostParams) {
-        String rowJsonString = null;
+    private String sendPostRequestToConnectAPI() {
+        String responseJsonData = null;
+        HttpURLConnection urlConnection = null;
         try {
-            HttpPost connectionMethod = new HttpPost(CommandConstant.SERVER_URL);
-            HttpParams params = new BasicHttpParams();
-            HttpConnectionParams.setConnectionTimeout(params, 600000);
-            HttpConnectionParams.setSoTimeout(params, 600000);
-            DefaultHttpClient httpClient = new DefaultHttpClient(params);
 
-            if (httpClient != null) {
-                connectionMethod.setEntity(new UrlEncodedFormEntity(httpPostParams, "UTF-8"));
-                HttpResponse httpResponse = httpClient.execute(connectionMethod);
+            URL url = new URL(CommandConstant.SERVER_URL);
 
-                if (httpResponse != null) {
-                    StatusLine statusLine = httpResponse.getStatusLine();
-                    switch (statusLine.getStatusCode()) {
-                        case HttpStatus.SC_OK: {
-                            rowJsonString = EntityUtils.toString(httpResponse.getEntity(), "UTF-8");
-                            rowJsonString = proceedForParsing(rowJsonString);
-                        }
-                        break;
-                    }
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setReadTimeout(15000 /* milliseconds */);
+            urlConnection.setConnectTimeout(15000 /* milliseconds */);
+            urlConnection.setRequestMethod("POST");
+            urlConnection.setRequestProperty("Accept", "application/json");
+            urlConnection.setDoInput(true);
+            urlConnection.setDoOutput(true);
+            urlConnection.connect();// setting the connection
+
+            //Writing data (bytes) to the data output stream
+            DataOutputStream dos = new DataOutputStream(urlConnection.getOutputStream());
+            // writing your data which you post
+            dos.writeBytes(getPostRequestQuery());
+            //flushes data output stream.
+            dos.flush();
+            dos.close();
+
+            int responseCode = urlConnection.getResponseCode();
+            if (responseCode == HttpsURLConnection.HTTP_OK) {
+                // Getting input stream from the connection to reader the response from the buffer.
+                InputStreamReader inputStreamReader = new InputStreamReader(urlConnection.getInputStream());
+                BufferedReader inputBufferedReader = new BufferedReader(inputStreamReader);
+                String inputLine = "";
+                StringBuilder response = new StringBuilder("");
+                // Read the response and append to string builder
+                while ((inputLine = inputBufferedReader.readLine()) != null) {
+                    response.append(inputLine);
                 }
-                httpClient.getConnectionManager().shutdown();
-                httpClient = null;
+                inputBufferedReader.close();// close the buffer reader stream
+                responseJsonData = proceedForParsing(response.toString());
+            } else {
+                Exception exception = new RuntimeException("Sorry, could not connect to server.\nPlease try again " +
+                        "later!");
+                mApiRequestBuilder.mResponseListener.onError(exception);
             }
         } catch (Exception e) {
-            mApiRequestBuilder.mResponseListener.onError(e);
+            //mApiRequestBuilder.mResponseListener.onError(e);
+            Exception exception = new RuntimeException("Sorry, could not connect to server.\nPlease try again later!");
+            mApiRequestBuilder.mResponseListener.onError(exception);
             if (e.getMessage() != null) {
-                rowJsonString = "Exception Details:".concat(e.getLocalizedMessage().concat(rowJsonString.substring(0,
-                        10)));
+                responseJsonData = "Exception Details:".concat(e.getLocalizedMessage().concat(responseJsonData
+                        .substring(0, 10)));
             } else {
-                rowJsonString = "Exception Details: UnKnown Exception";
+                responseJsonData = "Exception Details: UnKnown Exception";
             }
-
-            return rowJsonString;
+            return responseJsonData;
+        } finally {
+            // close your connection
+            if (urlConnection != null) {
+                urlConnection.disconnect();
+            }
         }
-        return rowJsonString;
+        return responseJsonData;
+    }
+
+    /**
+     * Getting parameters data string to POST request
+     *
+     * @return request parameter as string
+     */
+    private String getPostRequestQuery() {
+        Uri.Builder builder = new Uri.Builder()
+                .appendQueryParameter("service", mApiRequestBuilder.mCommandName)
+                .appendQueryParameter("uname", mApiRequestBuilder.mUserName)
+                .appendQueryParameter("pword", mApiRequestBuilder.mPassword);
+        return builder.build().getEncodedQuery();
+    }
+
+    /**
+     * Getting response in the form string by convert the JsonObject
+     *
+     * @param responseData response data
+     * @return json object as string
+     * @throws JSONException thrown Json exception
+     */
+    private String proceedForParsing(String responseData) throws JSONException {
+        if (!TextUtils.isEmpty(responseData)) {
+            JSONObject responseObject = new JSONObject(responseData);
+            return responseObject.toString();
+        }
+        return responseData;
     }
 }
 

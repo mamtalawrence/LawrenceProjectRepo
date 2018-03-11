@@ -67,7 +67,7 @@ public class LoginCommand implements Command {
 
         @Override
         public void onError(Exception e) {
-            Utils.showToast(mContext, e.getMessage().toString());
+            Utils.showToast(mContext, e.getMessage());
         }
     };
 
