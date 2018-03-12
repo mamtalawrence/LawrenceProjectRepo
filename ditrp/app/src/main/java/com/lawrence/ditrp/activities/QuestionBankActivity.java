@@ -11,6 +11,6 @@ public class QuestionBankActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_bank);
-        Utils.setCustomActionBar(this, getResources().getString(R.string.question_bank));
+        Utils.setCustomActionBar(this, getResources().getString(R.string.question_bank),false, false);
     }
 }

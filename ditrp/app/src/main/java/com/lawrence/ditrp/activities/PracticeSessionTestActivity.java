@@ -11,54 +11,51 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.lawrence.ditrp.Constants.Utils;
 import com.lawrence.ditrp.R;
-import com.lawrence.ditrp.adapter.ViewPagerAdapter;
+import com.lawrence.ditrp.adapter.PracticeTestQuestionAdapter;
 import com.lawrence.ditrp.dataModel.QuestionBank;
+import com.lawrence.ditrp.interfaces.IExamSessionNavigationHandler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * Created by Anagha.Mahajan on 10-Nov-17.
- */
-public class PracticeExamActivity extends AppCompatActivity implements View.OnClickListener {
-
+public class PracticeSessionTestActivity extends AppCompatActivity implements View.OnClickListener,
+        IExamSessionNavigationHandler {
+    private static final String TAG = PracticeSessionTestActivity.class.getSimpleName();
     private ViewPager mViewPager;
     private Button mNextButton;
     private Button mPreviousButton;
-    private TextView mCountText;
     private int mPosition;
-    private ViewPagerAdapter mViewPagerAdapter;
+    private PracticeTestQuestionAdapter mPracticeTestQuestionAdapter;
+    // Holds timer instance
+    private TextView mQuestionCountView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_pager);
-        Utils.setCustomActionBar(this, getResources().getString(R.string.exam_practice_name));
+        setContentView(R.layout.common_session_layout);
+        Utils.setCustomActionBar(this, getResources().getString(R.string.practice_session_name), true, false);
         View view = getSupportActionBar().getCustomView();
-        mCountText = (TextView) view.findViewById(R.id.action_bar_right_text);
-        mCountText.setVisibility(View.VISIBLE);
-
+        mQuestionCountView = (TextView) view.findViewById(R.id.action_bar_question_count);
         mPosition = getIntent().getIntExtra("position", 0);
-
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
         mPreviousButton = (Button) findViewById(R.id.button_previous);
         mPreviousButton.setOnClickListener(this);
         mNextButton = (Button) findViewById(R.id.button_next);
         mNextButton.setOnClickListener(this);
         updatePreviousButtonStatus(false);
-        mViewPagerAdapter = new ViewPagerAdapter(this, getPracticeSessionList());
-        mViewPager.setAdapter(mViewPagerAdapter);
+        mPracticeTestQuestionAdapter = new PracticeTestQuestionAdapter(this, getPracticeSessionList());
+        mViewPager.setAdapter(mPracticeTestQuestionAdapter);
         //mViewPager.setCurrentItem(58, true);   //for testing only
-        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @SuppressLint("DefaultLocale")
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                mCountText.setText(String.format("%d/60", position + 1));
+                mQuestionCountView.setText(String.format("%d/60", position + 1));
                 updatePreviousButtonStatus(position > 0);
-
                 if (position == 59) {
                     mNextButton.setText("FINISHED");
+                    updatePreviousButtonStatus(false);
                 } else {
                     mNextButton.setText("Next");
                 }
@@ -106,29 +103,27 @@ public class PracticeExamActivity extends AppCompatActivity implements View.OnCl
                 }
                 break;
             case R.id.button_next:
-                if (mViewPager.getCurrentItem() == 59) {
-                    Toast.makeText(PracticeExamActivity.this, "Ready for report? \n Total correct answer is: " +
-                            mViewPagerAdapter.getTotalCorrectAnswer(), Toast.LENGTH_SHORT).show();
-                    mViewPagerAdapter.resetCorrectAnswer();
-                    //Get list
-                    mViewPagerAdapter.getQuestionBanksObjectList();
-                }
-                mViewPager.setCurrentItem(getItem(+1), true);
-                updatePreviousButtonStatus(true);
+                handleNavigationOnNext();
                 break;
         }
     }
 
-    /**
-     * Set the visibility of the next/previous button views
-     *
-     * @param shouldVisible true, if need to show otherwise false
-     */
-    private void updatePreviousButtonStatus(boolean shouldVisible) {
+    @Override
+    public void updatePreviousButtonStatus(boolean shouldVisible) {
         if (shouldVisible) {
             mPreviousButton.setVisibility(View.VISIBLE);
         } else {
             mPreviousButton.setVisibility(View.INVISIBLE);
         }
+    }
+
+    @Override
+    public void handleNavigationOnNext() {
+        if (mViewPager.getCurrentItem() == 59) {
+            Toast.makeText(PracticeSessionTestActivity.this, "Ready for report? \n Total correct answer is: " +
+                    mPracticeTestQuestionAdapter.getTotalCorrectAnswer(), Toast.LENGTH_SHORT).show();
+            mPracticeTestQuestionAdapter.resetCorrectAnswer();
+        }
+        mViewPager.setCurrentItem(getItem(+1), true);
     }
 }

@@ -18,7 +18,7 @@ public class SettingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
-        Utils.setCustomActionBar(this, getResources().getString(R.string.title_activity_settings));
+        Utils.setCustomActionBar(this, getResources().getString(R.string.title_activity_settings),false, false);
         mSettingsListView = (ListView) findViewById(R.id.settings_listview);
         studentDataList = Utils.getStudentData(getApplicationContext());
         SettingsAdapter settingsAdapter = new SettingsAdapter(this, studentDataList);

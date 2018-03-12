@@ -23,7 +23,7 @@ public class DashBoardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
-        Utils.setCustomActionBar(this, null);
+        Utils.setCustomActionBar(this, "", false, false);
 
         // Set View with adapter
         RecyclerView dashBoardRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
@@ -41,10 +41,10 @@ public class DashBoardActivity extends AppCompatActivity {
                                 intent = new Intent(DashBoardActivity.this, QuestionBankActivity.class);
                                 break;
                             case 1:
-                                intent = new Intent(DashBoardActivity.this, PracticeSessionListActivity.class);
+                                intent = new Intent(DashBoardActivity.this, PracticeSessionActivity.class);
                                 break;
                             case 2:
-                                intent = new Intent(DashBoardActivity.this, ExamPracticeListActivity.class);
+                                intent = new Intent(DashBoardActivity.this, ExamPracticeActivity.class);
                                 break;
                             case 3:
                                 intent = new Intent(DashBoardActivity.this, SettingActivity.class);

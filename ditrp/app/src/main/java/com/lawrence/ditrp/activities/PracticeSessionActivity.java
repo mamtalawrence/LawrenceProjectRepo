@@ -16,13 +16,13 @@ import com.lawrence.ditrp.listener.RecyclerViewItemClickListener;
 /**
  * Created by Anagha.Mahajan on 10-Nov-17.
  */
-public class PracticeSessionListActivity extends AppCompatActivity {
+public class PracticeSessionActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_practice_session);
-        Utils.setCustomActionBar(this, getResources().getString(R.string.practice_session_name));
+        Utils.setCustomActionBar(this, getResources().getString(R.string.practice_session_name),false, false);
 
         RecyclerView practiceSessionRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         PracticeSessionAdapter adapter = new PracticeSessionAdapter(this);
@@ -33,20 +33,25 @@ public class PracticeSessionListActivity extends AppCompatActivity {
                 practiceSessionRecyclerView,
                 new RecyclerViewItemClickListener() {
                     @Override
-                    public void onClick(View view, int position) {
-                        Intent intent = new Intent(PracticeSessionListActivity.this,
-                                PracticeExamActivity.class);
-                        intent.putExtra("position", position);
-                        startActivity(intent);
+                    public void onClick(View view, int testNumber) {
+                        notifyToStartPracticeTest(testNumber);
                     }
 
                     @Override
-                    public void onLongClick(View view, int position) {
-                        Intent intent = new Intent(PracticeSessionListActivity.this,
-                                PracticeExamActivity.class);
-                        intent.putExtra("position", position);
-                        startActivity(intent);
+                    public void onLongClick(View view, int testNumber) {
+                        notifyToStartPracticeTest(testNumber);
                     }
                 }));
+    }
+
+    /**
+     * Notify to start practice session tests
+     * @param testNumber number of practice test
+     */
+    private void notifyToStartPracticeTest(int testNumber){
+        Intent intent = new Intent(PracticeSessionActivity.this,
+                PracticeSessionTestActivity.class);
+        intent.putExtra("position", testNumber);
+        startActivity(intent);
     }
 }

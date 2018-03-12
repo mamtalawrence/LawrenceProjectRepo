@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">DITRP</string>
     <string name="title_activity_login2">Sign in</string>
-    <string name="practice_session_name">Practice Test</string>
-    <string name="exam_practice_name">Exam Practice</string>
+    <string name="practice_session_name">Practice</string>
+    <string name="exam_practice_name">Exam</string>
     <string name="title_activity_settings">Settings &amp; Help</string>
     <string name="question_bank">Question Bank</string>
 
@@ -16,6 +16,11 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
-
+    <string name="instruction_label">Instructions</string>
+    <string name="instructions_desc">1. Subjects like Rules and Regulations of the traffic, and traffic
+        signage\'s are included in the test. \n\n 2. 60 questions are asked in the test at random, out of which 40
+        questions
+        are required to be answered correctly to qualify the test. \n\n 3. 30 seconds are allowed to answer each questions.
+    </string>
 
 </resources>

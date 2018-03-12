@@ -21,11 +21,13 @@
         </activity>
         <activity
                 android:name=".activities.loginActivity"
-                android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+                android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+                android:windowSoftInputMode="adjustNothing"/>
         <activity android:name=".activities.DashBoardActivity"/>
-        <activity android:name=".activities.PracticeSessionListActivity"/>
-        <activity android:name=".activities.PracticeExamActivity"/>
-        <activity android:name=".activities.ExamPracticeListActivity"/>
+        <activity android:name=".activities.PracticeSessionActivity"/>
+        <activity android:name=".activities.PracticeSessionTestActivity"/>
+        <activity android:name=".activities.ExamPracticeActivity"/>
+        <activity android:name=".activities.ExamPracticeTestActivity"/>
         <activity android:name=".activities.SettingActivity"/>
         <activity android:name=".activities.QuestionBankActivity">
         </activity>

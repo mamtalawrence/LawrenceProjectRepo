@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Created by Anagha.Mahajan on 10-Nov-17.
  */
-public class ViewPagerAdapter extends PagerAdapter {
+public class ExamPracticeQuestionAdapter extends PagerAdapter {
 
     private Context context;
     private LayoutInflater inflater;
@@ -24,7 +24,7 @@ public class ViewPagerAdapter extends PagerAdapter {
     private ViewHolder viewHolder;
     private int totalCorrectAnswer;
 
-    public ViewPagerAdapter(Context context, List<QuestionBank> questionBanks) {
+    public ExamPracticeQuestionAdapter(Context context, List<QuestionBank> questionBanks) {
         this.context = context;
         this.mQuestionBanksObjectList = questionBanks;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
