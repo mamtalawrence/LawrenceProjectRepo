@@ -119,48 +119,36 @@ public class PracticeTestQuestionAdapter extends PagerAdapter {
 
             if (correctAns.equalsIgnoreCase(studentAns)) {
                 totalCorrectAnswer++;
-                if (mQuestionBanksObjectList.get(position).getStudentAns().equalsIgnoreCase("option_a")) {
-                    viewHolder.answerATextView.setTextColor(Color.WHITE);
-                    viewHolder.answerATextView.setBackgroundResource(android.R.color.holo_green_light);
-                } else if (mQuestionBanksObjectList.get(position).getStudentAns().equalsIgnoreCase("option_b")) {
-                    viewHolder.answerBTextView.setTextColor(Color.WHITE);
-                    viewHolder.answerBTextView.setBackgroundResource(android.R.color.holo_green_light);
-                } else if (mQuestionBanksObjectList.get(position).getStudentAns().equalsIgnoreCase("option_c")) {
-                    viewHolder.answerCTextView.setTextColor(Color.WHITE);
-                    viewHolder.answerCTextView.setBackgroundResource(android.R.color.holo_green_light);
-                } else if (mQuestionBanksObjectList.get(position).getStudentAns().equalsIgnoreCase("option_d")) {
-                    viewHolder.answerDTextView.setTextColor(Color.WHITE);
-                    viewHolder.answerDTextView.setBackgroundResource(android.R.color.holo_green_light);
+                if (studentAns.equalsIgnoreCase("option_a")) {
+                    updateViewState(viewHolder.answerATextView, R.color.color_green_light);
+                } else if (studentAns.equalsIgnoreCase("option_b")) {
+                    updateViewState(viewHolder.answerBTextView, R.color.color_green_light);
+                } else if (studentAns.equalsIgnoreCase("option_c")) {
+                    updateViewState(viewHolder.answerCTextView, R.color.color_green_light);
+                } else if (studentAns.equalsIgnoreCase("option_d")) {
+                    updateViewState(viewHolder.answerDTextView, R.color.color_green_light);
                 }
             } else {
                 //Student ans
-                if (mQuestionBanksObjectList.get(position).getStudentAns().equalsIgnoreCase("option_a")) {
-                    viewHolder.answerATextView.setTextColor(Color.WHITE);
-                    viewHolder.answerATextView.setBackgroundResource(android.R.color.holo_red_light);
-                } else if (mQuestionBanksObjectList.get(position).getStudentAns().equalsIgnoreCase("option_b")) {
-                    viewHolder.answerBTextView.setTextColor(Color.WHITE);
-                    viewHolder.answerBTextView.setBackgroundResource(android.R.color.holo_red_light);
-                } else if (mQuestionBanksObjectList.get(position).getStudentAns().equalsIgnoreCase("option_c")) {
-                    viewHolder.answerCTextView.setTextColor(Color.WHITE);
-                    viewHolder.answerCTextView.setBackgroundResource(android.R.color.holo_red_light);
-                } else if (mQuestionBanksObjectList.get(position).getStudentAns().equalsIgnoreCase("option_d")) {
-                    viewHolder.answerDTextView.setTextColor(Color.WHITE);
-                    viewHolder.answerDTextView.setBackgroundResource(android.R.color.holo_red_light);
+                if (studentAns.equalsIgnoreCase("option_a")) {
+                    updateViewState(viewHolder.answerATextView, R.color.color_red_light);
+                } else if (studentAns.equalsIgnoreCase("option_b")) {
+                    updateViewState(viewHolder.answerBTextView, R.color.color_red_light);
+                } else if (studentAns.equalsIgnoreCase("option_c")) {
+                    updateViewState(viewHolder.answerCTextView, R.color.color_red_light);
+                } else if (studentAns.equalsIgnoreCase("option_d")) {
+                    updateViewState(viewHolder.answerDTextView, R.color.color_red_light);
                 }
 
                 // right ans
-                if (mQuestionBanksObjectList.get(position).getCorrectAns().equalsIgnoreCase("option_a")) {
-                    viewHolder.answerATextView.setTextColor(Color.WHITE);
-                    viewHolder.answerATextView.setBackgroundResource(android.R.color.holo_green_light);
-                } else if (mQuestionBanksObjectList.get(position).getCorrectAns().equalsIgnoreCase("option_b")) {
-                    viewHolder.answerBTextView.setTextColor(Color.WHITE);
-                    viewHolder.answerBTextView.setBackgroundResource(android.R.color.holo_green_light);
-                } else if (mQuestionBanksObjectList.get(position).getCorrectAns().equalsIgnoreCase("option_c")) {
-                    viewHolder.answerCTextView.setTextColor(Color.WHITE);
-                    viewHolder.answerCTextView.setBackgroundResource(android.R.color.holo_green_light);
-                } else if (mQuestionBanksObjectList.get(position).getCorrectAns().equalsIgnoreCase("option_d")) {
-                    viewHolder.answerDTextView.setTextColor(Color.WHITE);
-                    viewHolder.answerDTextView.setBackgroundResource(android.R.color.holo_green_light);
+                if (correctAns.equalsIgnoreCase("option_a")) {
+                    updateViewState(viewHolder.answerATextView, R.color.color_green_light);
+                } else if (correctAns.equalsIgnoreCase("option_b")) {
+                    updateViewState(viewHolder.answerBTextView, R.color.color_green_light);
+                } else if (correctAns.equalsIgnoreCase("option_c")) {
+                    updateViewState(viewHolder.answerCTextView, R.color.color_green_light);
+                } else if (correctAns.equalsIgnoreCase("option_d")) {
+                    updateViewState(viewHolder.answerDTextView, R.color.color_green_light);
                 }
             }
         }
@@ -226,5 +214,10 @@ public class PracticeTestQuestionAdapter extends PagerAdapter {
 
     public void resetCorrectAnswer(){
         totalCorrectAnswer = 0;
+    }
+
+    private void updateViewState(TextView textView, int color) {
+        textView.setTextColor(Color.WHITE);
+        textView.setBackgroundResource(color);
     }
 }

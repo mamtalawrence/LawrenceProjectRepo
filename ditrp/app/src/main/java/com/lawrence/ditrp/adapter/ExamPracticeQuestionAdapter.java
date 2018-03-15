@@ -18,11 +18,13 @@ import java.util.List;
  */
 public class ExamPracticeQuestionAdapter extends PagerAdapter {
 
+    private static final String EMPTY_STRING = "";
     private Context context;
     private LayoutInflater inflater;
     private List<QuestionBank> mQuestionBanksObjectList;
     private ViewHolder viewHolder;
-    private int totalCorrectAnswer;
+    private int totalCorrectAnswer = 0;
+    private int totalIncorrectAnswer = 0;
 
     public ExamPracticeQuestionAdapter(Context context, List<QuestionBank> questionBanks) {
         this.context = context;
@@ -35,133 +37,93 @@ public class ExamPracticeQuestionAdapter extends PagerAdapter {
         View itemView = inflater.inflate(R.layout.viewpager_item, container, false);
         viewHolder = new ViewHolder();
 
-        viewHolder.view3 = itemView.findViewById(R.id.view3);
-        viewHolder.view4 = itemView.findViewById(R.id.view4);
-        viewHolder.questionTextView = (TextView) itemView.findViewById(R.id.text_question);
-        viewHolder.questionTextView.setText(String.format("Q. %s", mQuestionBanksObjectList.get(position)
+        viewHolder.mOptionView3 = itemView.findViewById(R.id.view3);
+        viewHolder.mOptionView4 = itemView.findViewById(R.id.view4);
+        viewHolder.mQuestionTextView = (TextView) itemView.findViewById(R.id.text_question);
+        viewHolder.mQuestionTextView.setText(String.format("Q. %s", mQuestionBanksObjectList.get(position)
                 .getQuestion()));
 
-        String studentAns = mQuestionBanksObjectList.get(position).getStudentAns();
+        viewHolder.mOptionTextViewA = (TextView) itemView.findViewById(R.id.text_answer_a);
+        viewHolder.mOptionTextViewA.setText(String.format("A. %s", mQuestionBanksObjectList.get(position).getOptionA
+                ()));
 
-        viewHolder.answerATextView = (TextView) itemView.findViewById(R.id.text_answer_a);
-        viewHolder.answerATextView.setText(String.format("A. %s", mQuestionBanksObjectList.get(position).getOptionA()));
+        viewHolder.mOptionTextViewB = (TextView) itemView.findViewById(R.id.text_answer_b);
+        viewHolder.mOptionTextViewB.setText(String.format("B. %s", mQuestionBanksObjectList.get(position).getOptionB
+                ()));
 
-        viewHolder.answerBTextView = (TextView) itemView.findViewById(R.id.text_answer_b);
-        viewHolder.answerBTextView.setText(String.format("B. %s", mQuestionBanksObjectList.get(position).getOptionB()));
-
-        viewHolder.answerCTextView = (TextView) itemView.findViewById(R.id.text_answer_c);
+        viewHolder.mOptionTextViewC = (TextView) itemView.findViewById(R.id.text_answer_c);
         if (!TextUtils.isEmpty(mQuestionBanksObjectList.get(position).getOptionC())) {
-            viewHolder.answerCTextView.setText(String.format("C. %s", mQuestionBanksObjectList.get(position)
+            viewHolder.mOptionTextViewC.setText(String.format("C. %s", mQuestionBanksObjectList.get(position)
                     .getOptionC()));
-            viewHolder.view3.setVisibility(View.VISIBLE);
-            viewHolder.answerCTextView.setVisibility(View.VISIBLE);
+            viewHolder.mOptionView3.setVisibility(View.VISIBLE);
+            viewHolder.mOptionTextViewC.setVisibility(View.VISIBLE);
         }
 
-        viewHolder.answerDTextView = (TextView) itemView.findViewById(R.id.text_answer_d);
+        viewHolder.mOptionTextViewD = (TextView) itemView.findViewById(R.id.text_answer_d);
         if (!TextUtils.isEmpty(mQuestionBanksObjectList.get(position).getOptionD())) {
-            viewHolder.answerDTextView.setText(String.format("D. %s", mQuestionBanksObjectList.get(position)
+            viewHolder.mOptionTextViewD.setText(String.format("D. %s", mQuestionBanksObjectList.get(position)
                     .getOptionD()));
-            viewHolder.view4.setVisibility(View.VISIBLE);
-            viewHolder.answerDTextView.setVisibility(View.VISIBLE);
+            viewHolder.mOptionView4.setVisibility(View.VISIBLE);
+            viewHolder.mOptionTextViewD.setVisibility(View.VISIBLE);
         }
 
         //Check it attempted or not
-        if (TextUtils.isEmpty(studentAns)) {
-            viewHolder.answerATextView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mQuestionBanksObjectList.get(position).setStudentAns("option_a");
-                    notifyDataSetChanged();
-                }
-            });
+        viewHolder.mOptionTextViewA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mQuestionBanksObjectList.get(position).setStudentAns("option_a");
+                notifyDataSetChanged();
+            }
+        });
 
-            viewHolder.answerBTextView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mQuestionBanksObjectList.get(position).setStudentAns("option_b");
-                    notifyDataSetChanged();
-                }
-            });
+        viewHolder.mOptionTextViewB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mQuestionBanksObjectList.get(position).setStudentAns("option_b");
+                notifyDataSetChanged();
+            }
+        });
 
-            viewHolder.answerCTextView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mQuestionBanksObjectList.get(position).setStudentAns("option_c");
-                    notifyDataSetChanged();
-                }
-            });
+        viewHolder.mOptionTextViewC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mQuestionBanksObjectList.get(position).setStudentAns("option_c");
+                notifyDataSetChanged();
+            }
+        });
 
-            viewHolder.answerDTextView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mQuestionBanksObjectList.get(position).setStudentAns("option_d");
-                    notifyDataSetChanged();
-                }
-            });
-        }
-        setSelected(position);
+        viewHolder.mOptionTextViewD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mQuestionBanksObjectList.get(position).setStudentAns("option_d");
+                notifyDataSetChanged();
+            }
+        });
+
+        updateSelectedView(position);
+        //handleItemSelection(position);
+        //setSelected(position);
         container.addView(itemView);
         return new ViewHolderMain(itemView, position);
 
     }
 
     /**
-     * Set selected item color
+     * Set highlighter fot the selected item
      *
-     * @param position of item
+     * @param questionIndex question index
      */
-    private void setSelected(int position) {
-
-        if (!TextUtils.isEmpty(mQuestionBanksObjectList.get(position).getStudentAns())) {
-
-            String correctAns = mQuestionBanksObjectList.get(position).getCorrectAns();
-            String studentAns = mQuestionBanksObjectList.get(position).getStudentAns();
-
-            if (correctAns.equalsIgnoreCase(studentAns)) {
-                totalCorrectAnswer++;
-                if (mQuestionBanksObjectList.get(position).getStudentAns().equalsIgnoreCase("option_a")) {
-                    viewHolder.answerATextView.setTextColor(Color.WHITE);
-                    viewHolder.answerATextView.setBackgroundResource(android.R.color.holo_green_light);
-                } else if (mQuestionBanksObjectList.get(position).getStudentAns().equalsIgnoreCase("option_b")) {
-                    viewHolder.answerBTextView.setTextColor(Color.WHITE);
-                    viewHolder.answerBTextView.setBackgroundResource(android.R.color.holo_green_light);
-                } else if (mQuestionBanksObjectList.get(position).getStudentAns().equalsIgnoreCase("option_c")) {
-                    viewHolder.answerCTextView.setTextColor(Color.WHITE);
-                    viewHolder.answerCTextView.setBackgroundResource(android.R.color.holo_green_light);
-                } else if (mQuestionBanksObjectList.get(position).getStudentAns().equalsIgnoreCase("option_d")) {
-                    viewHolder.answerDTextView.setTextColor(Color.WHITE);
-                    viewHolder.answerDTextView.setBackgroundResource(android.R.color.holo_green_light);
-                }
-            } else {
-                //Student ans
-                if (mQuestionBanksObjectList.get(position).getStudentAns().equalsIgnoreCase("option_a")) {
-                    viewHolder.answerATextView.setTextColor(Color.WHITE);
-                    viewHolder.answerATextView.setBackgroundResource(android.R.color.holo_red_light);
-                } else if (mQuestionBanksObjectList.get(position).getStudentAns().equalsIgnoreCase("option_b")) {
-                    viewHolder.answerBTextView.setTextColor(Color.WHITE);
-                    viewHolder.answerBTextView.setBackgroundResource(android.R.color.holo_red_light);
-                } else if (mQuestionBanksObjectList.get(position).getStudentAns().equalsIgnoreCase("option_c")) {
-                    viewHolder.answerCTextView.setTextColor(Color.WHITE);
-                    viewHolder.answerCTextView.setBackgroundResource(android.R.color.holo_red_light);
-                } else if (mQuestionBanksObjectList.get(position).getStudentAns().equalsIgnoreCase("option_d")) {
-                    viewHolder.answerDTextView.setTextColor(Color.WHITE);
-                    viewHolder.answerDTextView.setBackgroundResource(android.R.color.holo_red_light);
-                }
-
-                // right ans
-                if (mQuestionBanksObjectList.get(position).getCorrectAns().equalsIgnoreCase("option_a")) {
-                    viewHolder.answerATextView.setTextColor(Color.WHITE);
-                    viewHolder.answerATextView.setBackgroundResource(android.R.color.holo_green_light);
-                } else if (mQuestionBanksObjectList.get(position).getCorrectAns().equalsIgnoreCase("option_b")) {
-                    viewHolder.answerBTextView.setTextColor(Color.WHITE);
-                    viewHolder.answerBTextView.setBackgroundResource(android.R.color.holo_green_light);
-                } else if (mQuestionBanksObjectList.get(position).getCorrectAns().equalsIgnoreCase("option_c")) {
-                    viewHolder.answerCTextView.setTextColor(Color.WHITE);
-                    viewHolder.answerCTextView.setBackgroundResource(android.R.color.holo_green_light);
-                } else if (mQuestionBanksObjectList.get(position).getCorrectAns().equalsIgnoreCase("option_d")) {
-                    viewHolder.answerDTextView.setTextColor(Color.WHITE);
-                    viewHolder.answerDTextView.setBackgroundResource(android.R.color.holo_green_light);
-                }
+    private void updateSelectedView(int questionIndex) {
+        String selectedAnswer = mQuestionBanksObjectList.get(questionIndex).getStudentAns();
+        if (!TextUtils.isEmpty(selectedAnswer)) {
+            if (selectedAnswer.equalsIgnoreCase("option_a")) {
+                updateViewState(viewHolder.mOptionTextViewA);
+            } else if (selectedAnswer.equalsIgnoreCase("option_b")) {
+                updateViewState(viewHolder.mOptionTextViewB);
+            } else if (selectedAnswer.equalsIgnoreCase("option_c")) {
+                updateViewState(viewHolder.mOptionTextViewC);
+            } else if (selectedAnswer.equalsIgnoreCase("option_d")) {
+                updateViewState(viewHolder.mOptionTextViewD);
             }
         }
     }
@@ -170,18 +132,6 @@ public class ExamPracticeQuestionAdapter extends PagerAdapter {
     @Override
     public int getCount() {
         return mQuestionBanksObjectList.size();
-    }
-
-    /**
-     * View holder for data set
-     */
-    private class ViewHolder {
-        View view3, view4;
-        TextView questionTextView;
-        TextView answerATextView;
-        TextView answerBTextView;
-        TextView answerCTextView;
-        TextView answerDTextView;
     }
 
     @Override
@@ -201,6 +151,50 @@ public class ExamPracticeQuestionAdapter extends PagerAdapter {
         return ((ViewHolderMain) object).view == view;
     }
 
+    /**
+     * Get Question object list with answer
+     *
+     * @return Question object list
+     */
+    public List<QuestionBank> getResultList() {
+        return mQuestionBanksObjectList;
+    }
+
+    public void resetCorrectAnswer() {
+        totalCorrectAnswer = 0;
+    }
+
+    private void updateViewState(TextView textView) {
+        textView.setTextColor(Color.WHITE);
+        textView.setBackgroundResource(R.color.color_orange_light);
+    }
+
+    public boolean isAnswerSelected(int questionNumber) {
+        return !TextUtils.isEmpty(mQuestionBanksObjectList.get(questionNumber).getStudentAns());
+    }
+
+    public void handleItemSelection(int questionIndex) {
+        if (!isAnswerSelected(questionIndex)) {
+            mQuestionBanksObjectList.get(questionIndex).setStudentAns(EMPTY_STRING);
+            notifyDataSetChanged();
+        }
+        String selectedAnswerByStudent = mQuestionBanksObjectList.get(questionIndex).getStudentAns();
+        String correctAns = mQuestionBanksObjectList.get(questionIndex).getCorrectAns();
+        if (!TextUtils.isEmpty(selectedAnswerByStudent) && correctAns.equalsIgnoreCase(selectedAnswerByStudent)) {
+            totalCorrectAnswer++;
+        } else {
+            totalIncorrectAnswer++;
+        }
+    }
+
+    public int getNumberOfCorrectAnswer() {
+        return totalCorrectAnswer;
+    }
+
+    public int getNumberOfIncorrectAnswer() {
+        return totalIncorrectAnswer;
+    }
+
     private static class ViewHolderMain {
         final View view;
         final int position;
@@ -212,19 +206,14 @@ public class ExamPracticeQuestionAdapter extends PagerAdapter {
     }
 
     /**
-     * Get Question object list with answer
-     *
-     * @return Question object list
+     * View holder for data set
      */
-    public List<QuestionBank> getQuestionBanksObjectList() {
-        return mQuestionBanksObjectList;
-    }
-
-    public int getTotalCorrectAnswer() {
-        return totalCorrectAnswer;
-    }
-
-    public void resetCorrectAnswer(){
-        totalCorrectAnswer = 0;
+    private class ViewHolder {
+        View mOptionView3, mOptionView4;
+        TextView mQuestionTextView;
+        TextView mOptionTextViewA;
+        TextView mOptionTextViewB;
+        TextView mOptionTextViewC;
+        TextView mOptionTextViewD;
     }
 }

@@ -17,7 +17,7 @@ public class ExamPracticeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_exam);
+        setContentView(R.layout.common_recycler_view_layout);
         Utils.setCustomActionBar(this, getResources().getString(R.string.exam_practice_name), false, false);
 
         RecyclerView examPracticeRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
@@ -46,7 +46,7 @@ public class ExamPracticeActivity extends AppCompatActivity {
      */
     private void notifyToStartPracticeTest(int testNumber) {
         Intent intent = new Intent(ExamPracticeActivity.this, ExamPracticeTestActivity.class);
-        intent.putExtra("position", testNumber);
+        intent.putExtra("ExamTestNumber", testNumber);
         startActivity(intent);
     }
 }

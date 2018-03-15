@@ -29,8 +29,8 @@
         <activity android:name=".activities.ExamPracticeActivity"/>
         <activity android:name=".activities.ExamPracticeTestActivity"/>
         <activity android:name=".activities.SettingActivity"/>
-        <activity android:name=".activities.QuestionBankActivity">
-        </activity>
+        <activity android:name=".activities.QuestionBankActivity"/>
+        <activity android:name=".activities.ScoreCardActivity"/>
     </application>
 
 </manifest>

@@ -21,7 +21,7 @@ public class PracticeSessionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_practice_session);
+        setContentView(R.layout.common_recycler_view_layout);
         Utils.setCustomActionBar(this, getResources().getString(R.string.practice_session_name),false, false);
 
         RecyclerView practiceSessionRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);

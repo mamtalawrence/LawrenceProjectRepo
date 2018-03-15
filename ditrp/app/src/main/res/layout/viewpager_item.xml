@@ -12,7 +12,7 @@
                 android:id="@+id/text_question"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
                 android:textColor="@android:color/black"/>
@@ -27,8 +27,9 @@
                 android:id="@+id/text_answer_a"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                android:textSize="18sp"
-                android:paddingLeft="10dp"
+                android:textSize="15sp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:gravity="center_vertical"/>
 
         <View
@@ -41,8 +42,9 @@
                 android:id="@+id/text_answer_b"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                android:textSize="16sp"
-                android:paddingLeft="10dp"
+                android:textSize="15sp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:gravity="center_vertical"/>
 
         <View android:background="@android:color/darker_gray"
@@ -53,8 +55,9 @@
                 android:id="@+id/text_answer_c"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                android:textSize="16sp"
-                android:paddingLeft="10dp"
+                android:textSize="15sp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:gravity="center_vertical"
                 android:visibility="gone"/>
 
@@ -69,8 +72,9 @@
                 android:id="@+id/text_answer_d"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                android:paddingLeft="10dp"
-                android:textSize="16sp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textSize="15sp"
                 android:gravity="center_vertical"
                 android:visibility="gone"/>
 

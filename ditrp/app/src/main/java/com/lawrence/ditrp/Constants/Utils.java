@@ -129,14 +129,14 @@ public class Utils {
      *
      * @param context
      */
-    public static void setCustomActionBar(Context context, @NonNull String titletext, boolean
+    public static void setCustomActionBar(Context context, @NonNull String titleText, boolean
             shouldVisibleQuestionCount, boolean shouldVisibleTimer) {
         ((AppCompatActivity) context).getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         ((AppCompatActivity) context).getSupportActionBar().setDisplayShowCustomEnabled(true);
         ((AppCompatActivity) context).getSupportActionBar().setCustomView(R.layout.custom_action_bar_layout);
         View actionBarView;
         actionBarView = ((AppCompatActivity) context).getSupportActionBar().getCustomView();
-        ((TextView) actionBarView.findViewById(R.id.action_bar_title)).setText(titletext);
+        ((TextView) actionBarView.findViewById(R.id.action_bar_title)).setText(titleText);
         if (shouldVisibleQuestionCount) {
             actionBarView.findViewById(R.id.action_bar_question_count).setVisibility(View.VISIBLE);
         } else {

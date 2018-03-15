@@ -22,8 +22,8 @@ public class DashBoardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dash_board);
-        Utils.setCustomActionBar(this, "", false, false);
+        setContentView(R.layout.common_recycler_view_layout);
+        Utils.setCustomActionBar(this, getString(R.string.app_name), false, false);
 
         // Set View with adapter
         RecyclerView dashBoardRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);

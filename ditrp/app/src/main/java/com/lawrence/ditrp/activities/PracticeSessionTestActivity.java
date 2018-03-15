@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.lawrence.ditrp.Constants.Utils;
@@ -14,6 +15,7 @@ import com.lawrence.ditrp.R;
 import com.lawrence.ditrp.adapter.PracticeTestQuestionAdapter;
 import com.lawrence.ditrp.dataModel.QuestionBank;
 import com.lawrence.ditrp.interfaces.IExamSessionNavigationHandler;
+import com.lawrence.ditrp.view.NonSwipeableViewPager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,13 +24,14 @@ import java.util.List;
 public class PracticeSessionTestActivity extends AppCompatActivity implements View.OnClickListener,
         IExamSessionNavigationHandler {
     private static final String TAG = PracticeSessionTestActivity.class.getSimpleName();
-    private ViewPager mViewPager;
+    private NonSwipeableViewPager mViewPager;
     private Button mNextButton;
     private Button mPreviousButton;
     private int mPosition;
     private PracticeTestQuestionAdapter mPracticeTestQuestionAdapter;
     // Holds timer instance
     private TextView mQuestionCountView;
+    private LinearLayout mLayoutAnswerCount;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,12 +41,15 @@ public class PracticeSessionTestActivity extends AppCompatActivity implements Vi
         View view = getSupportActionBar().getCustomView();
         mQuestionCountView = (TextView) view.findViewById(R.id.action_bar_question_count);
         mPosition = getIntent().getIntExtra("position", 0);
-        mViewPager = (ViewPager) findViewById(R.id.view_pager);
+        LinearLayout layoutAnswerCount = (LinearLayout) findViewById(R.id.layout_answer_count);
+        layoutAnswerCount.setVisibility(View.GONE);
         mPreviousButton = (Button) findViewById(R.id.button_previous);
         mPreviousButton.setOnClickListener(this);
         mNextButton = (Button) findViewById(R.id.button_next);
         mNextButton.setOnClickListener(this);
         updatePreviousButtonStatus(false);
+        mViewPager = (NonSwipeableViewPager) findViewById(R.id.view_pager);
+        mViewPager.setPagingEnabled(true);
         mPracticeTestQuestionAdapter = new PracticeTestQuestionAdapter(this, getPracticeSessionList());
         mViewPager.setAdapter(mPracticeTestQuestionAdapter);
         //mViewPager.setCurrentItem(58, true);   //for testing only
