@@ -17,7 +17,6 @@
                    android:layout_width="wrap_content"
                    android:layout_height="72dp"
                    android:layout_marginTop="30dp"
-                   android:visibility="invisible"
                    android:layout_marginBottom="24dp"
                    android:layout_gravity="center_horizontal"/>
 
@@ -28,26 +27,6 @@
                   android:text="Log In"
                   android:gravity="center"
                   android:textSize="16dip"/>
-
-        <!-- Email Label -->
-
-        <!--<EditText android:id="@+id/input_uname"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:inputType="text"
-                  android:drawableRight="@drawable/perm_group_personal_info"
-                  android:hint="User Name"
-                  android:text="17P6933"/>-->
-
-        <!-- Password Label -->
-
-        <!--<EditText android:id="@+id/input_password"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:inputType="textPassword"
-                  android:drawableRight="@drawable/perm_group_screenlock"
-                  android:hint="Password"
-                  android:text="YWDLTVNS"/>-->
 
         <LinearLayout
                 android:id="@+id/email_login_form"
