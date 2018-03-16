@@ -17,7 +17,7 @@ import com.lawrence.ditrp.R;
 import com.lawrence.ditrp.adapter.ExamPracticeQuestionAdapter;
 import com.lawrence.ditrp.dataModel.QuestionBank;
 import com.lawrence.ditrp.interfaces.IExamSessionNavigationHandler;
-import com.lawrence.ditrp.view.NonSwipeableViewPager;
+import com.lawrence.ditrp.view.NonSwappableViewPager;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class ExamPracticeTestActivity extends AppCompatActivity implements View.
         IExamSessionNavigationHandler {
 
     private static final String TAG = ExamPracticeTestActivity.class.getSimpleName();
-    private NonSwipeableViewPager mViewPager;
+    private NonSwappableViewPager mViewPager;
     private Button mNextButton;
     private Button mPreviousButton;
     private int mExamTestNumber;
@@ -83,7 +83,7 @@ public class ExamPracticeTestActivity extends AppCompatActivity implements View.
         mCorrectAnswerCount = (TextView) findViewById(R.id.correct_answer_count);
         mInCorrectAnswerCount = (TextView) findViewById(R.id.wrong_answer_count);
 
-        mViewPager = (NonSwipeableViewPager) findViewById(R.id.view_pager);
+        mViewPager = (NonSwappableViewPager) findViewById(R.id.view_pager);
         mViewPager.setPagingEnabled(false);
         mPracticeTestQuestionAdapter = new ExamPracticeQuestionAdapter(this, getPracticeSessionList());
         mViewPager.setAdapter(mPracticeTestQuestionAdapter);

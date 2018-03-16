@@ -31,7 +31,7 @@
                 android:layout_height="50dp"
                 android:text="Start Exam"
                 android:textColor="@android:color/white"
-                android:background="@drawable/timer_background"
+                android:background="@color/colorPrimaryDark"
                 android:visibility="visible"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"

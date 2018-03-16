@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -31,6 +32,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Utils {
 
     private View mActionBarView;
+
     /**
      * Method to show toast using UI thread
      *
@@ -134,6 +136,14 @@ public class Utils {
         ((AppCompatActivity) context).getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         ((AppCompatActivity) context).getSupportActionBar().setDisplayShowCustomEnabled(true);
         ((AppCompatActivity) context).getSupportActionBar().setCustomView(R.layout.custom_action_bar_layout);
+
+        ActionBar actionBar = ((AppCompatActivity) context).getSupportActionBar();
+        Toolbar toolbar = (Toolbar) actionBar.getCustomView().getParent();
+        toolbar.setContentInsetsAbsolute(0, 0);
+        toolbar.setContentInsetsAbsolute(0, 0);
+        toolbar.getContentInsetEnd();
+        toolbar.setPadding(0, 0, 0, 0);
+
         View actionBarView;
         actionBarView = ((AppCompatActivity) context).getSupportActionBar().getCustomView();
         ((TextView) actionBarView.findViewById(R.id.action_bar_title)).setText(titleText);

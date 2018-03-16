@@ -14,16 +14,16 @@ import java.lang.reflect.Field;
  * If we return true, onMotionEvent will be called and we do the actual
  * scrolling there.
  */
-public class NonSwipeableViewPager extends ViewPager {
+public class NonSwappableViewPager extends ViewPager {
 
     private boolean enabled;
-    public NonSwipeableViewPager(Context context) {
+    public NonSwappableViewPager(Context context) {
         super(context);
         this.enabled = true;
         setMyScroller();
     }
 
-    public NonSwipeableViewPager(Context context, AttributeSet attrs) {
+    public NonSwappableViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.enabled = true;
         setMyScroller();

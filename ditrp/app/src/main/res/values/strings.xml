@@ -5,7 +5,7 @@
     <string name="exam_practice_name">Exam</string>
     <string name="title_activity_settings">Settings &amp; Help</string>
     <string name="question_bank">Question Bank</string>
-    <string name="score_card_label">ScoreCard</string>
+    <string name="score_card_label">Score Card</string>
     <!-- Strings related to login -->
     <string name="prompt_email">User Name</string>
     <string name="prompt_password">Password</string>
@@ -23,8 +23,11 @@
         are required to be answered correctly to qualify the test. \n\n 3. 30 seconds are allowed to answer each
         questions.
     </string>
-    <string name="result_failed_suggestion_label">Sorry, you have failed in Computer test.\n We would suggest you to
+    <string name="result_failed_suggestion_label">Sorry, you have failed in this test.\n We would suggest you to
         refer question bank and try again.
     </string>
+    <string name="previous">Previous</string>
+    <string name="next">Next</string>
+    <string name="home">HOME</string>
 
 </resources>
