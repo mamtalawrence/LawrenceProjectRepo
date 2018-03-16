@@ -87,7 +87,7 @@ public class ExamPracticeTestActivity extends AppCompatActivity implements View.
         mViewPager.setPagingEnabled(false);
         mPracticeTestQuestionAdapter = new ExamPracticeQuestionAdapter(this, getPracticeSessionList());
         mViewPager.setAdapter(mPracticeTestQuestionAdapter);
-        mViewPager.setCurrentItem(58, true);   //for testing only
+        //mViewPager.setCurrentItem(58, true);   //for testing only
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @SuppressLint("DefaultLocale")
             @Override
