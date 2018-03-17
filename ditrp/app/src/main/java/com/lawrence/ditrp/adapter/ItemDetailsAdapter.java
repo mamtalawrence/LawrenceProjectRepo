@@ -41,6 +41,7 @@ public class ItemDetailsAdapter extends RecyclerView.Adapter<ItemDetailsViewHold
                     .load(imageUrl)
                     .into(holder.mImageViewItem);
         }else{
+            holder.mImageViewItem.setVisibility(View.GONE);
             Picasso.with(context)
                     .load(android.R.drawable.ic_menu_gallery)
                     .into(holder.mImageViewItem);

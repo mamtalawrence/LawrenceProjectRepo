@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.lawrence.ditrp.Constants.Utils;
 import com.lawrence.ditrp.R;
 import com.lawrence.ditrp.adapter.PracticeTestQuestionAdapter;
@@ -60,7 +59,7 @@ public class PracticeSessionTestActivity extends AppCompatActivity implements Vi
                 updatePreviousButtonStatus(position > 0);
                 if (position == 59) {
                     mNextButton.setText(R.string.home);
-                    updatePreviousButtonStatus(false);
+                    //updatePreviousButtonStatus(false);
                 } else {
                     mNextButton.setText(R.string.next);
                 }
@@ -125,8 +124,8 @@ public class PracticeSessionTestActivity extends AppCompatActivity implements Vi
     @Override
     public void handleNavigationOnNext() {
         if (mViewPager.getCurrentItem() == 59) {
-            Toast.makeText(PracticeSessionTestActivity.this, "Total correct answer is: " +
-                    mPracticeTestQuestionAdapter.getTotalCorrectAnswer(), Toast.LENGTH_SHORT).show();
+            /*Toast.makeText(PracticeSessionTestActivity.this, "Total correct answer is: " +
+                    mPracticeTestQuestionAdapter.getTotalCorrectAnswer(), Toast.LENGTH_SHORT).show();*/
             mPracticeTestQuestionAdapter.resetCorrectAnswer();
             navigateToHome();
         }

@@ -24,7 +24,7 @@ public class QuestionBankActivity extends AppCompatActivity {
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         // Add Fragments to adapter one by one
-        viewPagerAdapter.addFragment(new FragmentQuestionsBank(), getString(R.string.question_bank_tab1));
+        //viewPagerAdapter.addFragment(new FragmentQuestionsBank(), getString(R.string.question_bank_tab1));
         viewPagerAdapter.addFragment(new FragmentItemDetails(), getString(R.string.question_bank_tab2));
         viewPager.setAdapter(viewPagerAdapter);
 

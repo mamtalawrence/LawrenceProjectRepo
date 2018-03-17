@@ -68,13 +68,13 @@ public class DashBoardActivity extends AppCompatActivity {
     private List<DashBoardData> setData() {
         List<DashBoardData> dashBoardData = new ArrayList<>();
         dashBoardData.add(new DashBoardData(getResources().getString(R.string.question_bank),
-                "List of questions & answers and meaning of logos ", R.drawable.book_bank));
+                getString(R.string.que_bank_desc), R.drawable.book_bank));
         dashBoardData.add(new DashBoardData(getResources().getString(R.string.practice_session_name),
-                "Test your knowledge without worrying about time ", R.drawable.practics));
+                getString(R.string.practice_desc), R.drawable.practics));
         dashBoardData.add(new DashBoardData(getResources().getString(R.string.exam_practice_name),
-                "Time and question bound test exactly same as exam", R.drawable.exam));
+                getString(R.string.exam_desc), R.drawable.exam));
         dashBoardData.add(new DashBoardData(getResources().getString(R.string.title_activity_settings),
-                "Information and more", R.drawable.setting));
+                getString(R.string.info_more), R.drawable.setting));
         return dashBoardData;
     }
 }
