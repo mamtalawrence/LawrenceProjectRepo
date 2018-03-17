@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import com.lawrence.ditrp.dataModel.ItemsLibrary;
 import com.lawrence.ditrp.dataModel.QuestionBank;
 
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Table Names
     private static final String QUESTION_BANK = "question_bank";
     private static final String PRACTICE_QUESTION = "practice_question";
+    private static final String QUESTION_LIBRARY = "question_library";
 
     // Common column names
     private static final String KEY_ID = "id";
@@ -43,6 +45,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String OPTION_D = "option_d";
     private static final String CORRECT_ANS = "correct_ans";
     private static final String STUDENT_ANS = "student_ans";
+    // column names
+    private static final String QUESTION_TITLE = "title";
+    private static final String QUESTION_DESC = "description";
 
     // Table Create Statements
     // QUESTION_BANK table create statement
@@ -57,6 +62,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "INTEGER," + QUESTION + " TEXT," + IMAGE + " TEXT," + OPTION_A + " TEXT," + OPTION_B + " TEXT," +
             OPTION_C + " TEXT," + OPTION_D + " TEXT," + CORRECT_ANS + " TEXT," + STUDENT_ANS + " TEXT" + ")";
 
+    // PRACTICE_QUESTION table create statement
+    private static final String CREATE_TABLE_QUESTION_LIBRARY = "CREATE TABLE IF NOT EXISTS "
+            + QUESTION_LIBRARY + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + IMAGE + " TEXT," +
+            QUESTION_TITLE + " TEXT," + QUESTION_DESC + " TEXT" + ")";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -68,6 +77,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // creating required tables
         db.execSQL(CREATE_TABLE_QUESTION_BANK);
         db.execSQL(CREATE_TABLE_PRACTICE_QUESTION);
+        db.execSQL(CREATE_TABLE_QUESTION_LIBRARY);
     }
 
     @Override
@@ -75,6 +85,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // on upgrade drop older tables
         db.execSQL("DROP TABLE IF EXISTS " + QUESTION_BANK);
         db.execSQL("DROP TABLE IF EXISTS " + PRACTICE_QUESTION);
+        db.execSQL("DROP TABLE IF EXISTS " + QUESTION_LIBRARY);
 
         // create new tables
         onCreate(db);
@@ -85,23 +96,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      *
      * @param questionBank data object
      */
-    public void insertQuestionBank(QuestionBank questionBank) {
+    private void insertQuestionBank(QuestionBank questionBank) {
 
-            SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
 
-            ContentValues values = new ContentValues();
-            values.put(QUESTION_ID, questionBank.getQuestionID());
-            values.put(COURSE_ID, questionBank.getCourseID());
-            values.put(QUESTION, questionBank.getQuestion());
-            values.put(IMAGE, questionBank.getImage());
-            values.put(OPTION_A, questionBank.getOptionA());
-            values.put(OPTION_B, questionBank.getOptionB());
-            values.put(OPTION_C, questionBank.getOptionC());
-            values.put(OPTION_D, questionBank.getOptionD());
-            values.put(CORRECT_ANS, questionBank.getCorrectAns());
+        ContentValues values = new ContentValues();
+        values.put(QUESTION_ID, questionBank.getQuestionID());
+        values.put(COURSE_ID, questionBank.getCourseID());
+        values.put(QUESTION, questionBank.getQuestion());
+        values.put(IMAGE, questionBank.getImage());
+        values.put(OPTION_A, questionBank.getOptionA());
+        values.put(OPTION_B, questionBank.getOptionB());
+        values.put(OPTION_C, questionBank.getOptionC());
+        values.put(OPTION_D, questionBank.getOptionD());
+        values.put(CORRECT_ANS, questionBank.getCorrectAns());
 
-            // insert row
-            db.insert(QUESTION_BANK, null, values);
+        // insert row
+        db.insert(QUESTION_BANK, null, values);
     }
 
     /**
@@ -112,8 +123,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void insertQuestionBank(List<QuestionBank> questionBank) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("delete from " + QUESTION_BANK);
-        for (int i = 0; i < questionBank.size(); i++) {
-            insertQuestionBank(questionBank.get(i));
+        for (QuestionBank aQuestionBank : questionBank) {
+            insertQuestionBank(aQuestionBank);
         }
     }
 
@@ -182,7 +193,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 questionBankArrayList.add(questionBank);
             } while (c.moveToNext());
         }
-
+        c.close();
         return questionBankArrayList;
     }
 
@@ -214,6 +225,65 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 new String[]{String.valueOf(id)});
     }
 
+    /**
+     * Insert data into question Library
+     *
+     * @param itemsLibrary list of questions to insert into library
+     */
+    public void insertQuestionsInLibrary(List<ItemsLibrary> itemsLibrary) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("delete from " + QUESTION_LIBRARY);
+        for (ItemsLibrary aItemsLibrary : itemsLibrary) {
+            fillQuestionLibrary(aItemsLibrary);
+        }
+    }
+
+    /**
+     * Insert data into question bank
+     *
+     * @param itemsLibrary data object
+     */
+    private void fillQuestionLibrary(ItemsLibrary itemsLibrary) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(IMAGE, itemsLibrary.getImage());
+        values.put(QUESTION_TITLE, itemsLibrary.getQuestionTitle());
+        values.put(QUESTION_DESC, itemsLibrary.getDescription());
+        // insert row
+        db.insert(QUESTION_LIBRARY, null, values);
+    }
+
+    /**
+     * Get Question list from the ItemsLibrary
+     *
+     * @return ItemsLibrary object list
+     */
+    public List<ItemsLibrary> getAllQuestionsFromLibrary() {
+        List<ItemsLibrary> itemsLibraryList = new ArrayList<ItemsLibrary>();
+        String selectQuery = "SELECT  * FROM " + QUESTION_LIBRARY;
+        Log.e(LOG, selectQuery);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                ItemsLibrary itemsLibrary = new ItemsLibrary();
+                //questionBank. setQuestionID(c.getInt(c.getColumnIndex(KEY_ID)));
+                itemsLibrary.setImage(cursor.getString(cursor.getColumnIndex(IMAGE)));
+                itemsLibrary.setQuestionTitle(cursor.getString(cursor.getColumnIndex(QUESTION_TITLE)));
+                itemsLibrary.setDescription(cursor.getString(cursor.getColumnIndex(QUESTION_DESC)));
+
+                // adding all the questions from library into the question list
+                itemsLibraryList.add(itemsLibrary);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return itemsLibraryList;
+    }
 
     // closing database
     public void closeDB() {
@@ -227,7 +297,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + QUESTION_BANK);
         db.execSQL("DROP TABLE IF EXISTS " + PRACTICE_QUESTION);
-
+        db.execSQL("DROP TABLE IF EXISTS " + QUESTION_LIBRARY);
     }
 }
 

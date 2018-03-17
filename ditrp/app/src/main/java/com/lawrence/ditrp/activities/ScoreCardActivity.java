@@ -20,15 +20,9 @@ import java.util.ArrayList;
 
 public class ScoreCardActivity extends AppCompatActivity implements View.OnClickListener {
 
-    int mExamTestNumber;
+    private int mExamTestNumber;
     private RelativeLayout mLayoutResult;
     private RelativeLayout mLayoutDisplayResult;
-    private TextView mTextResultStatus;
-    private TextView mTextResultInstruction;
-    private Button mButtonHome1;
-    private Button mButtonScorecard;
-    private Button mButtonHome2;
-    private Button mButtonTryAgain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,19 +37,22 @@ public class ScoreCardActivity extends AppCompatActivity implements View.OnClick
         mLayoutDisplayResult = (RelativeLayout) findViewById(R.id.layout_display_result);
         mLayoutDisplayResult.setVisibility(View.GONE);
 
-        mButtonHome1 = (Button) findViewById(R.id.button_home1);
+        Button mButtonHome1 = (Button) findViewById(R.id.button_home1);
         mButtonHome1.setOnClickListener(this);
-        mButtonHome2 = (Button) findViewById(R.id.button_home2);
+        Button mButtonHome2 = (Button) findViewById(R.id.button_home2);
         mButtonHome2.setOnClickListener(this);
-        mButtonScorecard = (Button) findViewById(R.id.button_score_card);
+        Button mButtonScorecard = (Button) findViewById(R.id.button_score_card);
         mButtonScorecard.setOnClickListener(this);
-        mButtonTryAgain = (Button) findViewById(R.id.button_try_again);
+        Button mButtonTryAgain = (Button) findViewById(R.id.button_try_again);
         mButtonTryAgain.setOnClickListener(this);
-        mTextResultStatus = (TextView) findViewById(R.id.text_result_state);
+        TextView mTextResultStatus = (TextView) findViewById(R.id.text_result_state);
+        TextView mTextResultInstruction = (TextView) findViewById(R.id.text_result_instruction);
         if (resultStatus) {
-            mTextResultStatus.setText("Passed!");
+            mTextResultStatus.setText(getString(R.string.passed_label));
+            mTextResultInstruction.setText(getString(R.string.result_passed_suggestion_label));
         } else {
-            mTextResultStatus.setText("Failed!");
+            mTextResultStatus.setText(getString(R.string.failed_label));
+            mTextResultInstruction.setText(getString(R.string.result_failed_suggestion_label));
         }
 
     }

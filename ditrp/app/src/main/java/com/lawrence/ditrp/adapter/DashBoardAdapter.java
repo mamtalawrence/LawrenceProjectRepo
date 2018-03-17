@@ -17,10 +17,10 @@ import java.util.List;
  * Created by mamta.lawrence on 11/8/2017.
  */
 
-public class DashBoardAdapter extends RecyclerView.Adapter<DashBoardViewHolder> {
+public class DashBoardAdapter extends RecyclerView.Adapter<CommonViewHolder> {
 
-    List<DashBoardData> list = Collections.emptyList();
-    Context context;
+    private List<DashBoardData> list = Collections.emptyList();
+    private Context context;
 
     public DashBoardAdapter(List<DashBoardData> list, Context context) {
         this.list = list;
@@ -28,16 +28,15 @@ public class DashBoardAdapter extends RecyclerView.Adapter<DashBoardViewHolder> 
     }
 
     @Override
-    public DashBoardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CommonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //Inflate the layout, initialize the View Holder
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.questions_row_layout, parent, false);
-        DashBoardViewHolder holder = new DashBoardViewHolder(v);
-        return holder;
+        return new CommonViewHolder(v);
 
     }
 
     @Override
-    public void onBindViewHolder(DashBoardViewHolder holder, int position) {
+    public void onBindViewHolder(CommonViewHolder holder, int position) {
         //Use the provided View Holder on the onCreateViewHolder method to populate the current row on the RecyclerView
         holder.mTitle.setText(list.get(position).title);
         holder.mDescription.setText(list.get(position).description);
@@ -57,6 +56,7 @@ public class DashBoardAdapter extends RecyclerView.Adapter<DashBoardViewHolder> 
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
     }
+
     // Insert a new item to the RecyclerView on a predefined position
     public void insert(int position, DashBoardData dashBoardData) {
         list.add(position, dashBoardData);

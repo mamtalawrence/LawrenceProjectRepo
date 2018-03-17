@@ -13,10 +13,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lawrence.ditrp.R;
-import com.lawrence.ditrp.dataModel.CustomSharedPreferences;
-import com.lawrence.ditrp.dataModel.QuestionBank;
-import com.lawrence.ditrp.dataModel.StudentCourse;
-import com.lawrence.ditrp.dataModel.StudentData;
+import com.lawrence.ditrp.dataModel.*;
 import com.lawrence.ditrp.db.DatabaseHelper;
 
 import java.lang.reflect.Type;
@@ -72,6 +69,36 @@ public class Utils {
         return qb;
     }
 
+    /**
+     * Save Questions library into question library DB
+     *
+     * @param context          context
+     * @param mItemsLibrary list object of ItemsLibrary
+     */
+    public static void saveItemsDetailInLibrary(Context context, List<ItemsLibrary> mItemsLibrary) {
+        DatabaseHelper databaseHelper = new DatabaseHelper(context);
+        databaseHelper.insertQuestionsInLibrary(mItemsLibrary);
+
+        // Don't forget to close database connection
+        databaseHelper.closeDB();
+    }
+
+    /**
+     * Getting questions from the Question Library from the database.
+     *
+     * @param context context
+     * @return question library list object
+     */
+    public static List<ItemsLibrary> getItemDetailsFromLibrary(Context context) {
+        DatabaseHelper databaseHelper = new DatabaseHelper(context);
+        List<ItemsLibrary> itemsLibraryList = databaseHelper.getAllQuestionsFromLibrary();
+
+        // Don't forget to close database connection
+        databaseHelper.closeDB();
+
+        return itemsLibraryList;
+    }
+
     public static void saveStudentData(Context mContext, CustomSharedPreferences sharedPreferences, StudentData
             studentData) {
         sharedPreferences = CustomSharedPreferences.getInstance(mContext);
@@ -89,12 +116,12 @@ public class Utils {
 
     public static void saveStudentCourseData(Context context, List<StudentCourse> studentCourses,
                                              CustomSharedPreferences sharedPreferences) {
-        for (int i = 0; i < studentCourses.size(); i++) {
-            insertCourse(context, sharedPreferences, studentCourses.get(i));
+        for (StudentCourse studentCourse : studentCourses) {
+            insertCourse(context, sharedPreferences, studentCourse);
         }
     }
 
-    public static void insertCourse(Context mContext, CustomSharedPreferences sharedPreferences, StudentCourse
+    private static void insertCourse(Context mContext, CustomSharedPreferences sharedPreferences, StudentCourse
             studentCourse) {
         sharedPreferences = CustomSharedPreferences.getInstance(mContext);
         sharedPreferences.saveStringData(CommandConstant.COURSE_ID, studentCourse.getCourseId());
@@ -111,9 +138,9 @@ public class Utils {
      * @param maxRange
      * @return list of random numbers
      */
-    public static ArrayList<Integer> getRandom60(int minRange, int maxRange) {
+    private static ArrayList<Integer> getRandom60(int minRange, int maxRange) {
 
-        ArrayList<Integer> random = new ArrayList();
+        ArrayList<Integer> random = new ArrayList<Integer>();
         for (int i = 0; i < 1000; i++) {
             int randomNum = ThreadLocalRandom.current().nextInt(minRange, maxRange + 1);
             if (!random.contains(randomNum)) {

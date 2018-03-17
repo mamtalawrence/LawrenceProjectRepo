@@ -10,7 +10,8 @@ public class CommandConstant {
     public static final String MODULE_LOGIN = "login";
     public static final String MODULE_REGISTER = "register";
     public static final String SERVER_URL = "http://cybexo.in/demo/app/WebService/server.php?";
-
+    public static final String MODULE_QUESTION_BANK = "question_bank";
+    public static final String QUESTION_LIBRARY_URL = "http://ditrpindia.com/app/WebService/static.php";
 
     // String Parsing Keys
     public static final String JSON_STATUS_KEY = "response_status";

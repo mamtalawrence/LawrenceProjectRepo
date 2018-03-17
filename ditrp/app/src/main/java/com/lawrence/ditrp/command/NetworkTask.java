@@ -6,7 +6,8 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.util.Log;
-import com.lawrence.ditrp.Constants.CommandConstant;
+import com.lawrence.ditrp.Enums.CommandType;
+import com.lawrence.ditrp.Enums.NetworkRequestType;
 import com.lawrence.ditrp.R;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,16 +20,18 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * Created by mamta.lawrence on 11/6/2017.
+ * Class to perform network related task.
  */
-public class NetworkTask extends AsyncTask<Void, Void, Void> {
+public class NetworkTask extends AsyncTask<String, Void, Void> {
 
     private ProgressDialog progressDialog;
     private APIRequestBuilder mApiRequestBuilder = null;
+    private CommandType mCommandType;
     private Context mContext;
 
-    NetworkTask(APIRequestBuilder apiRequestBuilder) {
-        this.mApiRequestBuilder = apiRequestBuilder;
+    NetworkTask(APIRequestBuilder apiRequestBuilder, CommandType requestType) {
+        mApiRequestBuilder = apiRequestBuilder;
+        mCommandType = requestType;
         mContext = mApiRequestBuilder.mContext;
     }
 
@@ -36,14 +39,18 @@ public class NetworkTask extends AsyncTask<Void, Void, Void> {
     protected void onPreExecute() {
         super.onPreExecute();
         progressDialog = new ProgressDialog(mContext, R.style.AppCompatAlertDialogStyle);
-        progressDialog.setMessage("Login...");
+        if (mCommandType == CommandType.LOGIN) {
+            progressDialog.setMessage("Login...");
+        } else {
+            progressDialog.setMessage("Fetching Data...");
+        }
         progressDialog.setCancelable(false);
         progressDialog.show();
     }
 
     @Override
-    protected Void doInBackground(Void... params) {
-        final String jsonString = sendPostRequestToConnectAPI();
+    protected Void doInBackground(String... url) {
+        final String jsonString = sendPostRequestToConnectLoginAPI(url[0]);
         if (!TextUtils.isEmpty(jsonString)) {
             Log.v("json response :-", jsonString + "");
             mApiRequestBuilder.mResponseListener.onSuccess(jsonString);
@@ -57,6 +64,7 @@ public class NetworkTask extends AsyncTask<Void, Void, Void> {
         if (progressDialog != null && progressDialog.isShowing()) {
             progressDialog.dismiss();
             progressDialog = null;
+            mApiRequestBuilder.mResponseListener.onComplete(true);
         }
     }
 
@@ -65,36 +73,44 @@ public class NetworkTask extends AsyncTask<Void, Void, Void> {
      *
      * @return response
      */
-    private String sendPostRequestToConnectAPI() {
+    private String sendPostRequestToConnectLoginAPI(String serverUrl) {
         String responseJsonData = null;
         HttpURLConnection urlConnection = null;
         try {
 
-            URL url = new URL(CommandConstant.SERVER_URL);
+            URL url = new URL(serverUrl);
 
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setReadTimeout(15000 /* milliseconds */);
             urlConnection.setConnectTimeout(15000 /* milliseconds */);
-            urlConnection.setRequestMethod("POST");
-            urlConnection.setRequestProperty("Accept", "application/json");
+            if (mCommandType == CommandType.LOGIN) {
+                urlConnection.setRequestMethod(NetworkRequestType.POST.toString());
+                urlConnection.setRequestProperty("Accept", "application/json");
+            } else if (mCommandType == CommandType.DATA_REQUEST) {
+                urlConnection.setRequestMethod(NetworkRequestType.GET.toString());
+                urlConnection.setRequestProperty("Content-length", "0");
+            }
+            urlConnection.setUseCaches(false);
+            urlConnection.setAllowUserInteraction(false);
             urlConnection.setDoInput(true);
             urlConnection.setDoOutput(true);
             urlConnection.connect();// setting the connection
 
-            //Writing data (bytes) to the data output stream
-            DataOutputStream dos = new DataOutputStream(urlConnection.getOutputStream());
-            // writing your data which you post
-            dos.writeBytes(getPostRequestQuery());
-            //flushes data output stream.
-            dos.flush();
-            dos.close();
-
+            if (mCommandType == CommandType.LOGIN) {
+                //Writing data (bytes) to the data output stream
+                DataOutputStream dos = new DataOutputStream(urlConnection.getOutputStream());
+                // writing your data which you post
+                dos.writeBytes(getPostRequestQuery());
+                //flushes data output stream.
+                dos.flush();
+                dos.close();
+            }
             int responseCode = urlConnection.getResponseCode();
             if (responseCode == HttpsURLConnection.HTTP_OK) {
                 // Getting input stream from the connection to reader the response from the buffer.
                 InputStreamReader inputStreamReader = new InputStreamReader(urlConnection.getInputStream());
                 BufferedReader inputBufferedReader = new BufferedReader(inputStreamReader);
-                String inputLine = "";
+                String inputLine;
                 StringBuilder response = new StringBuilder("");
                 // Read the response and append to string builder
                 while ((inputLine = inputBufferedReader.readLine()) != null) {

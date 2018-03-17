@@ -87,16 +87,16 @@ public class ExamPracticeTestActivity extends AppCompatActivity implements View.
         mViewPager.setPagingEnabled(false);
         mPracticeTestQuestionAdapter = new ExamPracticeQuestionAdapter(this, getPracticeSessionList());
         mViewPager.setAdapter(mPracticeTestQuestionAdapter);
-        //mViewPager.setCurrentItem(58, true);   //for testing only
+        mViewPager.setCurrentItem(58, true);   //for testing only
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @SuppressLint("DefaultLocale")
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 mQuestionCountView.setText(String.format("%d/60", position + 1));
                 if (position == 59) {
-                    mNextButton.setText("FINISHED");
+                    mNextButton.setText(getString(R.string.finish));
                 } else {
-                    mNextButton.setText("Next");
+                    mNextButton.setText(getString(R.string.next));
                 }
             }
 

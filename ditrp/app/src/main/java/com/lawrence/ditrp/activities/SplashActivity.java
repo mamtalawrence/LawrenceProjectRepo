@@ -24,7 +24,7 @@ public class SplashActivity extends AppCompatActivity {
                 if (customSharedPreferences.getBoolean(CommandConstant.IS_LOGIN_DONE)) {
                     i = new Intent(SplashActivity.this, DashBoardActivity.class);
                 } else {
-                    i = new Intent(SplashActivity.this, loginActivity.class);
+                    i = new Intent(SplashActivity.this, LoginActivity.class);
                 }
 
                 startActivity(i);

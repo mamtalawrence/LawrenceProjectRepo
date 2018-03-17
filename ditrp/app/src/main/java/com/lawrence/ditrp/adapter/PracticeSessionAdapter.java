@@ -12,7 +12,7 @@ import com.lawrence.ditrp.dataModel.DashBoardData;
  * Created by mamta.lawrence on 11/8/2017.
  */
 
-public class PracticeSessionAdapter extends RecyclerView.Adapter<DashBoardViewHolder> {
+public class PracticeSessionAdapter extends RecyclerView.Adapter<CommonViewHolder> {
 
     Context context;
 
@@ -21,16 +21,16 @@ public class PracticeSessionAdapter extends RecyclerView.Adapter<DashBoardViewHo
     }
 
     @Override
-    public DashBoardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CommonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //Inflate the layout, initialize the View Holder
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.questions_row_layout, parent, false);
-        DashBoardViewHolder holder = new DashBoardViewHolder(v);
+        CommonViewHolder holder = new CommonViewHolder(v);
         return holder;
 
     }
 
     @Override
-    public void onBindViewHolder(DashBoardViewHolder holder, int position) {
+    public void onBindViewHolder(CommonViewHolder holder, int position) {
         //Use the provided View Holder on the onCreateViewHolder method to populate the current row on the RecyclerView
         holder.mTitle.setText("Session " + (position + 1));
         holder.mDescription.setText("60 Questions click here to start");

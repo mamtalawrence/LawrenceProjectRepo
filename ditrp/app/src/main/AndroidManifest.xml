@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".activities.loginActivity"
+                android:name=".activities.LoginActivity"
                 android:theme="@style/Theme.AppCompat.Light.NoActionBar"
                 android:windowSoftInputMode="adjustNothing"/>
         <activity android:name=".activities.DashBoardActivity"/>

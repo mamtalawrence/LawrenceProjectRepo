@@ -9,7 +9,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="15dp"
-            android:background="@android:color/white">
+            android:background="@android:color/white"
+    android:visibility="gone">
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -67,16 +68,14 @@
                     android:layout_height="match_parent"
                     android:background="@android:drawable/screen_background_light_transparent"
                     android:layout_margin="5dp"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                         android:id="@+id/layout_question"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_above="@+id/layout_footer"
-                        android:background="@android:drawable/screen_background_light_transparent"
-                        android:layout_margin="10dp"
-                        android:padding="15dp">
+                        android:background="@android:drawable/screen_background_light_transparent">
             <include android:layout_width="match_parent"
                      android:layout_height="match_parent"
                      layout="@layout/common_recycler_view_layout"/>

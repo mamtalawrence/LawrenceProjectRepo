@@ -46,12 +46,12 @@ public class APIRequestBuilder {
     }
 
     public static class Builder {
+        public Context mContext;
+        public ResponseListener mResponseListener;
         private String mCommandName = null;
         private String mURL = null;
         private String mUserName = null;
         private String mPassword = null;
-        public Context mContext;
-        public ResponseListener mResponseListener;
 
         public Builder() {
 

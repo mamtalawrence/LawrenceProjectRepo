@@ -10,14 +10,14 @@ import com.lawrence.ditrp.R;
 /**
  * Created by mamta.lawrence on 11/8/2017.
  */
-public class DashBoardViewHolder extends RecyclerView.ViewHolder {
+public class CommonViewHolder extends RecyclerView.ViewHolder {
 
     CardView mCardView;
     TextView mTitle;
     TextView mDescription;
     ImageView mLogo;
 
-    DashBoardViewHolder(View itemView) {
+    CommonViewHolder(View itemView) {
         super(itemView);
         mCardView = (CardView) itemView.findViewById(R.id.cardView);
         mTitle = (TextView) itemView.findViewById(R.id.title);

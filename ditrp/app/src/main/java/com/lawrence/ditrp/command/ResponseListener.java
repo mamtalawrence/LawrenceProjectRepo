@@ -9,7 +9,7 @@ public interface ResponseListener {
     /**
      * This method will be invoked if API request is Success.
      *
-     * @param response
+     * @param response success reponse
      */
     void onSuccess(String response);
 
@@ -19,5 +19,12 @@ public interface ResponseListener {
      * @param e Can be either Network or API.
      */
     void onError(Exception e);
+
+    /**
+     * Invoked when API request completed after doing all the sever related tasks.
+     *
+     * @param status completed status
+     */
+    void onComplete(boolean status);
 
 }

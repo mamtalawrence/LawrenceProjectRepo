@@ -23,11 +23,19 @@
         are required to be answered correctly to qualify the test. \n\n 3. 30 seconds are allowed to answer each
         questions.
     </string>
+    <string name="passed_label">Passed!</string>
+    <string name="failed_label">Failed!</string>
     <string name="result_failed_suggestion_label">Sorry, you have failed in this test.\n We would suggest you to
         refer question bank and try again.
+    </string>
+    <string name="result_passed_suggestion_label">Congratulations, you have Passed in this test.\n We would suggest you
+        to refer question bank to grab more knowledge.
     </string>
     <string name="previous">Previous</string>
     <string name="next">Next</string>
     <string name="home">HOME</string>
+    <string name="finish">FINISHED</string>
+    <string name="question_bank_tab1">QUESTIONS</string>
+    <string name="question_bank_tab2">ITEM DETAILS</string>
 
 </resources>

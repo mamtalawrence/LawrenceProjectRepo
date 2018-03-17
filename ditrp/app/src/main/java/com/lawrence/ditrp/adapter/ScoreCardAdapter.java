@@ -13,11 +13,12 @@ import com.lawrence.ditrp.dataModel.QuestionBank;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 public class ScoreCardAdapter extends RecyclerView.Adapter<ScoreCardViewHolder> {
 
-    List<QuestionBank> list = Collections.emptyList();
-    Context context;
+    private List<QuestionBank> list = Collections.emptyList();
+    private Context context;
 
     public ScoreCardAdapter(List<QuestionBank> list, Context context) {
         this.list = list;
@@ -35,16 +36,17 @@ public class ScoreCardAdapter extends RecyclerView.Adapter<ScoreCardViewHolder> 
     @Override
     public void onBindViewHolder(ScoreCardViewHolder holder, int position) {
         //Use the provided View Holder on the onCreateViewHolder method to populate the current row on the RecyclerView
-        String expectedAnswer = list.get(position).getCorrectAns();
-        String actualAnswer = list.get(position).getStudentAns();
-        holder.mViewQuestion.setText(String.format("Q. %s", list.get(position).getQuestion()));
-        if(!TextUtils.isEmpty(actualAnswer)) {
+        String expectedAnswer = getExpectedAndActualAnswer(position, true);
+        String actualAnswer = getExpectedAndActualAnswer(position, false);;
+        holder.mViewQuestion.setText(String.format(Locale.ENGLISH, "Q%d. %s", position + 1, list.get(position)
+                .getQuestion()));
+        if (!TextUtils.isEmpty(actualAnswer)) {
             holder.mViewActualAnswer.setText(String.format("Your answer: %s", actualAnswer));
-        }else{
+        } else {
             holder.mViewActualAnswer.setText(String.format("Your answer: %s", "No answer selected"));
         }
         holder.mViewExpectedAnswer.setText(String.format("Right answer: %s", expectedAnswer));
-        if (!TextUtils.isEmpty(actualAnswer)&& actualAnswer.equalsIgnoreCase(expectedAnswer)) {
+        if (!TextUtils.isEmpty(actualAnswer) && actualAnswer.equalsIgnoreCase(expectedAnswer)) {
             holder.mImageViewAnswerState.setImageResource(R.drawable.tick);
             holder.mViewActualAnswer.setTextColor(Color.parseColor("#badc52"));
             holder.mViewActualAnswer.setTextColor(R.color.color_green_light);
@@ -70,5 +72,33 @@ public class ScoreCardAdapter extends RecyclerView.Adapter<ScoreCardViewHolder> 
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
+    }
+
+    /**
+     * Getting the right answer details
+     *
+     * @param questionIndex index of question
+     * @return answer
+     */
+    private String getExpectedAndActualAnswer(int questionIndex, boolean shouldGetExpectedAnswer) {
+        String answers;
+        if (shouldGetExpectedAnswer) {
+            answers = list.get(questionIndex).getCorrectAns();
+        } else {
+            answers = list.get(questionIndex).getStudentAns();
+        }
+        String description = null;
+        if (!TextUtils.isEmpty(answers)) {
+            if (answers.equalsIgnoreCase("option_a")) {
+                description = list.get(questionIndex).getOptionA();
+            } else if (answers.equalsIgnoreCase("option_b")) {
+                description = list.get(questionIndex).getOptionB();
+            } else if (answers.equalsIgnoreCase("option_c")) {
+                description = list.get(questionIndex).getOptionC();
+            } else if (answers.equalsIgnoreCase("option_d")) {
+                description = list.get(questionIndex).getOptionD();
+            }
+        }
+        return description;
     }
 }

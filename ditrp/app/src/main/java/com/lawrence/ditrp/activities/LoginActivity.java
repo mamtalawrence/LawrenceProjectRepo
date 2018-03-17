@@ -7,12 +7,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import com.lawrence.ditrp.Enums.CommandType;
 import com.lawrence.ditrp.R;
 import com.lawrence.ditrp.command.Command;
 import com.lawrence.ditrp.command.LoginCommand;
 import com.lawrence.ditrp.command.WebCallCommand;
 
-public class loginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     private EditText mUserNameEditText, mPasswordEditText;
     private Button mLoginButton;
@@ -52,7 +53,7 @@ public class loginActivity extends AppCompatActivity {
             Command loginCommand = new LoginCommand(this, userName, password);
             //login
             control.setCommand(loginCommand);
-            control.executeCommand();
+            control.executeCommand(CommandType.LOGIN);
         } else {
             Toast.makeText(this, "Please enter user name and password", Toast.LENGTH_SHORT).show();
         }
