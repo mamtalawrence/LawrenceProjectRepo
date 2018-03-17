@@ -11,7 +11,10 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import com.lawrence.ditrp.Constants.Utils;
 import com.lawrence.ditrp.R;
 import com.lawrence.ditrp.adapter.ExamPracticeQuestionAdapter;
@@ -33,6 +36,12 @@ public class ExamPracticeTestActivity extends AppCompatActivity implements View.
         IExamSessionNavigationHandler {
 
     private static final String TAG = ExamPracticeTestActivity.class.getSimpleName();
+    //Declare a variable to hold CountDownTimer milli seconds in future time
+    private long MILLISECONDS_IN_FUTURE = 30000; //30 seconds
+    //Declare a variable to hold CountDownTimer interval time
+    private long COUNTDOWN_INTERVAL = 1000; //1 second
+    //Declare a variable to hold CountDownTimer remaining time
+    private long TIME_REMAINING = 0;
     private NonSwappableViewPager mViewPager;
     private Button mNextButton;
     private Button mPreviousButton;
@@ -40,15 +49,23 @@ public class ExamPracticeTestActivity extends AppCompatActivity implements View.
     private ExamPracticeQuestionAdapter mPracticeTestQuestionAdapter;
     private RelativeLayout mLayoutInstruction;
     private RelativeLayout mLayoutQuestions;
-    private Button mStartButton;
     // Holds timer instance
     private CountDownTimer mTimer = null;
     private TextView mQuestionCountView;
     private View mTimerLayout;
     private TextView mTimerView;
-    private LinearLayout mLayoutAnswerCount;
     private TextView mCorrectAnswerCount;
     private TextView mInCorrectAnswerCount;
+    //Declare a variable to hold count down timer's paused status
+    private boolean isPaused = false;
+    private boolean isStartExam = false;
+    private Handler mTimerHandler = null;
+    private Runnable mTimerRunnable = new Runnable() {
+        @Override
+        public void run() {
+            mTimerView.setText("0 s");
+        }
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,12 +80,14 @@ public class ExamPracticeTestActivity extends AppCompatActivity implements View.
         mLayoutInstruction.setVisibility(View.VISIBLE);
         mLayoutQuestions = (RelativeLayout) findViewById(R.id.layout_questions);
         mLayoutQuestions.setVisibility(View.INVISIBLE);
-        mStartButton = (Button) findViewById(R.id.button_getStarted);
-        mStartButton.setOnClickListener(new View.OnClickListener() {
+        Button startButton = (Button) findViewById(R.id.button_getStarted);
+        startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mLayoutInstruction.setVisibility(View.INVISIBLE);
                 mLayoutQuestions.setVisibility(View.VISIBLE);
+                isPaused = false;
+                isStartExam = true;
                 startTimer();
             }
         });
@@ -78,8 +97,8 @@ public class ExamPracticeTestActivity extends AppCompatActivity implements View.
         mNextButton = (Button) findViewById(R.id.button_next);
         mNextButton.setOnClickListener(this);
         updatePreviousButtonStatus(false);
-        mLayoutAnswerCount = (LinearLayout) findViewById(R.id.layout_answer_count);
-        mLayoutAnswerCount.setVisibility(View.VISIBLE);
+        LinearLayout layoutAnswerCount = (LinearLayout) findViewById(R.id.layout_answer_count);
+        layoutAnswerCount.setVisibility(View.VISIBLE);
         mCorrectAnswerCount = (TextView) findViewById(R.id.correct_answer_count);
         mInCorrectAnswerCount = (TextView) findViewById(R.id.wrong_answer_count);
 
@@ -146,7 +165,10 @@ public class ExamPracticeTestActivity extends AppCompatActivity implements View.
                 break;
             case R.id.button_next:
                 if (isAnswerSelected()) {
+                    isPaused = false;
                     handleNavigationOnNext();
+                } else {
+                    Utils.showToast(this, getString(R.string.no_selection_error_message), false);
                 }
                 break;
         }
@@ -166,27 +188,29 @@ public class ExamPracticeTestActivity extends AppCompatActivity implements View.
         mTimerLayout.setVisibility(View.VISIBLE);
         mTimerView.setVisibility(View.VISIBLE);
         mQuestionCountView.setVisibility(View.VISIBLE);
-        mTimer = new CountDownTimer(30000, 1000) {
-            public void onTick(long millisUntilFinished) {
-                long sec = (TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
-                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)));
-
+        mTimer = new CountDownTimer(MILLISECONDS_IN_FUTURE, COUNTDOWN_INTERVAL) {
+            public void onTick(long MILLISECONDS_IN_FUTURE) {
+                long sec = (TimeUnit.MILLISECONDS.toSeconds(MILLISECONDS_IN_FUTURE) -
+                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(MILLISECONDS_IN_FUTURE)));
+                TIME_REMAINING = MILLISECONDS_IN_FUTURE;
                 Log.e(TAG, "onTick: " + sec);
                 mTimerView.setText(String.format(Locale.ENGLISH, "%02d s", sec));
                 if (sec <= 5) {
                     mTimerView.setTextColor(Color.RED);
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            mTimerView.setText("0 s");
-                        }
-                    }, 5000);
+                    if (mTimerHandler == null) {
+                        mTimerHandler = new Handler();
+                        mTimerHandler.postDelayed(mTimerRunnable, 5000);
+                    }
                 } else {
                     mTimerView.setTextColor(Color.BLACK);
                 }
             }
 
             public void onFinish() {
+                if (mTimerHandler != null) {
+                    mTimerHandler.removeCallbacks(mTimerRunnable);
+                    mTimerHandler = null;
+                }
                 handleNavigationOnNext();
             }
         };
@@ -203,6 +227,8 @@ public class ExamPracticeTestActivity extends AppCompatActivity implements View.
 
     @Override
     public void handleNavigationOnNext() {
+        MILLISECONDS_IN_FUTURE = 30000;
+        TIME_REMAINING = 0;
         updatePreviousButtonStatus(false);
         cancelTimer();
         updateAnswerCount();
@@ -231,28 +257,49 @@ public class ExamPracticeTestActivity extends AppCompatActivity implements View.
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        //Specify the current state is not paused and canceled.
+        if (isPaused && isStartExam) {
+            isPaused = false;
+            startTimer();
+        }
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
+        //When user request to pause the CountDownTimer
+        isPaused = true;
+        //Initialize a new CountDownTimer instance
+        MILLISECONDS_IN_FUTURE = TIME_REMAINING;
+        COUNTDOWN_INTERVAL = 1000;
         cancelTimer();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        isPaused = false;
+        isStartExam = false;
+        TIME_REMAINING = 0;
+        MILLISECONDS_IN_FUTURE = 30000;
         cancelTimer();
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        this.finish();
     }
 
-    private void calculateResult(){
+    private void calculateResult() {
         int totalQuestions = mPracticeTestQuestionAdapter.getCount();
         int totalCorrectAnswers = mPracticeTestQuestionAdapter.getNumberOfCorrectAnswer();
-        double percentage = (totalCorrectAnswers * 100)/totalQuestions;
+        double percentage = (totalCorrectAnswers * 100) / totalQuestions;
         notifyToShowScoreCard(!(percentage < 40));
     }
+
     /**
      * Notify to start practice session tests
      *

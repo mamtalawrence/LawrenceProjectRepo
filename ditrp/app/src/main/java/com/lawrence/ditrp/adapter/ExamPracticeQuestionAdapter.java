@@ -12,6 +12,7 @@ import com.lawrence.ditrp.R;
 import com.lawrence.ditrp.dataModel.QuestionBank;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Anagha.Mahajan on 10-Nov-17.
@@ -40,8 +41,8 @@ public class ExamPracticeQuestionAdapter extends PagerAdapter {
         viewHolder.mOptionView3 = itemView.findViewById(R.id.view3);
         viewHolder.mOptionView4 = itemView.findViewById(R.id.view4);
         viewHolder.mQuestionTextView = (TextView) itemView.findViewById(R.id.text_question);
-        viewHolder.mQuestionTextView.setText(String.format("Q. %s", mQuestionBanksObjectList.get(position)
-                .getQuestion()));
+        viewHolder.mQuestionTextView.setText(String.format(Locale.ENGLISH, "Q%d. %s", position + 1,
+                mQuestionBanksObjectList.get(position).getQuestion()));
 
         viewHolder.mOptionTextViewA = (TextView) itemView.findViewById(R.id.text_answer_a);
         viewHolder.mOptionTextViewA.setText(String.format("A. %s", mQuestionBanksObjectList.get(position).getOptionA

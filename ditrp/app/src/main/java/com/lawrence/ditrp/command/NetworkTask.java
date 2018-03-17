@@ -22,13 +22,13 @@ import java.net.URL;
 /**
  * Class to perform network related task.
  */
-public class NetworkTask extends AsyncTask<String, Void, Void> {
+public class NetworkTask extends AsyncTask<String, Void, Boolean> {
 
     private ProgressDialog progressDialog;
     private APIRequestBuilder mApiRequestBuilder = null;
     private CommandType mCommandType;
     private Context mContext;
-
+    private boolean isSuccess;
     NetworkTask(APIRequestBuilder apiRequestBuilder, CommandType requestType) {
         mApiRequestBuilder = apiRequestBuilder;
         mCommandType = requestType;
@@ -49,22 +49,33 @@ public class NetworkTask extends AsyncTask<String, Void, Void> {
     }
 
     @Override
-    protected Void doInBackground(String... url) {
+    protected Boolean doInBackground(String... url) {
         final String jsonString = sendPostRequestToConnectLoginAPI(url[0]);
+        if(mCommandType == CommandType.LOGIN){
+            try {
+                JSONObject responseObject = new JSONObject(jsonString);
+                String status = responseObject.get("success").toString();
+                if (!TextUtils.isEmpty(status)) {
+                    isSuccess = status.equalsIgnoreCase("true");
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
         if (!TextUtils.isEmpty(jsonString)) {
             Log.v("json response :-", jsonString + "");
             mApiRequestBuilder.mResponseListener.onSuccess(jsonString);
         }
-        return null;
+        return isSuccess;
     }
 
     @Override
-    protected void onPostExecute(Void result) {
+    protected void onPostExecute(Boolean result) {
         super.onPostExecute(result);
         if (progressDialog != null && progressDialog.isShowing()) {
             progressDialog.dismiss();
             progressDialog = null;
-            mApiRequestBuilder.mResponseListener.onComplete(true);
+            mApiRequestBuilder.mResponseListener.onComplete(result);
         }
     }
 

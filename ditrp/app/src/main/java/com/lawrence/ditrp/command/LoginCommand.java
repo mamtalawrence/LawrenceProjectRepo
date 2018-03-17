@@ -49,7 +49,7 @@ public class LoginCommand implements Command {
                     showDashBoardActivity();
                 } else {
                     // fail handling
-                    Utils.showToast(mContext, "Sorry, could not connect to server.\nPlease try again later!");
+                    Utils.showToast(mContext, "Sorry, could not connect to server.\nPlease try again later!", false);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -58,7 +58,7 @@ public class LoginCommand implements Command {
 
         @Override
         public void onError(Exception e) {
-            Utils.showToast(mContext, e.getMessage());
+            Utils.showToast(mContext, e.getMessage(), false);
         }
 
         @Override
@@ -77,7 +77,7 @@ public class LoginCommand implements Command {
                 jsonBodyObject = new JSONObject(response);
                 if (jsonBodyObject.get("success").toString().equalsIgnoreCase("true")) {
                     // json parsing
-                    Utils.showToast(mContext, jsonBodyObject.get("message").toString());
+                    Utils.showToast(mContext, jsonBodyObject.get("message").toString(), true);
                     Gson gson = new Gson();
                     StudentData studentData = gson.fromJson(jsonBodyObject.get("data").toString(), StudentData.class);
                     Utils.saveStudentData(mContext, CustomSharedPreferences.getInstance(mContext), studentData);
@@ -88,7 +88,7 @@ public class LoginCommand implements Command {
                 } else {
                     // fail handling
                     Utils.showToast(mContext, ((JSONObject) jsonBodyObject.get("errors")).get
-                            ("message").toString());
+                            ("message").toString(), false);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -97,7 +97,7 @@ public class LoginCommand implements Command {
 
         @Override
         public void onError(Exception e) {
-            Utils.showToast(mContext, e.getMessage());
+            Utils.showToast(mContext, e.getMessage(), false);
         }
 
         @Override

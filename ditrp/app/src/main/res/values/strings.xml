@@ -15,11 +15,12 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
+    <string name="incorrect_credentials">Incorrect username or password!</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
     <string name="instruction_label">Instructions</string>
     <string name="instructions_desc">1. 60 questions are asked in the test at random, out of which 40
         questions
-        are required to be answered correctly to qualify the test. \n\n 3. 30 seconds are allowed to answer each
+        are required to be answered correctly to qualify the test. \n\n 2. 30 seconds are allowed to answer each
         questions.
     </string>
     <string name="passed_label">Passed!</string>
@@ -30,6 +31,7 @@
     <string name="result_passed_suggestion_label">Congratulations, you have Passed in this test.\n We would suggest you
         to refer question bank to grab more knowledge.
     </string>
+    <string name="no_selection_error_message">Please select one option.</string>
     <string name="previous">Previous</string>
     <string name="next">Next</string>
     <string name="home">HOME</string>
@@ -47,5 +49,8 @@
     <string name="description">Description</string>
     <string name="failed">Failed!</string>
     <string name="try_again">Try Again</string>
+    <!-- Strings related to network connectivity-->
+    <string name="no_network">No internet connection!</string>
+    <string name="retry">RETRY</string>
 
 </resources>

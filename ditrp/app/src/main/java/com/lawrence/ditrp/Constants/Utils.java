@@ -2,14 +2,16 @@ package com.lawrence.ditrp.Constants;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.net.ConnectivityManager;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lawrence.ditrp.R;
@@ -30,16 +32,34 @@ public class Utils {
 
     private View mActionBarView;
 
+    public static boolean isNetworkAvailable(Context context) {
+        final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context
+                .CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo()
+                .isConnected();
+    }
+
     /**
      * Method to show toast using UI thread
      *
      * @param msgString message which needs to be display
      */
-    public static void showToast(final Context context, final String msgString) {
+    public static void showToast(final Context context, final String msgString, final boolean isSuccess) {
         ((Activity) context).runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(context, msgString, Toast.LENGTH_SHORT).show();
+                Snackbar snackbar = Snackbar.make(((Activity) context).findViewById(R.id.coordinatorLayout)
+                        , msgString, Snackbar.LENGTH_LONG);
+                // Changing action button text color
+                View sbView = snackbar.getView();
+                if (isSuccess) {
+                    sbView.setBackgroundColor(Color.GREEN);
+                } else {
+                    sbView.setBackgroundColor(Color.RED);
+                }
+                TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                textView.setTextColor(Color.WHITE);
+                snackbar.show();
             }
         });
     }
@@ -72,7 +92,7 @@ public class Utils {
     /**
      * Save Questions library into question library DB
      *
-     * @param context          context
+     * @param context       context
      * @param mItemsLibrary list object of ItemsLibrary
      */
     public static void saveItemsDetailInLibrary(Context context, List<ItemsLibrary> mItemsLibrary) {
