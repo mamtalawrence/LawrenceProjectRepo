@@ -3,6 +3,7 @@ package com.lawrence.ditrp.adapter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +40,9 @@ public class AllQuestionsCardAdapter extends RecyclerView.Adapter<CommonViewHold
         holder.mLogo.setVisibility(View.GONE);
         holder.mTitle.setText(String.format(Locale.ENGLISH, "Q%d. %s", position + 1, list.get(position)
                 .getQuestion()));
+        holder.mTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
         holder.mDescription.setText(String.format("A: %s", expectedAnswer));
+        holder.mDescription.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
         //animation
         holder.mCardView.setAnimation(AnimationUtils.loadAnimation(context, R.anim.zoom_in));
     }
