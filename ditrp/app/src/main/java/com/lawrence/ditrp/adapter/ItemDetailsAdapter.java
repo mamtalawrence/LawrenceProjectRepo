@@ -42,7 +42,7 @@ public class ItemDetailsAdapter extends RecyclerView.Adapter<ItemDetailsViewHold
                     .into(holder.mImageViewItem);
         }else{
             Picasso.with(context)
-                    .load(R.drawable.app_logo)
+                    .load(android.R.drawable.ic_menu_gallery)
                     .into(holder.mImageViewItem);
         }
         String title = list.get(position).getQuestionTitle();

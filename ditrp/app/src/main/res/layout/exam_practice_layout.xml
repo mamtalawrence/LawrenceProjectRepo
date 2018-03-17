@@ -15,7 +15,7 @@
                 android:text="@string/instruction_label"
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
-                android:textSize="24sp"/>s
+                android:textSize="24sp"/>
         <TextView
                 android:layout_below="@+id/text_instructions"
                 android:layout_width="match_parent"
@@ -29,7 +29,7 @@
                 android:id="@+id/button_getStarted"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="Start Exam"
+                android:text="@string/start_exam"
                 android:textColor="@android:color/white"
                 android:background="@color/colorPrimaryDark"
                 android:visibility="visible"

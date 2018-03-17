@@ -21,7 +21,7 @@
                 android:layout_weight="1"/>
         <TextView android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:text="2/60"
+                  android:text="@string/_2_60"
                   android:id="@+id/action_bar_question_count"
                   android:layout_gravity="center_vertical"
                   android:textColor="@android:color/white"
@@ -45,7 +45,7 @@
                       android:layout_gravity="center_vertical"
                       android:gravity="center"
                       android:layout_marginStart="5dp"
-                      android:text="30 s"
+                      android:text="@string/_30_s"
                       android:textColor="@android:color/white"
                       android:visibility="visible"
                       android:textSize="14sp"/>

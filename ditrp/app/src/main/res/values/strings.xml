@@ -17,8 +17,7 @@
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
     <string name="instruction_label">Instructions</string>
-    <string name="instructions_desc">1. Subjects like Rules and Regulations of the traffic, and traffic
-        signage\'s are included in the test. \n\n 2. 60 questions are asked in the test at random, out of which 40
+    <string name="instructions_desc">1. 60 questions are asked in the test at random, out of which 40
         questions
         are required to be answered correctly to qualify the test. \n\n 3. 30 seconds are allowed to answer each
         questions.
@@ -37,5 +36,16 @@
     <string name="finish">FINISHED</string>
     <string name="question_bank_tab1">QUESTIONS</string>
     <string name="question_bank_tab2">ITEM DETAILS</string>
+    <string name="log_in">Log In</string>
+    <string name="temp_user_name">17P6933</string>
+    <string name="temp_pwd">YWDLTVNS</string>
+    <string name="login">Login</string>
+    <string name="_30_s">30 s</string>
+    <string name="_2_60">2/60</string>
+    <string name="start_exam">Start Exam</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="failed">Failed!</string>
+    <string name="try_again">Try Again</string>
 
 </resources>
