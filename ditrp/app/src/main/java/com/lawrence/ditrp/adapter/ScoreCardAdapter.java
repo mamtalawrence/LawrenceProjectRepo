@@ -2,6 +2,7 @@ package com.lawrence.ditrp.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -48,14 +49,14 @@ public class ScoreCardAdapter extends RecyclerView.Adapter<ScoreCardViewHolder> 
         holder.mViewExpectedAnswer.setText(String.format("Right answer: %s", expectedAnswer));
         if (!TextUtils.isEmpty(actualAnswer) && actualAnswer.equalsIgnoreCase(expectedAnswer)) {
             holder.mImageViewAnswerState.setImageResource(R.drawable.tick);
-            holder.mViewActualAnswer.setTextColor(Color.parseColor("#badc52"));
-            holder.mViewActualAnswer.setTextColor(R.color.color_green_light);
+            holder.mImageViewAnswerState.setColorFilter(holder.mImageViewAnswerState.getContext().getResources()
+                    .getColor(R.color.color_green_light), PorterDuff.Mode.SRC_ATOP);
             holder.mViewExpectedAnswer.setVisibility(View.INVISIBLE);
         } else {
             holder.mImageViewAnswerState.setImageResource(R.drawable.wrong);
+            holder.mImageViewAnswerState.setColorFilter(holder.mImageViewAnswerState.getContext().getResources()
+                    .getColor(R.color.color_red_light), PorterDuff.Mode.SRC_ATOP);
             holder.mViewActualAnswer.setTextColor(Color.BLACK);
-            holder.mViewExpectedAnswer.setTextColor(Color.parseColor("#badc52"));
-            holder.mViewExpectedAnswer.setTextColor(R.color.color_green_light);
             holder.mViewExpectedAnswer.setVisibility(View.VISIBLE);
         }
 
