@@ -74,7 +74,7 @@ public class DashBoardActivity extends AppCompatActivity {
         dashBoardData.add(new DashBoardData(getResources().getString(R.string.exam_practice_name),
                 getString(R.string.exam_desc), R.drawable.exam));
         dashBoardData.add(new DashBoardData(getResources().getString(R.string.title_activity_settings),
-                getString(R.string.info_more), R.drawable.setting));
+                getString(R.string.info_more), R.drawable.profile));
         return dashBoardData;
     }
 }

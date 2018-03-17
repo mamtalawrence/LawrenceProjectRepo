@@ -15,7 +15,11 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lawrence.ditrp.R;
-import com.lawrence.ditrp.dataModel.*;
+import com.lawrence.ditrp.dataModel.CustomSharedPreferences;
+import com.lawrence.ditrp.dataModel.ItemsLibrary;
+import com.lawrence.ditrp.dataModel.QuestionBank;
+import com.lawrence.ditrp.dataModel.StudentCourse;
+import com.lawrence.ditrp.dataModel.StudentData;
 import com.lawrence.ditrp.db.DatabaseHelper;
 
 import java.lang.reflect.Type;
@@ -122,16 +126,34 @@ public class Utils {
     public static void saveStudentData(Context mContext, CustomSharedPreferences sharedPreferences, StudentData
             studentData) {
         sharedPreferences = CustomSharedPreferences.getInstance(mContext);
-        sharedPreferences.saveStringData(CommandConstant.STD_ID, studentData.getStudentID());
-        sharedPreferences.saveStringData(CommandConstant.STD_FIRST_NAME, studentData.getStudentFirstName());
-        sharedPreferences.saveStringData(CommandConstant.STD_MIDDLE_NAME, studentData.getStudentMiddleName());
-        sharedPreferences.saveStringData(CommandConstant.STD_LAST_NAME, studentData.getStudentLastName());
-        sharedPreferences.saveStringData(CommandConstant.STD_GENDER, studentData.getStudentGender());
-        sharedPreferences.saveStringData(CommandConstant.STD_EMAIL, studentData.getStudentEmail());
-        sharedPreferences.saveStringData(CommandConstant.STD_CODE, studentData.getStudentCode());
-        sharedPreferences.saveStringData(CommandConstant.STD_DOB, studentData.getStudentDOB());
-        sharedPreferences.saveStringData(CommandConstant.STD_MOBILE_NO, studentData.getStudentMobileNo());
-        sharedPreferences.saveStringData(CommandConstant.STD_INSTITUTE_NAME, studentData.getInstituteName());
+        sharedPreferences.saveStringData(CommandConstant.STD_ID, studentData.getSTUDENTID());
+        sharedPreferences.saveStringData(CommandConstant.STD_FIRST_NAME, studentData.getSTUDENTFNAME());
+        sharedPreferences.saveStringData(CommandConstant.STD_MIDDLE_NAME, studentData.getSTUDENTMNAME());
+        sharedPreferences.saveStringData(CommandConstant.STD_LAST_NAME, studentData.getSTUDENTLNAME());
+        sharedPreferences.saveStringData(CommandConstant.STD_GENDER, studentData.getSTUDENTGENDER());
+        sharedPreferences.saveStringData(CommandConstant.STD_EMAIL, studentData.getSTUDENTEMAIL());
+        sharedPreferences.saveStringData(CommandConstant.STD_CODE, studentData.getSTUDENTCODE());
+        sharedPreferences.saveStringData(CommandConstant.STD_DOB, studentData.getSTUDENTDOB());
+        sharedPreferences.saveStringData(CommandConstant.STD_MOBILE_NO, studentData.getSTUDENTMOBILE());
+        sharedPreferences.saveStringData(CommandConstant.STD_INSTITUTE_NAME, studentData.getINSTITUTENAME());
+        sharedPreferences.saveStringData(CommandConstant.INSTITUTE_ADDRESS, getFullAddress(studentData));
+    }
+
+    private static String getFullAddress(StudentData studentData) {
+        String address = "";
+        if (!studentData.getINSTITUTEADDRESS().isEmpty()) {
+            address = studentData.getINSTITUTEADDRESS();
+        }
+        if (!studentData.getINSTITUTECITY().isEmpty()) {
+            address = address + ", " + studentData.getINSTITUTECITY();
+        }
+        if (!studentData.getINSTITUTESTATE().isEmpty()) {
+            address = address + ", " + studentData.getINSTITUTESTATE();
+        }
+        if (!studentData.getINSTITUTEPOSTCODE().isEmpty()) {
+            address = address + ", " + studentData.getINSTITUTEPOSTCODE();
+        }
+        return address;
     }
 
     public static void saveStudentCourseData(Context context, List<StudentCourse> studentCourses,
@@ -244,17 +266,17 @@ public class Utils {
         CustomSharedPreferences.getInstance(context);
         LinkedHashMap<String, String> studentDataList = new LinkedHashMap<>();
         CustomSharedPreferences sharedPreferences = CustomSharedPreferences.getInstance(context);
-        studentDataList.put("Student ID", sharedPreferences.getStringData(CommandConstant.STD_ID));
+        studentDataList.put("Student Code", sharedPreferences.getStringData(CommandConstant.STD_CODE));
         studentDataList.put("Name", sharedPreferences.getStringData(CommandConstant.STD_FIRST_NAME));
         studentDataList.put("Middle Name", sharedPreferences.getStringData(CommandConstant.STD_MIDDLE_NAME));
         studentDataList.put("Last Name", sharedPreferences.getStringData(CommandConstant.STD_LAST_NAME));
         studentDataList.put("Gender", sharedPreferences.getStringData(CommandConstant.STD_GENDER));
         studentDataList.put("Email ID", sharedPreferences.getStringData(CommandConstant.STD_EMAIL));
-        studentDataList.put("Student Code", sharedPreferences.getStringData(CommandConstant.STD_CODE));
         studentDataList.put("Date OF Birth", sharedPreferences.getStringData(CommandConstant.STD_DOB));
         studentDataList.put("Mobile Number", sharedPreferences.getStringData(CommandConstant.STD_MOBILE_NO));
         studentDataList.put("Institute Name", sharedPreferences.getStringData(CommandConstant
                 .STD_INSTITUTE_NAME));
+        studentDataList.put("Address", sharedPreferences.getStringData(CommandConstant.INSTITUTE_ADDRESS));
 
         return studentDataList;
     }

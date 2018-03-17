@@ -13,15 +13,13 @@ import java.util.Set;
 
 public class SettingsAdapter extends BaseAdapter {
 
-    private Context mContext;
     private LinkedHashMap<String, String> studentDataList;
     private LayoutInflater mLayoutInflater;
     private ArrayList mDataKey = new ArrayList();
 
-    public SettingsAdapter(Context mContext, LinkedHashMap<String, String> studentDataList) {
-        this.mContext = mContext;
+    public SettingsAdapter(Context context, LinkedHashMap<String, String> studentDataList) {
         this.studentDataList = studentDataList;
-        mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         getAllKeys();
     }
 

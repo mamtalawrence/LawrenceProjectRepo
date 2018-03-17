@@ -3,7 +3,7 @@
     <string name="title_activity_login2">Sign in</string>
     <string name="practice_session_name">Practice</string>
     <string name="exam_practice_name">Exam</string>
-    <string name="title_activity_settings">Account Details</string>
+    <string name="title_activity_settings">User Profile</string>
     <string name="question_bank">Question Bank</string>
     <string name="score_card_label">Score Card</string>
     <!-- Strings related to login -->
@@ -39,8 +39,8 @@
     <string name="question_bank_tab1">QUESTIONS</string>
     <string name="question_bank_tab2">ITEM DETAILS</string>
     <string name="log_in">Log In</string>
-    <string name="temp_user_name">17P6933</string>
-    <string name="temp_pwd">YWDLTVNS</string>
+    <string name="temp_user_name">18M18624</string>
+    <string name="temp_pwd">6R0ZEFMG</string>
     <string name="login">Login</string>
     <string name="_30_s">30 s</string>
     <string name="_2_60">2/60</string>
@@ -52,7 +52,7 @@
     <!-- Strings related to network connectivity-->
     <string name="no_network">No internet connection!</string>
     <string name="retry">RETRY</string>
-    <string name="info_more">Information and more</string>
+    <string name="info_more">User Information</string>
     <string name="exam_desc">Time and question bound test exactly same as exam</string>
     <string name="practice_desc">"Test your knowledge without worrying about time "</string>
     <string name="que_bank_desc"><![CDATA["List of questions & answers and meaning of logos "]]></string>

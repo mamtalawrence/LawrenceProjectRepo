@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 import com.lawrence.ditrp.Enums.CommandType;
@@ -29,6 +30,7 @@ public class NetworkTask extends AsyncTask<String, Void, Boolean> {
     private CommandType mCommandType;
     private Context mContext;
     private boolean isSuccess;
+
     NetworkTask(APIRequestBuilder apiRequestBuilder, CommandType requestType) {
         mApiRequestBuilder = apiRequestBuilder;
         mCommandType = requestType;
@@ -51,7 +53,7 @@ public class NetworkTask extends AsyncTask<String, Void, Boolean> {
     @Override
     protected Boolean doInBackground(String... url) {
         final String jsonString = sendPostRequestToConnectLoginAPI(url[0]);
-        if(mCommandType == CommandType.LOGIN){
+        if (mCommandType == CommandType.LOGIN) {
             try {
                 JSONObject responseObject = new JSONObject(jsonString);
                 String status = responseObject.get("success").toString();
@@ -160,10 +162,14 @@ public class NetworkTask extends AsyncTask<String, Void, Boolean> {
      * @return request parameter as string
      */
     private String getPostRequestQuery() {
+
         Uri.Builder builder = new Uri.Builder()
                 .appendQueryParameter("service", mApiRequestBuilder.mCommandName)
                 .appendQueryParameter("uname", mApiRequestBuilder.mUserName)
-                .appendQueryParameter("pword", mApiRequestBuilder.mPassword);
+                .appendQueryParameter("pword", mApiRequestBuilder.mPassword)
+                .appendQueryParameter("deviceid", Settings.Secure.getString(mContext.getContentResolver(),
+                        Settings.Secure.ANDROID_ID))
+                .appendQueryParameter("service", "login");
         return builder.build().getEncodedQuery();
     }
 

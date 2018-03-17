@@ -10,149 +10,214 @@ import java.util.List;
  */
 public class StudentData {
 
-
     @SerializedName("STUDENT_ID")
     @Expose
-    private String mStudentID;
-
+    private String sTUDENTID;
     @SerializedName("INSTITUTE_NAME")
     @Expose
-    private String mInstituteName;
-
+    private String iNSTITUTENAME;
     @SerializedName("STUDENT_CODE")
     @Expose
-    private String mStudentCode;
-
+    private String sTUDENTCODE;
     @SerializedName("STUDENT_FNAME")
     @Expose
-    private String mStudentFirstName;
-
+    private String sTUDENTFNAME;
     @SerializedName("STUDENT_MNAME")
     @Expose
-    private String mStudentMiddleName;
-
+    private String sTUDENTMNAME;
     @SerializedName("STUDENT_LNAME")
     @Expose
-    private String mStudentLastName;
-
+    private String sTUDENTLNAME;
     @SerializedName("STUDENT_DOB")
     @Expose
-    private String mStudentDOB;
-
+    private String sTUDENTDOB;
     @SerializedName("STUDENT_GENDER")
     @Expose
-    private String mStudentGender;
-
+    private String sTUDENTGENDER;
     @SerializedName("STUDENT_MOBILE")
     @Expose
-    private String mStudentMobileNo;
-
+    private String sTUDENTMOBILE;
     @SerializedName("STUDENT_EMAIL")
     @Expose
-    private String mStudentEmail;
-
+    private String sTUDENTEMAIL;
     @SerializedName("STUDENT_ADDRESS")
     @Expose
-    private Object mStudentAddress;
-
+    private Object sTUDENTADDRESS;
+    @SerializedName("INSTITUTE_CODE")
+    @Expose
+    private String iNSTITUTECODE;
+    @SerializedName("INSTITUTE_ADDRESS")
+    @Expose
+    private String iNSTITUTEADDRESS;
+    @SerializedName("INSTITUTE_CITY")
+    @Expose
+    private String iNSTITUTECITY;
+    @SerializedName("INSTITUTE_STATE")
+    @Expose
+    private String iNSTITUTESTATE;
+    @SerializedName("INSTITUTE_POSTCODE")
+    @Expose
+    private String iNSTITUTEPOSTCODE;
+    @SerializedName("INSTITUTE_EMAIL")
+    @Expose
+    private String iNSTITUTEEMAIL;
+    @SerializedName("INSTITUTE_MOBILE")
+    @Expose
+    private String iNSTITUTEMOBILE;
     @SerializedName("STUDENT_COURSES")
     @Expose
-    private List<StudentCourse> mStudentCourses = null;
+    private List<StudentCourse> sTUDENTCOURSES = null;
 
-    public String getStudentID() {
-        return mStudentID;
+    public String getSTUDENTID() {
+        return sTUDENTID;
     }
 
-    public void setStudentID(String mStudentID) {
-        this.mStudentID = mStudentID;
+    public void setSTUDENTID(String sTUDENTID) {
+        this.sTUDENTID = sTUDENTID;
     }
 
-    public String getInstituteName() {
-        return mInstituteName;
+    public String getINSTITUTENAME() {
+        return iNSTITUTENAME;
     }
 
-    public void setInstituteName(String mInstituteName) {
-        this.mInstituteName = mInstituteName;
+    public void setINSTITUTENAME(String iNSTITUTENAME) {
+        this.iNSTITUTENAME = iNSTITUTENAME;
     }
 
-    public String getStudentCode() {
-        return mStudentCode;
+    public String getSTUDENTCODE() {
+        return sTUDENTCODE;
     }
 
-    public void setStudentCode(String mStudentCode) {
-        this.mStudentCode = mStudentCode;
+    public void setSTUDENTCODE(String sTUDENTCODE) {
+        this.sTUDENTCODE = sTUDENTCODE;
     }
 
-    public String getStudentFirstName() {
-        return mStudentFirstName;
+    public String getSTUDENTFNAME() {
+        return sTUDENTFNAME;
     }
 
-    public void setStudentFirstName(String mmStudentFirstName) {
-        this.mStudentFirstName = mmStudentFirstName;
+    public void setSTUDENTFNAME(String sTUDENTFNAME) {
+        this.sTUDENTFNAME = sTUDENTFNAME;
     }
 
-    public String getStudentMiddleName() {
-        return mStudentMiddleName;
+    public String getSTUDENTMNAME() {
+        return sTUDENTMNAME;
     }
 
-    public void setStudentMiddleName(String mmStudentMiddleName) {
-        this.mStudentMiddleName = mmStudentMiddleName;
+    public void setSTUDENTMNAME(String sTUDENTMNAME) {
+        this.sTUDENTMNAME = sTUDENTMNAME;
     }
 
-    public String getStudentLastName() {
-        return mStudentLastName;
+    public String getSTUDENTLNAME() {
+        return sTUDENTLNAME;
     }
 
-    public void setStudentLastName(String mStudentLastName) {
-        this.mStudentLastName = mStudentLastName;
+    public void setSTUDENTLNAME(String sTUDENTLNAME) {
+        this.sTUDENTLNAME = sTUDENTLNAME;
     }
 
-    public String getStudentDOB() {
-        return mStudentDOB;
+    public String getSTUDENTDOB() {
+        return sTUDENTDOB;
     }
 
-    public void setStudentDOB(String mmStudentDOB) {
-        this.mStudentDOB = mmStudentDOB;
+    public void setSTUDENTDOB(String sTUDENTDOB) {
+        this.sTUDENTDOB = sTUDENTDOB;
     }
 
-    public String getStudentGender() {
-        return mStudentGender;
+    public String getSTUDENTGENDER() {
+        return sTUDENTGENDER;
     }
 
-    public void setStudentGender(String mStudentGender) {
-        this.mStudentGender = mStudentGender;
+    public void setSTUDENTGENDER(String sTUDENTGENDER) {
+        this.sTUDENTGENDER = sTUDENTGENDER;
     }
 
-    public String getStudentMobileNo() {
-        return mStudentMobileNo;
+    public String getSTUDENTMOBILE() {
+        return sTUDENTMOBILE;
     }
 
-    public void setStudentMobileNo(String mStudentMobileNo) {
-        this.mStudentMobileNo = mStudentMobileNo;
+    public void setSTUDENTMOBILE(String sTUDENTMOBILE) {
+        this.sTUDENTMOBILE = sTUDENTMOBILE;
     }
 
-    public String getStudentEmail() {
-        return mStudentEmail;
+    public String getSTUDENTEMAIL() {
+        return sTUDENTEMAIL;
     }
 
-    public void setStudentMail(String mStudentEmail) {
-        this.mStudentEmail = mStudentEmail;
+    public void setSTUDENTEMAIL(String sTUDENTEMAIL) {
+        this.sTUDENTEMAIL = sTUDENTEMAIL;
     }
 
-    public Object getStudentAddress() {
-        return mStudentAddress;
+    public Object getSTUDENTADDRESS() {
+        return sTUDENTADDRESS;
     }
 
-    public void setStudentAddress(Object mStudentAddress) {
-        this.mStudentAddress = mStudentAddress;
+    public void setSTUDENTADDRESS(Object sTUDENTADDRESS) {
+        this.sTUDENTADDRESS = sTUDENTADDRESS;
+    }
+
+    public String getINSTITUTECODE() {
+        return iNSTITUTECODE;
+    }
+
+    public void setINSTITUTECODE(String iNSTITUTECODE) {
+        this.iNSTITUTECODE = iNSTITUTECODE;
+    }
+
+    public String getINSTITUTEADDRESS() {
+        return iNSTITUTEADDRESS;
+    }
+
+    public void setINSTITUTEADDRESS(String iNSTITUTEADDRESS) {
+        this.iNSTITUTEADDRESS = iNSTITUTEADDRESS;
+    }
+
+    public String getINSTITUTECITY() {
+        return iNSTITUTECITY;
+    }
+
+    public void setINSTITUTECITY(String iNSTITUTECITY) {
+        this.iNSTITUTECITY = iNSTITUTECITY;
+    }
+
+    public String getINSTITUTESTATE() {
+        return iNSTITUTESTATE;
+    }
+
+    public void setINSTITUTESTATE(String iNSTITUTESTATE) {
+        this.iNSTITUTESTATE = iNSTITUTESTATE;
+    }
+
+    public String getINSTITUTEPOSTCODE() {
+        return iNSTITUTEPOSTCODE;
+    }
+
+    public void setINSTITUTEPOSTCODE(String iNSTITUTEPOSTCODE) {
+        this.iNSTITUTEPOSTCODE = iNSTITUTEPOSTCODE;
+    }
+
+    public String getINSTITUTEEMAIL() {
+        return iNSTITUTEEMAIL;
+    }
+
+    public void setINSTITUTEEMAIL(String iNSTITUTEEMAIL) {
+        this.iNSTITUTEEMAIL = iNSTITUTEEMAIL;
+    }
+
+    public String getINSTITUTEMOBILE() {
+        return iNSTITUTEMOBILE;
+    }
+
+    public void setINSTITUTEMOBILE(String iNSTITUTEMOBILE) {
+        this.iNSTITUTEMOBILE = iNSTITUTEMOBILE;
     }
 
     public List<StudentCourse> getStudentCourses() {
-        return mStudentCourses;
+        return sTUDENTCOURSES;
     }
 
-    public void setStudentCourses(List<StudentCourse> studentCourses) {
-        this.mStudentCourses = studentCourses;
+    public void setSTUDENTCOURSES(List<StudentCourse> sTUDENTCOURSES) {
+        this.sTUDENTCOURSES = sTUDENTCOURSES;
     }
 
 }
