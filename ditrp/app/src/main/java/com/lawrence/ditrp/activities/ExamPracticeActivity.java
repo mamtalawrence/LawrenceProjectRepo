@@ -48,5 +48,12 @@ public class ExamPracticeActivity extends AppCompatActivity {
         Intent intent = new Intent(ExamPracticeActivity.this, ExamPracticeTestActivity.class);
         intent.putExtra("ExamTestNumber", testNumber);
         startActivity(intent);
+        this.finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.finish();
     }
 }

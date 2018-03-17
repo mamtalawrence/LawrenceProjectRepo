@@ -11,10 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.*;
 import com.lawrence.ditrp.Constants.Utils;
 import com.lawrence.ditrp.R;
 import com.lawrence.ditrp.adapter.ExamPracticeQuestionAdapter;
@@ -48,7 +45,7 @@ public class ExamPracticeTestActivity extends AppCompatActivity implements View.
     private int mExamTestNumber;
     private ExamPracticeQuestionAdapter mPracticeTestQuestionAdapter;
     private RelativeLayout mLayoutInstruction;
-    private RelativeLayout mLayoutQuestions;
+    private FrameLayout mLayoutQuestions;
     // Holds timer instance
     private CountDownTimer mTimer = null;
     private TextView mQuestionCountView;
@@ -78,7 +75,7 @@ public class ExamPracticeTestActivity extends AppCompatActivity implements View.
         mTimerView = (TextView) view.findViewById(R.id.action_bar_timer);
         mLayoutInstruction = (RelativeLayout) findViewById(R.id.layout_instructions);
         mLayoutInstruction.setVisibility(View.VISIBLE);
-        mLayoutQuestions = (RelativeLayout) findViewById(R.id.layout_questions);
+        mLayoutQuestions = (FrameLayout) findViewById(R.id.layout_questions);
         mLayoutQuestions.setVisibility(View.INVISIBLE);
         Button startButton = (Button) findViewById(R.id.button_getStarted);
         startButton.setOnClickListener(new View.OnClickListener() {
@@ -289,8 +286,11 @@ public class ExamPracticeTestActivity extends AppCompatActivity implements View.
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        this.finish();
+        if (isStartExam) {
+            Utils.exitDialog(this, getString(R.string.exit_exam_title), getString(R.string.exit_exam_message));
+        } else {
+            super.onBackPressed();
+        }
     }
 
     private void calculateResult() {

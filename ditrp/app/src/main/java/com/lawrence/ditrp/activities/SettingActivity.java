@@ -24,4 +24,10 @@ public class SettingActivity extends AppCompatActivity {
         SettingsAdapter settingsAdapter = new SettingsAdapter(this, studentDataList);
         mSettingsListView.setAdapter(settingsAdapter);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.finish();
+    }
 }

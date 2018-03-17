@@ -10,19 +10,22 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import com.lawrence.ditrp.R;
 import com.lawrence.ditrp.dataModel.QuestionBank;
+import com.lawrence.ditrp.interfaces.ITestAdapterEventHandler;
 
 import java.util.List;
 
 /**
  * Created by Anagha.Mahajan on 10-Nov-17.
  */
-public class PracticeTestQuestionAdapter extends PagerAdapter {
+public class PracticeTestQuestionAdapter extends PagerAdapter implements ITestAdapterEventHandler{
 
+    private static final String EMPTY_STRING = "";
     private Context context;
     private LayoutInflater inflater;
     private List<QuestionBank> mQuestionBanksObjectList;
     private ViewHolder viewHolder;
-    private int totalCorrectAnswer;
+    private int totalCorrectAnswer = 0;
+    private int totalIncorrectAnswer = 0;
 
     public PracticeTestQuestionAdapter(Context context, List<QuestionBank> questionBanks) {
         this.context = context;
@@ -99,77 +102,15 @@ public class PracticeTestQuestionAdapter extends PagerAdapter {
                 }
             });
         }
-        setSelected(position);
+        setSelection(position);
         container.addView(itemView);
         return new ViewHolderMain(itemView, position);
 
     }
 
-    /**
-     * Set selected item color
-     *
-     * @param position of item
-     */
-    private void setSelected(int position) {
-
-        if (!TextUtils.isEmpty(mQuestionBanksObjectList.get(position).getStudentAns())) {
-
-            String correctAns = mQuestionBanksObjectList.get(position).getCorrectAns();
-            String studentAns = mQuestionBanksObjectList.get(position).getStudentAns();
-
-            if (correctAns.equalsIgnoreCase(studentAns)) {
-                totalCorrectAnswer++;
-                if (studentAns.equalsIgnoreCase("option_a")) {
-                    updateViewState(viewHolder.answerATextView, R.color.color_green_light);
-                } else if (studentAns.equalsIgnoreCase("option_b")) {
-                    updateViewState(viewHolder.answerBTextView, R.color.color_green_light);
-                } else if (studentAns.equalsIgnoreCase("option_c")) {
-                    updateViewState(viewHolder.answerCTextView, R.color.color_green_light);
-                } else if (studentAns.equalsIgnoreCase("option_d")) {
-                    updateViewState(viewHolder.answerDTextView, R.color.color_green_light);
-                }
-            } else {
-                //Student ans
-                if (studentAns.equalsIgnoreCase("option_a")) {
-                    updateViewState(viewHolder.answerATextView, R.color.color_red_light);
-                } else if (studentAns.equalsIgnoreCase("option_b")) {
-                    updateViewState(viewHolder.answerBTextView, R.color.color_red_light);
-                } else if (studentAns.equalsIgnoreCase("option_c")) {
-                    updateViewState(viewHolder.answerCTextView, R.color.color_red_light);
-                } else if (studentAns.equalsIgnoreCase("option_d")) {
-                    updateViewState(viewHolder.answerDTextView, R.color.color_red_light);
-                }
-
-                // right ans
-                if (correctAns.equalsIgnoreCase("option_a")) {
-                    updateViewState(viewHolder.answerATextView, R.color.color_green_light);
-                } else if (correctAns.equalsIgnoreCase("option_b")) {
-                    updateViewState(viewHolder.answerBTextView, R.color.color_green_light);
-                } else if (correctAns.equalsIgnoreCase("option_c")) {
-                    updateViewState(viewHolder.answerCTextView, R.color.color_green_light);
-                } else if (correctAns.equalsIgnoreCase("option_d")) {
-                    updateViewState(viewHolder.answerDTextView, R.color.color_green_light);
-                }
-            }
-        }
-    }
-
-
     @Override
     public int getCount() {
         return mQuestionBanksObjectList.size();
-    }
-
-    /**
-     * View holder for data set
-     */
-    private class ViewHolder {
-        View view3, view4;
-        TextView questionTextView;
-        TextView answerATextView;
-        TextView answerBTextView;
-        TextView answerCTextView;
-        TextView answerDTextView;
     }
 
     @Override
@@ -189,6 +130,97 @@ public class PracticeTestQuestionAdapter extends PagerAdapter {
         return ((ViewHolderMain) object).view == view;
     }
 
+    @Override
+    public List<QuestionBank> getResultList() {
+        return mQuestionBanksObjectList;
+    }
+
+    @Override
+    public int getNumberOfCorrectAnswer() {
+        return totalCorrectAnswer;
+    }
+
+    @Override
+    public int getNumberOfIncorrectAnswer() {
+        return totalIncorrectAnswer;
+    }
+
+    @Override
+    public void resetCorrectAnswer() {
+        totalCorrectAnswer = 0;
+    }
+
+    @Override
+    public void updateViewState(TextView textView, int color) {
+        textView.setTextColor(Color.WHITE);
+        textView.setBackgroundResource(color);
+    }
+
+    @Override
+    public boolean isAnswerSelected(int questionNumber) {
+        return !TextUtils.isEmpty(mQuestionBanksObjectList.get(questionNumber).getStudentAns());
+    }
+
+    @Override
+    public void handleItemSelection(int questionIndex) {
+        if (!isAnswerSelected(questionIndex)) {
+            mQuestionBanksObjectList.get(questionIndex).setStudentAns(EMPTY_STRING);
+            notifyDataSetChanged();
+        }
+        String selectedAnswerByStudent = mQuestionBanksObjectList.get(questionIndex).getStudentAns();
+        String correctAns = mQuestionBanksObjectList.get(questionIndex).getCorrectAns();
+        if (!TextUtils.isEmpty(selectedAnswerByStudent) && correctAns.equalsIgnoreCase(selectedAnswerByStudent)) {
+            totalCorrectAnswer++;
+        } else {
+            totalIncorrectAnswer++;
+        }
+    }
+
+    /**
+     * Set selected item color
+     *
+     * @param questionIndex of item
+     */
+    private void setSelection(int questionIndex) {
+        String correctAns = mQuestionBanksObjectList.get(questionIndex).getCorrectAns();
+        String selectedAnswerByStudent = mQuestionBanksObjectList.get(questionIndex).getStudentAns();
+        if (!TextUtils.isEmpty(selectedAnswerByStudent)) {
+            if (correctAns.equalsIgnoreCase(selectedAnswerByStudent)) {
+                if (selectedAnswerByStudent.equalsIgnoreCase("option_a")) {
+                    updateViewState(viewHolder.answerATextView, R.color.color_green_light);
+                } else if (selectedAnswerByStudent.equalsIgnoreCase("option_b")) {
+                    updateViewState(viewHolder.answerBTextView, R.color.color_green_light);
+                } else if (selectedAnswerByStudent.equalsIgnoreCase("option_c")) {
+                    updateViewState(viewHolder.answerCTextView, R.color.color_green_light);
+                } else if (selectedAnswerByStudent.equalsIgnoreCase("option_d")) {
+                    updateViewState(viewHolder.answerDTextView, R.color.color_green_light);
+                }
+            } else {
+                //Student ans
+                if (selectedAnswerByStudent.equalsIgnoreCase("option_a")) {
+                    updateViewState(viewHolder.answerATextView, R.color.color_red_light);
+                } else if (selectedAnswerByStudent.equalsIgnoreCase("option_b")) {
+                    updateViewState(viewHolder.answerBTextView, R.color.color_red_light);
+                } else if (selectedAnswerByStudent.equalsIgnoreCase("option_c")) {
+                    updateViewState(viewHolder.answerCTextView, R.color.color_red_light);
+                } else if (selectedAnswerByStudent.equalsIgnoreCase("option_d")) {
+                    updateViewState(viewHolder.answerDTextView, R.color.color_red_light);
+                }
+
+                // right ans
+                if (correctAns.equalsIgnoreCase("option_a")) {
+                    updateViewState(viewHolder.answerATextView, R.color.color_green_light);
+                } else if (correctAns.equalsIgnoreCase("option_b")) {
+                    updateViewState(viewHolder.answerBTextView, R.color.color_green_light);
+                } else if (correctAns.equalsIgnoreCase("option_c")) {
+                    updateViewState(viewHolder.answerCTextView, R.color.color_green_light);
+                } else if (correctAns.equalsIgnoreCase("option_d")) {
+                    updateViewState(viewHolder.answerDTextView, R.color.color_green_light);
+                }
+            }
+        }
+    }
+
     private static class ViewHolderMain {
         final View view;
         final int position;
@@ -200,24 +232,14 @@ public class PracticeTestQuestionAdapter extends PagerAdapter {
     }
 
     /**
-     * Get Question object list with answer
-     *
-     * @return Question object list
+     * View holder for data set
      */
-    public List<QuestionBank> getQuestionBanksObjectList() {
-        return mQuestionBanksObjectList;
-    }
-
-    public int getTotalCorrectAnswer() {
-        return totalCorrectAnswer;
-    }
-
-    public void resetCorrectAnswer(){
-        totalCorrectAnswer = 0;
-    }
-
-    private void updateViewState(TextView textView, int color) {
-        textView.setTextColor(Color.WHITE);
-        textView.setBackgroundResource(color);
+    private class ViewHolder {
+        View view3, view4;
+        TextView questionTextView;
+        TextView answerATextView;
+        TextView answerBTextView;
+        TextView answerCTextView;
+        TextView answerDTextView;
     }
 }

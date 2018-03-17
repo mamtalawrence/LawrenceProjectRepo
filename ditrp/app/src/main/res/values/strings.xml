@@ -52,6 +52,9 @@
     <!-- Strings related to network connectivity-->
     <string name="no_network">No internet connection!</string>
     <string name="retry">RETRY</string>
+    <string name="exit_app_message">Do you want to exit?</string>
+    <string name="exit_exam_message">Are you sure you want to stop this exam?</string>
+    <string name="exit_exam_title">Stop Exam</string>
     <string name="info_more">User Information</string>
     <string name="exam_desc">Time and question bound test exactly same as exam</string>
     <string name="practice_desc">"Test your knowledge without worrying about time "</string>

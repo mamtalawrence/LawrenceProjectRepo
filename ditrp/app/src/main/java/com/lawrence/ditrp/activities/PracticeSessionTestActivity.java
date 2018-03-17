@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.lawrence.ditrp.Constants.Utils;
 import com.lawrence.ditrp.R;
@@ -30,6 +31,8 @@ public class PracticeSessionTestActivity extends AppCompatActivity implements Vi
     private PracticeTestQuestionAdapter mPracticeTestQuestionAdapter;
     // Holds timer instance
     private TextView mQuestionCountView;
+    private RelativeLayout mLayoutPracticeTest;
+    private View mScoreLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,6 +42,11 @@ public class PracticeSessionTestActivity extends AppCompatActivity implements Vi
         View view = getSupportActionBar().getCustomView();
         mQuestionCountView = (TextView) view.findViewById(R.id.action_bar_question_count);
         mPosition = getIntent().getIntExtra("position", 0);
+        mLayoutPracticeTest = (RelativeLayout) findViewById(R.id.practice_test_layout);
+        mScoreLayout = findViewById(R.id.score_layout);
+        mLayoutPracticeTest.setVisibility(View.VISIBLE);
+        mScoreLayout.setVisibility(View.GONE);
+
         LinearLayout layoutAnswerCount = (LinearLayout) findViewById(R.id.layout_answer_count);
         layoutAnswerCount.setVisibility(View.GONE);
         mPreviousButton = (Button) findViewById(R.id.button_previous);
@@ -58,7 +66,7 @@ public class PracticeSessionTestActivity extends AppCompatActivity implements Vi
                 mQuestionCountView.setText(String.format("%d/60", position + 1));
                 updatePreviousButtonStatus(position > 0);
                 if (position == 59) {
-                    mNextButton.setText(R.string.home);
+                    mNextButton.setText(R.string.finish);
                     //updatePreviousButtonStatus(false);
                 } else {
                     mNextButton.setText(R.string.next);
@@ -75,6 +83,10 @@ public class PracticeSessionTestActivity extends AppCompatActivity implements Vi
 
             }
         });
+        Button mButtonHome1 = (Button) findViewById(R.id.button_home1);
+        mButtonHome1.setOnClickListener(this);
+        Button mButtonScorecard = (Button) findViewById(R.id.button_score_card);
+        mButtonScorecard.setVisibility(View.GONE);
     }
 
     /**
@@ -109,6 +121,9 @@ public class PracticeSessionTestActivity extends AppCompatActivity implements Vi
             case R.id.button_next:
                 handleNavigationOnNext();
                 break;
+            case R.id.button_home1:
+                navigateToHome();
+                break;
         }
     }
 
@@ -123,13 +138,16 @@ public class PracticeSessionTestActivity extends AppCompatActivity implements Vi
 
     @Override
     public void handleNavigationOnNext() {
+        updateAnswerCount();
         if (mViewPager.getCurrentItem() == 59) {
-            /*Toast.makeText(PracticeSessionTestActivity.this, "Total correct answer is: " +
-                    mPracticeTestQuestionAdapter.getTotalCorrectAnswer(), Toast.LENGTH_SHORT).show();*/
+            mLayoutPracticeTest.setVisibility(View.GONE);
+            mQuestionCountView.setVisibility(View.GONE);
+            mScoreLayout.setVisibility(View.VISIBLE);
+            calculateResult();
             mPracticeTestQuestionAdapter.resetCorrectAnswer();
-            navigateToHome();
+        } else {
+            mViewPager.setCurrentItem(getItem(+1), true);
         }
-        mViewPager.setCurrentItem(getItem(+1), true);
     }
 
     /**
@@ -138,6 +156,35 @@ public class PracticeSessionTestActivity extends AppCompatActivity implements Vi
     private void navigateToHome() {
         Intent intent = new Intent(PracticeSessionTestActivity.this, DashBoardActivity.class);
         startActivity(intent);
+        this.finish();
+    }
+
+    private void updateAnswerCount() {
+        mPracticeTestQuestionAdapter.handleItemSelection(mViewPager.getCurrentItem());
+    }
+
+    private void calculateResult() {
+        int totalQuestions = mPracticeTestQuestionAdapter.getCount();
+        int totalCorrectAnswers = mPracticeTestQuestionAdapter.getNumberOfCorrectAnswer();
+        double percentage = (totalCorrectAnswers * 100) / totalQuestions;
+        showResultStatus(!(percentage < 40));
+    }
+
+    private void showResultStatus(boolean resultStatus) {
+        TextView mTextResultStatus = (TextView) findViewById(R.id.text_result_state);
+        TextView mTextResultInstruction = (TextView) findViewById(R.id.text_result_instruction);
+        if (resultStatus) {
+            mTextResultStatus.setText(getString(R.string.passed_label));
+            mTextResultInstruction.setText(getString(R.string.result_passed_suggestion_label));
+        } else {
+            mTextResultStatus.setText(getString(R.string.failed_label));
+            mTextResultInstruction.setText(getString(R.string.result_failed_suggestion_label));
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
         this.finish();
     }
 }

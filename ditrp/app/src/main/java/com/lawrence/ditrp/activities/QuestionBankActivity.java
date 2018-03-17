@@ -62,6 +62,12 @@ public class QuestionBankActivity extends AppCompatActivity {
             return mFragmentTitleList.get(position);
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.finish();
+    }
 }
 
 

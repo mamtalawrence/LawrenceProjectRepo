@@ -49,9 +49,15 @@ public class PracticeSessionActivity extends AppCompatActivity {
      * @param testNumber number of practice test
      */
     private void notifyToStartPracticeTest(int testNumber){
-        Intent intent = new Intent(PracticeSessionActivity.this,
-                PracticeSessionTestActivity.class);
+        Intent intent = new Intent(PracticeSessionActivity.this, PracticeSessionTestActivity.class);
         intent.putExtra("position", testNumber);
         startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.finish();
     }
 }

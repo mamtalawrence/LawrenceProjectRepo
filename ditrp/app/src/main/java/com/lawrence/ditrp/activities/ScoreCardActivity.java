@@ -108,4 +108,10 @@ public class ScoreCardActivity extends AppCompatActivity implements View.OnClick
         scorecardRecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         scorecardRecyclerView.setAdapter(adapter);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        navigateToHome();
+    }
 }

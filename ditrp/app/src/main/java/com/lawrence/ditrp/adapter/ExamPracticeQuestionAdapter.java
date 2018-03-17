@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import com.lawrence.ditrp.R;
 import com.lawrence.ditrp.dataModel.QuestionBank;
+import com.lawrence.ditrp.interfaces.ITestAdapterEventHandler;
 
 import java.util.List;
 import java.util.Locale;
@@ -17,7 +18,7 @@ import java.util.Locale;
 /**
  * Created by Anagha.Mahajan on 10-Nov-17.
  */
-public class ExamPracticeQuestionAdapter extends PagerAdapter {
+public class ExamPracticeQuestionAdapter extends PagerAdapter implements ITestAdapterEventHandler {
 
     private static final String EMPTY_STRING = "";
     private Context context;
@@ -102,8 +103,6 @@ public class ExamPracticeQuestionAdapter extends PagerAdapter {
         });
 
         updateSelectedView(position);
-        //handleItemSelection(position);
-        //setSelected(position);
         container.addView(itemView);
         return new ViewHolderMain(itemView, position);
 
@@ -118,13 +117,13 @@ public class ExamPracticeQuestionAdapter extends PagerAdapter {
         String selectedAnswer = mQuestionBanksObjectList.get(questionIndex).getStudentAns();
         if (!TextUtils.isEmpty(selectedAnswer)) {
             if (selectedAnswer.equalsIgnoreCase("option_a")) {
-                updateViewState(viewHolder.mOptionTextViewA);
+                updateViewState(viewHolder.mOptionTextViewA, R.color.color_orange_light);
             } else if (selectedAnswer.equalsIgnoreCase("option_b")) {
-                updateViewState(viewHolder.mOptionTextViewB);
+                updateViewState(viewHolder.mOptionTextViewB, R.color.color_orange_light);
             } else if (selectedAnswer.equalsIgnoreCase("option_c")) {
-                updateViewState(viewHolder.mOptionTextViewC);
+                updateViewState(viewHolder.mOptionTextViewC, R.color.color_orange_light);
             } else if (selectedAnswer.equalsIgnoreCase("option_d")) {
-                updateViewState(viewHolder.mOptionTextViewD);
+                updateViewState(viewHolder.mOptionTextViewD, R.color.color_orange_light);
             }
         }
     }
@@ -152,28 +151,38 @@ public class ExamPracticeQuestionAdapter extends PagerAdapter {
         return ((ViewHolderMain) object).view == view;
     }
 
-    /**
-     * Get Question object list with answer
-     *
-     * @return Question object list
-     */
+    @Override
     public List<QuestionBank> getResultList() {
         return mQuestionBanksObjectList;
     }
 
+    @Override
+    public int getNumberOfCorrectAnswer() {
+        return totalCorrectAnswer;
+    }
+
+    @Override
+    public int getNumberOfIncorrectAnswer() {
+        return totalIncorrectAnswer;
+    }
+
+    @Override
     public void resetCorrectAnswer() {
         totalCorrectAnswer = 0;
     }
 
-    private void updateViewState(TextView textView) {
+    @Override
+    public void updateViewState(TextView textView, int color) {
         textView.setTextColor(Color.WHITE);
-        textView.setBackgroundResource(R.color.color_orange_light);
+        textView.setBackgroundResource(color);
     }
 
+    @Override
     public boolean isAnswerSelected(int questionNumber) {
         return !TextUtils.isEmpty(mQuestionBanksObjectList.get(questionNumber).getStudentAns());
     }
 
+    @Override
     public void handleItemSelection(int questionIndex) {
         if (!isAnswerSelected(questionIndex)) {
             mQuestionBanksObjectList.get(questionIndex).setStudentAns(EMPTY_STRING);
@@ -186,14 +195,6 @@ public class ExamPracticeQuestionAdapter extends PagerAdapter {
         } else {
             totalIncorrectAnswer++;
         }
-    }
-
-    public int getNumberOfCorrectAnswer() {
-        return totalCorrectAnswer;
-    }
-
-    public int getNumberOfIncorrectAnswer() {
-        return totalIncorrectAnswer;
     }
 
     private static class ViewHolderMain {
