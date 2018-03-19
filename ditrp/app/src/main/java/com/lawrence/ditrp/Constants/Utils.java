@@ -55,7 +55,7 @@ public class Utils {
             @Override
             public void run() {
                 Snackbar snackbar = Snackbar.make(((Activity) context).findViewById(R.id.coordinatorLayout)
-                        , msgString, Snackbar.LENGTH_LONG);
+                        , msgString, Snackbar.LENGTH_SHORT);
                 // Changing action button text color
                 View sbView = snackbar.getView();
                 if (isSuccess) {

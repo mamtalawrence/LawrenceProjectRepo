@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -154,8 +155,8 @@ public class PracticeSessionTestActivity extends AppCompatActivity implements Vi
      * Notify to start practice session tests
      */
     private void navigateToHome() {
-        Intent intent = new Intent(PracticeSessionTestActivity.this, DashBoardActivity.class);
-        startActivity(intent);
+        /*Intent intent = new Intent(PracticeSessionTestActivity.this, DashBoardActivity.class);
+        startActivity(intent);*/
         this.finish();
     }
 
@@ -173,12 +174,15 @@ public class PracticeSessionTestActivity extends AppCompatActivity implements Vi
     private void showResultStatus(boolean resultStatus) {
         TextView mTextResultStatus = (TextView) findViewById(R.id.text_result_state);
         TextView mTextResultInstruction = (TextView) findViewById(R.id.text_result_instruction);
+        ImageView mBoyImage = (ImageView)findViewById(R.id.img_boy);
         if (resultStatus) {
             mTextResultStatus.setText(getString(R.string.passed_label));
             mTextResultInstruction.setText(getString(R.string.result_passed_suggestion_label));
+            mBoyImage.setImageResource(R.drawable.happy_boy);
         } else {
             mTextResultStatus.setText(getString(R.string.failed_label));
             mTextResultInstruction.setText(getString(R.string.result_failed_suggestion_label));
+            mBoyImage.setImageResource(R.drawable.sad_boy);
         }
     }
 
