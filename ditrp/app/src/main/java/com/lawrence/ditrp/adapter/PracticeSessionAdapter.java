@@ -33,7 +33,7 @@ public class PracticeSessionAdapter extends RecyclerView.Adapter<CommonViewHolde
     public void onBindViewHolder(CommonViewHolder holder, int position) {
         //Use the provided View Holder on the onCreateViewHolder method to populate the current row on the RecyclerView
         holder.mTitle.setText("Session " + (position + 1));
-        holder.mDescription.setText("60 Questions click here to start");
+        holder.mDescription.setText(R.string.que_start_50);
         holder.mLogo.setImageResource(R.drawable.practics);
 
         //animation

@@ -3,8 +3,8 @@
     <string name="title_activity_login2">Sign in</string>
     <string name="practice_session_name">Practice</string>
     <string name="exam_practice_name">Exam</string>
-    <string name="title_activity_settings">User Profile</string>
-    <string name="question_bank">Question Bank</string>
+    <string name="title_activity_settings">Student Profile</string>
+    <string name="question_bank">Computer Information</string>
     <string name="score_card_label">Score Card</string>
     <!-- Strings related to login -->
     <string name="prompt_email">User Name</string>
@@ -18,18 +18,17 @@
     <string name="incorrect_credentials">Incorrect username or password!</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
     <string name="instruction_label">Instructions</string>
-    <string name="instructions_desc">1. 60 questions are asked in the test at random, out of which 40
-        questions
-        are required to be answered correctly to qualify the test. \n\n 2. 30 seconds are allowed to answer each
-        questions.
+    <string name="instructions_desc">1. 50 questions are asked in the test at random each question have 2 marks, out of
+        which 40 marks are required to be answered correctly to qualify the test. \n\n
+        2. 60 seconds are allowed to answer each questions.
     </string>
     <string name="passed_label">Passed!</string>
     <string name="failed_label">Failed!</string>
     <string name="result_failed_suggestion_label">Sorry, you have failed in this test.\n We would suggest you to
-        refer question bank and try again.
+        do more practice and try again.
     </string>
     <string name="result_passed_suggestion_label">Congratulations, you have Passed in this test.\n We would suggest you
-        to refer question bank to grab more knowledge.
+        to do more practice to grab more knowledge.
     </string>
     <string name="no_selection_error_message">Please select one option.</string>
     <string name="previous">Previous</string>
@@ -42,8 +41,8 @@
     <string name="temp_user_name">18M18624</string>
     <string name="temp_pwd">6R0ZEFMG</string>
     <string name="login">Login</string>
-    <string name="_30_s">30 s</string>
-    <string name="_2_60">2/60</string>
+    <string name="_60_s">60 s</string>
+    <string name="_2_50">2/50</string>
     <string name="start_exam">Start Exam</string>
     <string name="title">Title</string>
     <string name="description">Description</string>
@@ -58,6 +57,19 @@
     <string name="info_more">User Information</string>
     <string name="exam_desc">Time and question bound test exactly same as exam</string>
     <string name="practice_desc">"Test your knowledge without worrying about time "</string>
-    <string name="que_bank_desc"><![CDATA["List of questions & answers and meaning of logos "]]></string>
+    <string name="que_bank_desc">Computer basic knowledge</string>
+    <string name="exam_detail_decs">50 Questions and 50 minute to resolve \nClick here to start</string>
+    <string name="exam_practice">"Exam Practice "</string>
+    <string name="que_start_50">50 Questions click here to start</string>
+    <string name="student_code">Student Code</string>
+    <string name="name">Name</string>
+    <string name="middle_name">Middle Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="gender">Gender</string>
+    <string name="email_id">Email ID</string>
+    <string name="dob">Date OF Birth</string>
+    <string name="mob_num">Institute Mobile Number</string>
+    <string name="institute_name">Institute Name</string>
+    <string name="address">Address</string>
 
 </resources>

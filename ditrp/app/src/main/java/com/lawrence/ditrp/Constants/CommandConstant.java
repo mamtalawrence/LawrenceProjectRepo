@@ -8,7 +8,6 @@ public class CommandConstant {
 
     // String Module Name Constants
     public static final String MODULE_LOGIN = "login";
-    public static final String MODULE_REGISTER = "register";
     public static final String SERVER_URL = "http://ditrpindia.com/app/WebService/server.php?";
     public static final String MODULE_QUESTION_BANK = "question_bank";
     public static final String QUESTION_LIBRARY_URL = "http://ditrpindia.com/app/WebService/static.php";
@@ -29,9 +28,8 @@ public class CommandConstant {
     public static final String STD_GENDER = "std_gender";
     public static final String STD_EMAIL = "std_email";
     public static final String STD_CODE = "std_code";
-    public static final String STD_MOBILE_NO = "std_mobile_no";
+    public static final String INSTITUTE_MOBILE_NO = "institute_mobile_no";
     public static final String STD_DOB = "std_dob";
-    public static final String STD_ADDRESS = "std_address";
     public static final String STD_INSTITUTE_NAME = "std_institute_name";
     public static final String INSTITUTE_ADDRESS ="institute_address";
 

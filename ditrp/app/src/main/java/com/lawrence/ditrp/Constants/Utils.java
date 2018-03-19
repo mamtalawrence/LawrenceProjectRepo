@@ -136,8 +136,8 @@ public class Utils {
         sharedPreferences.saveStringData(CommandConstant.STD_EMAIL, studentData.getSTUDENTEMAIL());
         sharedPreferences.saveStringData(CommandConstant.STD_CODE, studentData.getSTUDENTCODE());
         sharedPreferences.saveStringData(CommandConstant.STD_DOB, studentData.getSTUDENTDOB());
-        sharedPreferences.saveStringData(CommandConstant.STD_MOBILE_NO, studentData.getSTUDENTMOBILE());
         sharedPreferences.saveStringData(CommandConstant.STD_INSTITUTE_NAME, studentData.getINSTITUTENAME());
+        sharedPreferences.saveStringData(CommandConstant.INSTITUTE_MOBILE_NO, studentData.getINSTITUTEMOBILE());
         sharedPreferences.saveStringData(CommandConstant.INSTITUTE_ADDRESS, getFullAddress(studentData));
     }
 
@@ -176,20 +176,20 @@ public class Utils {
     }
 
     /**
-     * Get random 60 number between 0 and max number provided by user
+     * Get random 50 number between 0 and max number provided by user
      *
      * @param minRange
      * @param maxRange
      * @return list of random numbers
      */
-    private static ArrayList<Integer> getRandom60(int minRange, int maxRange) {
+    private static ArrayList<Integer> getRandom50(int minRange, int maxRange) {
 
         ArrayList<Integer> random = new ArrayList<Integer>();
         for (int i = 0; i < 1000; i++) {
             int randomNum = ThreadLocalRandom.current().nextInt(minRange, maxRange + 1);
             if (!random.contains(randomNum)) {
                 random.add(randomNum);
-                if (random.size() == 60) {
+                if (random.size() == 50) {
                     break;
                 }
             }
@@ -239,7 +239,7 @@ public class Utils {
     public static void setPracticeListKey(Context context, int size) {
         LinkedHashMap<Integer, ArrayList<Integer>> questionListKey = new LinkedHashMap<>();
         for (int i = 0; i < 33; i++) {
-            questionListKey.put(i, getRandom60(0, size - 1));
+            questionListKey.put(i, getRandom50(0, size - 1));
         }
         Gson gson = new Gson();
         String jsonQuestionListKey = gson.toJson(questionListKey);
@@ -268,22 +268,30 @@ public class Utils {
         CustomSharedPreferences.getInstance(context);
         LinkedHashMap<String, String> studentDataList = new LinkedHashMap<>();
         CustomSharedPreferences sharedPreferences = CustomSharedPreferences.getInstance(context);
-        studentDataList.put("Student Code", sharedPreferences.getStringData(CommandConstant.STD_CODE));
-        studentDataList.put("Name", sharedPreferences.getStringData(CommandConstant.STD_FIRST_NAME));
-        studentDataList.put("Middle Name", sharedPreferences.getStringData(CommandConstant.STD_MIDDLE_NAME));
-        studentDataList.put("Last Name", sharedPreferences.getStringData(CommandConstant.STD_LAST_NAME));
-        studentDataList.put("Gender", sharedPreferences.getStringData(CommandConstant.STD_GENDER));
-        studentDataList.put("Email ID", sharedPreferences.getStringData(CommandConstant.STD_EMAIL));
-        studentDataList.put("Date OF Birth", sharedPreferences.getStringData(CommandConstant.STD_DOB));
-        studentDataList.put("Mobile Number", sharedPreferences.getStringData(CommandConstant.STD_MOBILE_NO));
-        studentDataList.put("Institute Name", sharedPreferences.getStringData(CommandConstant
+        studentDataList.put(context.getString(R.string.student_code), sharedPreferences.getStringData(CommandConstant
+                .STD_CODE));
+        studentDataList.put(context.getString(R.string.name), sharedPreferences.getStringData(CommandConstant
+                .STD_FIRST_NAME));
+        studentDataList.put(context.getString(R.string.middle_name), sharedPreferences.getStringData(CommandConstant
+                .STD_MIDDLE_NAME));
+        studentDataList.put(context.getString(R.string.last_name), sharedPreferences.getStringData(CommandConstant
+                .STD_LAST_NAME));
+        studentDataList.put(context.getString(R.string.gender), sharedPreferences.getStringData(CommandConstant
+                .STD_GENDER));
+        studentDataList.put(context.getString(R.string.email_id), sharedPreferences.getStringData(CommandConstant
+                .STD_EMAIL));
+        studentDataList.put(context.getString(R.string.dob), sharedPreferences.getStringData(CommandConstant.STD_DOB));
+        studentDataList.put(context.getString(R.string.institute_name), sharedPreferences.getStringData(CommandConstant
                 .STD_INSTITUTE_NAME));
-        studentDataList.put("Address", sharedPreferences.getStringData(CommandConstant.INSTITUTE_ADDRESS));
+        studentDataList.put(context.getString(R.string.address), sharedPreferences.getStringData(CommandConstant
+                .INSTITUTE_ADDRESS));
+        studentDataList.put(context.getString(R.string.mob_num), sharedPreferences.getStringData(CommandConstant
+                .INSTITUTE_MOBILE_NO));
 
         return studentDataList;
     }
 
-    public static void exitDialog(final Context context, String title, String message){
+    public static void exitDialog(final Context context, String title, String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(title);
         builder.setIcon(android.R.drawable.ic_dialog_alert);
@@ -291,7 +299,7 @@ public class Utils {
                 .setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        ((Activity)context).finish();
+                        ((Activity) context).finish();
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {

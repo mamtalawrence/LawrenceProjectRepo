@@ -32,8 +32,8 @@ public class ExamPracticeAdapter extends RecyclerView.Adapter<CommonViewHolder> 
     @Override
     public void onBindViewHolder(CommonViewHolder holder, int position) {
         //Use the provided View Holder on the onCreateViewHolder method to populate the current row on the RecyclerView
-        holder.mTitle.setText("Exam Practice " + (position + 1));
-        holder.mDescription.setText("60 Questions and 60 minute to resolve \nClick here to start");
+        holder.mTitle.setText(context.getString(R.string.exam_practice) + (position + 1));
+        holder.mDescription.setText(R.string.exam_detail_decs);
         holder.mLogo.setImageResource(R.drawable.exam);
 
         //animation

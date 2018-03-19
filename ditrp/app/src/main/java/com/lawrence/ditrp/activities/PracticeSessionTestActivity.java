@@ -63,9 +63,9 @@ public class PracticeSessionTestActivity extends AppCompatActivity implements Vi
             @SuppressLint("DefaultLocale")
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                mQuestionCountView.setText(String.format("%d/60", position + 1));
+                mQuestionCountView.setText(String.format("%d/50", position + 1));
                 updatePreviousButtonStatus(position > 0);
-                if (position == 59) {
+                if (position == 49) {
                     mNextButton.setText(R.string.finish);
                     //updatePreviousButtonStatus(false);
                 } else {
@@ -139,7 +139,7 @@ public class PracticeSessionTestActivity extends AppCompatActivity implements Vi
     @Override
     public void handleNavigationOnNext() {
         updateAnswerCount();
-        if (mViewPager.getCurrentItem() == 59) {
+        if (mViewPager.getCurrentItem() == 49) {
             mLayoutPracticeTest.setVisibility(View.GONE);
             mQuestionCountView.setVisibility(View.GONE);
             mScoreLayout.setVisibility(View.VISIBLE);
@@ -164,8 +164,8 @@ public class PracticeSessionTestActivity extends AppCompatActivity implements Vi
     }
 
     private void calculateResult() {
-        int totalQuestions = mPracticeTestQuestionAdapter.getCount();
-        int totalCorrectAnswers = mPracticeTestQuestionAdapter.getNumberOfCorrectAnswer();
+        int totalQuestions = mPracticeTestQuestionAdapter.getCount() * 2;
+        int totalCorrectAnswers = mPracticeTestQuestionAdapter.getNumberOfCorrectAnswer() * 2;
         double percentage = (totalCorrectAnswers * 100) / totalQuestions;
         showResultStatus(!(percentage < 40));
     }

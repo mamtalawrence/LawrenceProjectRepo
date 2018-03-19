@@ -11,7 +11,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import com.lawrence.ditrp.Constants.Utils;
 import com.lawrence.ditrp.R;
 import com.lawrence.ditrp.adapter.ExamPracticeQuestionAdapter;
@@ -34,7 +38,7 @@ public class ExamPracticeTestActivity extends AppCompatActivity implements View.
 
     private static final String TAG = ExamPracticeTestActivity.class.getSimpleName();
     //Declare a variable to hold CountDownTimer milli seconds in future time
-    private long MILLISECONDS_IN_FUTURE = 30000; //30 seconds
+    private long MILLISECONDS_IN_FUTURE = 60000; //60 seconds
     //Declare a variable to hold CountDownTimer interval time
     private long COUNTDOWN_INTERVAL = 1000; //1 second
     //Declare a variable to hold CountDownTimer remaining time
@@ -103,13 +107,12 @@ public class ExamPracticeTestActivity extends AppCompatActivity implements View.
         mViewPager.setPagingEnabled(false);
         mPracticeTestQuestionAdapter = new ExamPracticeQuestionAdapter(this, getPracticeSessionList());
         mViewPager.setAdapter(mPracticeTestQuestionAdapter);
-        //mViewPager.setCurrentItem(58, true);   //for testing only
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @SuppressLint("DefaultLocale")
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                mQuestionCountView.setText(String.format("%d/60", position + 1));
-                if (position == 59) {
+                mQuestionCountView.setText(String.format("%d/50", position + 1));
+                if (position == 49) {
                     mNextButton.setText(getString(R.string.finish));
                 } else {
                     mNextButton.setText(getString(R.string.next));
@@ -140,7 +143,7 @@ public class ExamPracticeTestActivity extends AppCompatActivity implements View.
         HashMap<Integer, ArrayList<Integer>> questionList = Utils.getPracticeListKey(this);
         List<QuestionBank> questionBanksAllData = Utils.getQuestionIntoDB(this);
         ArrayList<Integer> dataPointers = questionList.get(mExamTestNumber);
-        List<QuestionBank> questionBanks = new ArrayList<QuestionBank>();
+        List<QuestionBank> questionBanks = new ArrayList<>();
         for (Integer questionIndex : dataPointers) {
             questionBanks.add(questionBanksAllData.get(questionIndex));
         }
@@ -224,12 +227,12 @@ public class ExamPracticeTestActivity extends AppCompatActivity implements View.
 
     @Override
     public void handleNavigationOnNext() {
-        MILLISECONDS_IN_FUTURE = 30000;
+        MILLISECONDS_IN_FUTURE = 60000;
         TIME_REMAINING = 0;
         updatePreviousButtonStatus(false);
         cancelTimer();
         updateAnswerCount();
-        if (mViewPager.getCurrentItem() == 59) {
+        if (mViewPager.getCurrentItem() == 49) {
             calculateResult();
             mPracticeTestQuestionAdapter.resetCorrectAnswer();
         } else {
@@ -280,7 +283,7 @@ public class ExamPracticeTestActivity extends AppCompatActivity implements View.
         isPaused = false;
         isStartExam = false;
         TIME_REMAINING = 0;
-        MILLISECONDS_IN_FUTURE = 30000;
+        MILLISECONDS_IN_FUTURE = 60000;
         cancelTimer();
     }
 
@@ -294,8 +297,8 @@ public class ExamPracticeTestActivity extends AppCompatActivity implements View.
     }
 
     private void calculateResult() {
-        int totalQuestions = mPracticeTestQuestionAdapter.getCount();
-        int totalCorrectAnswers = mPracticeTestQuestionAdapter.getNumberOfCorrectAnswer();
+        int totalQuestions = mPracticeTestQuestionAdapter.getCount() * 2;
+        int totalCorrectAnswers = mPracticeTestQuestionAdapter.getNumberOfCorrectAnswer() * 2;
         double percentage = (totalCorrectAnswers * 100) / totalQuestions;
         notifyToShowScoreCard(!(percentage < 40));
     }
