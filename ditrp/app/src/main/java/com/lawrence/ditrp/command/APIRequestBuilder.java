@@ -3,73 +3,82 @@ package com.lawrence.ditrp.command;
 import android.content.Context;
 import android.text.TextUtils;
 
-/**
- * Created by mamta.lawrence on 11/6/2017.
- */
 
-public class APIRequestBuilder {
+class APIRequestBuilder {
     /**
      * Context of activity
      */
-    public Context mContext;
+    Context mContext;
     /**
      * This variable will be required for cancelling Asyntask.
      */
-    public String mCommandName = null;
+    String mCommandName = null;
     /**
      * URL of API
      */
-    public String mURL = null;
+    String mURL;
     /**
      * userName of user name
      */
-    public String mUserName = null;
+    String mUserName = null;
     /**
      * password of password
      */
-    public String mPassword = null;
+    String mPassword = null;
 
     /**
-     * Responce listener
-     *
-     * @param builder
+     * Response Listener
      */
-    public ResponseListener mResponseListener;
+    ResponseListener mResponseListener;
 
-    public APIRequestBuilder(Builder builder) {
+    /**
+     * Student Id
+     */
+    String mStudentId = null;
+
+    /**
+     * Institute id
+     */
+    String mInstituteId = null;
+
+    private APIRequestBuilder(Builder builder) {
         this.mContext = builder.mContext;
         this.mCommandName = builder.mCommandName;
         this.mURL = builder.mURL;
         this.mUserName = builder.mUserName;
         this.mPassword = builder.mPassword;
         this.mResponseListener = builder.mResponseListener;
+        this.mStudentId = builder.mStudentId;
+        this.mInstituteId = builder.mInstituteId;
     }
 
-    public static class Builder {
-        public Context mContext;
-        public ResponseListener mResponseListener;
+    static class Builder {
+        Context mContext;
+        ResponseListener mResponseListener;
         private String mCommandName = null;
         private String mURL = null;
         private String mUserName = null;
         private String mPassword = null;
+        private String mStudentId = null;
+        private String mInstituteId = null;
 
-        public Builder() {
+        Builder() {
 
         }
 
-        public Builder(APIRequestBuilder apiRequestBuilder) {
+        /*public Builder(APIRequestBuilder apiRequestBuilder) {
             this.mContext = apiRequestBuilder.mContext;
             this.mCommandName = apiRequestBuilder.mCommandName;
             this.mURL = apiRequestBuilder.mURL;
             this.mUserName = apiRequestBuilder.mUserName;
             this.mPassword = apiRequestBuilder.mPassword;
             this.mResponseListener = apiRequestBuilder.mResponseListener;
-        }
+        }*/
 
         /**
          * App Context
          */
-        public Builder setContext(Context context) {
+        Builder setContext(Context context) {
             this.mContext = context;
             return this;
         }
@@ -77,7 +86,7 @@ public class APIRequestBuilder {
         /**
          * ResponseListener
          */
-        public Builder setResponseListener(ResponseListener responseListener) {
+        Builder setResponseListener(ResponseListener responseListener) {
             this.mResponseListener = responseListener;
             return this;
         }
@@ -89,7 +98,7 @@ public class APIRequestBuilder {
          * @param mCommandName Command Name of API Command Class
          * @return {@link Builder} Object with CommandName set.
          */
-        public Builder setCommandName(String mCommandName) {
+        Builder setCommandName(String mCommandName) {
             this.mCommandName = mCommandName;
             return this;
         }
@@ -100,7 +109,7 @@ public class APIRequestBuilder {
          * @param url API URL in form of {@link String}
          * @return {@link Builder} Object with URL set.
          */
-        public Builder setURL(String url) {
+        Builder setURL(String url) {
             this.mURL = url;
             return this;
         }
@@ -111,7 +120,7 @@ public class APIRequestBuilder {
          * @param userName API request userName in form of {@link String}
          * @return {@link Builder} Object with userName set.
          */
-        public Builder setUserName(String userName) {
+        Builder setUserName(String userName) {
             this.mUserName = userName;
             return this;
         }
@@ -122,8 +131,18 @@ public class APIRequestBuilder {
          * @param password API request password in form of {@link String}
          * @return {@link Builder} Object with password set.
          */
-        public Builder setPassword(String password) {
+        Builder setPassword(String password) {
             this.mPassword = password;
+            return this;
+        }
+
+        Builder setStudentId(String studentId) {
+            this.mStudentId = studentId;
+            return this;
+        }
+
+        Builder setInstituteId(String instituteId) {
+            this.mInstituteId = instituteId;
             return this;
         }
 
@@ -134,12 +153,14 @@ public class APIRequestBuilder {
          *
          * @return {@link APIRequestBuilder} with required fields set to perform network task.
          */
-        public APIRequestBuilder build() {
+        APIRequestBuilder build() {
             if (!TextUtils.isEmpty(mURL) && mCommandName != null) {
                 return new APIRequestBuilder(this);
             } else {
                 throw new IllegalArgumentException("unexpected request");
             }
         }
+
+
     }
 }

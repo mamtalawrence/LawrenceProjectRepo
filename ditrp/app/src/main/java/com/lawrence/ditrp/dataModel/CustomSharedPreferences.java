@@ -3,9 +3,6 @@ package com.lawrence.ditrp.dataModel;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-/**
- * Created by Anagha.Mahajan on 09-Nov-17.
- */
 public class CustomSharedPreferences {
     private static CustomSharedPreferences customSharedPreferences;
     private SharedPreferences sharedPreferences;
@@ -21,7 +18,7 @@ public class CustomSharedPreferences {
     /**
      * Constructor
      *
-     * @param context
+     * @param context context
      */
     private CustomSharedPreferences(Context context) {
         sharedPreferences = context.getSharedPreferences("CustomSharedPreferences", Context.MODE_PRIVATE);
@@ -54,9 +51,9 @@ public class CustomSharedPreferences {
      * @param key   for save the value
      * @param value which needs to be save
      */
-    public void saveIntData(String key, int value) {
+    /*public void saveIntData(String key, int value) {
         mEditor.putInt(key, value).apply();
-    }
+    }*/
 
     /**
      * get int value by key
@@ -64,9 +61,9 @@ public class CustomSharedPreferences {
      * @param key which value needed
      * @return value by key
      */
-    public int getIntData(String key) {
+    /*public int getIntData(String key) {
         return sharedPreferences.getInt(key, 0);
-    }
+    }*/
 
     /**
      * save Boolean value by key

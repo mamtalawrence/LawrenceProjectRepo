@@ -12,9 +12,6 @@ import com.lawrence.ditrp.dataModel.QuestionBank;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by mamta.lawrence on 11/9/2017.
- */
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     // Logcat tag
@@ -118,7 +115,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /**
      * Insert data into question bank
      *
-     * @param
+     * @param questionBank questionBank
      */
     public void insertQuestionBank(List<QuestionBank> questionBank) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -134,7 +131,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @param id by key
      * @return QuestionBank object
      */
-    public QuestionBank getQuestionBank(int id) {
+    /*public QuestionBank getQuestionBank(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = "SELECT  * FROM " + QUESTION_BANK + " WHERE " + QUESTION_ID + " = " + id;
         Log.e(LOG, selectQuery);
@@ -159,7 +156,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         return questionBank;
-    }
+    }*/
 
     /**
      * Get QuestionBank list
@@ -167,7 +164,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @return QuestionBank object list
      */
     public List<QuestionBank> getAllQuestionBank() {
-        List<QuestionBank> questionBankArrayList = new ArrayList<QuestionBank>();
+        List<QuestionBank> questionBankArrayList = new ArrayList<>();
         String selectQuery = "SELECT  * FROM " + QUESTION_BANK;
         Log.e(LOG, selectQuery);
 
@@ -203,7 +200,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @param questionBank
      * @return success or failure
      */
-    public int updateQuestionBank(QuestionBank questionBank) {
+   /* public int updateQuestionBank(QuestionBank questionBank) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -212,18 +209,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // updating row
         return db.update(QUESTION_BANK, values, KEY_ID + " = ?",
                 new String[]{String.valueOf(questionBank.getQuestionID())});
-    }
+    }*/
 
     /**
      * Delete by id
      *
      * @param id
      */
-    public void deleteQuestionBank(long id) {
+    /*public void deleteQuestionBank(long id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(QUESTION_BANK, KEY_ID + " = ?",
                 new String[]{String.valueOf(id)});
-    }
+    }*/
 
     /**
      * Insert data into question Library
@@ -261,7 +258,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @return ItemsLibrary object list
      */
     public List<ItemsLibrary> getAllQuestionsFromLibrary() {
-        List<ItemsLibrary> itemsLibraryList = new ArrayList<ItemsLibrary>();
+        List<ItemsLibrary> itemsLibraryList = new ArrayList<>();
         String selectQuery = "SELECT  * FROM " + QUESTION_LIBRARY;
         Log.e(LOG, selectQuery);
 
@@ -293,12 +290,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void deleteTable() {
+    /*public void deleteTable() {
         SQLiteDatabase db = this.getReadableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + QUESTION_BANK);
         db.execSQL("DROP TABLE IF EXISTS " + PRACTICE_QUESTION);
         db.execSQL("DROP TABLE IF EXISTS " + QUESTION_LIBRARY);
-    }
+    }*/
 }
 
 

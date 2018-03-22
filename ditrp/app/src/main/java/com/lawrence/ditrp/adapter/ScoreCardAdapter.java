@@ -38,7 +38,7 @@ public class ScoreCardAdapter extends RecyclerView.Adapter<ScoreCardViewHolder> 
     public void onBindViewHolder(ScoreCardViewHolder holder, int position) {
         //Use the provided View Holder on the onCreateViewHolder method to populate the current row on the RecyclerView
         String expectedAnswer = getExpectedAndActualAnswer(position, true);
-        String actualAnswer = getExpectedAndActualAnswer(position, false);;
+        String actualAnswer = getExpectedAndActualAnswer(position, false);
         holder.mViewQuestion.setText(String.format(Locale.ENGLISH, "Q%d. %s", position + 1, list.get(position)
                 .getQuestion()));
         if (!TextUtils.isEmpty(actualAnswer)) {

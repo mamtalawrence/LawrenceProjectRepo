@@ -6,10 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Toast;
 import com.lawrence.ditrp.Constants.Utils;
 import com.lawrence.ditrp.R;
-import com.lawrence.ditrp.adapter.CustomRVItemTouchListener;
+import com.lawrence.ditrp.listener.CustomRVItemTouchListener;
 import com.lawrence.ditrp.adapter.DashBoardAdapter;
 import com.lawrence.ditrp.dataModel.DashBoardData;
 import com.lawrence.ditrp.listener.RecyclerViewItemClickListener;
@@ -24,8 +23,13 @@ public class DashBoardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.common_recycler_view_layout);
         Utils.setCustomActionBar(this, getString(R.string.app_name), false, false);
+        initializeView();
+    }
 
-        // Set View with adapter
+    /**
+     * Set View with adapter
+     */
+    private void initializeView() {
         RecyclerView dashBoardRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         DashBoardAdapter adapter = new DashBoardAdapter(setData(), getApplication());
         dashBoardRecyclerView.setAdapter(adapter);
@@ -41,10 +45,10 @@ public class DashBoardActivity extends AppCompatActivity {
                                 intent = new Intent(DashBoardActivity.this, QuestionBankActivity.class);
                                 break;
                             case 1:
-                                intent = new Intent(DashBoardActivity.this, PracticeSessionActivity.class);
+                                intent = new Intent(DashBoardActivity.this, PracticeSessionListActivity.class);
                                 break;
                             case 2:
-                                intent = new Intent(DashBoardActivity.this, ExamPracticeActivity.class);
+                                intent = new Intent(DashBoardActivity.this, ExamPracticeListActivity.class);
                                 break;
                             case 3:
                                 intent = new Intent(DashBoardActivity.this, SettingActivity.class);
@@ -55,9 +59,9 @@ public class DashBoardActivity extends AppCompatActivity {
 
                     @Override
                     public void onLongClick(View view, int position) {
-                        Toast.makeText(DashBoardActivity.this, "long click " + position, Toast.LENGTH_SHORT).show();
                     }
                 }));
+
     }
 
     /**

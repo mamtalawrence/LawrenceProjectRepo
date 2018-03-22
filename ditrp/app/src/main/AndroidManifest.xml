@@ -24,9 +24,9 @@
                 android:theme="@style/Theme.AppCompat.Light.NoActionBar"
                 android:windowSoftInputMode="adjustResize|adjustPan"/>
         <activity android:name=".activities.DashBoardActivity"/>
-        <activity android:name=".activities.PracticeSessionActivity"/>
+        <activity android:name=".activities.PracticeSessionListActivity"/>
         <activity android:name=".activities.PracticeSessionTestActivity"/>
-        <activity android:name=".activities.ExamPracticeActivity"/>
+        <activity android:name=".activities.ExamPracticeListActivity"/>
         <activity android:name=".activities.ExamPracticeTestActivity"/>
         <activity android:name=".activities.SettingActivity"/>
         <activity android:name=".activities.QuestionBankActivity"/>

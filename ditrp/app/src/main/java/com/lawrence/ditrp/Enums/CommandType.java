@@ -2,6 +2,6 @@ package com.lawrence.ditrp.Enums;
 
 public enum CommandType {
     LOGIN,
-    REGISTRATION,
+    VALIDATION,
     DATA_REQUEST
 }

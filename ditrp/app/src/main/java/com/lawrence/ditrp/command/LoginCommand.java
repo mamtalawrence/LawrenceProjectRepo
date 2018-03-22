@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import com.lawrence.ditrp.Constants.CommandConstant;
 import com.lawrence.ditrp.Constants.Utils;
 import com.lawrence.ditrp.Enums.CommandType;
+import com.lawrence.ditrp.R;
 import com.lawrence.ditrp.activities.DashBoardActivity;
 import com.lawrence.ditrp.dataModel.CustomSharedPreferences;
 import com.lawrence.ditrp.dataModel.ItemsLibrary;
@@ -18,10 +19,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-/**
- * Created by mamta.lawrence on 11/6/2017.
- */
 
 public class LoginCommand implements Command {
     private Context mContext = null;
@@ -49,7 +46,7 @@ public class LoginCommand implements Command {
                     showDashBoardActivity();
                 } else {
                     // fail handling
-                    Utils.showToast(mContext, "Sorry, could not connect to server.\nPlease try again later!", false);
+                    Utils.showToast(mContext, mContext.getString(R.string.login_fail), false);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -66,6 +63,7 @@ public class LoginCommand implements Command {
 
         }
     };
+
     /**
      * Response Listener to set the data into shared preference and database.
      */
@@ -80,11 +78,10 @@ public class LoginCommand implements Command {
                     Utils.showToast(mContext, jsonBodyObject.get("message").toString(), true);
                     Gson gson = new Gson();
                     StudentData studentData = gson.fromJson(jsonBodyObject.get("data").toString(), StudentData.class);
-                    Utils.saveStudentData(mContext, CustomSharedPreferences.getInstance(mContext), studentData);
+                    Utils.saveStudentData(mContext, studentData);
                     Utils.saveQuestionIntoDB(mContext, studentData.getStudentCourses().get(0).getQuestionBank());
                     Utils.setPracticeListKey(mContext, studentData.getStudentCourses().get(0).getQuestionBank().size());
-                    Utils.saveStudentCourseData(mContext, studentData.getStudentCourses(), CustomSharedPreferences
-                            .getInstance(mContext));
+                    Utils.saveStudentCourseData(mContext, studentData.getStudentCourses());
                 } else {
                     // fail handling
                     Utils.showToast(mContext, ((JSONObject) jsonBodyObject.get("errors")).get
@@ -116,25 +113,25 @@ public class LoginCommand implements Command {
 
     @Override
     public void execute(CommandType commandType) {
-        APIRequestBuilder mApiRequestBuilder;
+        APIRequestBuilder apiRequestBuilder;
         switch (commandType) {
             case LOGIN:
-                mApiRequestBuilder = new APIRequestBuilder.Builder()
+                apiRequestBuilder = new APIRequestBuilder.Builder()
                         .setContext(mContext)
                         .setCommandName(CommandConstant.MODULE_LOGIN)
                         .setURL(CommandConstant.SERVER_URL)
                         .setUserName(mUserName)
                         .setPassword(mPassword)
                         .setResponseListener(mResponseListener).build();
-                new NetworkTask(mApiRequestBuilder, commandType).execute(CommandConstant.SERVER_URL);
+                new NetworkTask(apiRequestBuilder, commandType).execute(CommandConstant.SERVER_URL);
                 break;
             case DATA_REQUEST:
-                mApiRequestBuilder = new APIRequestBuilder.Builder()
+                apiRequestBuilder = new APIRequestBuilder.Builder()
                         .setContext(mContext)
                         .setCommandName(CommandConstant.MODULE_QUESTION_BANK)
                         .setURL(CommandConstant.QUESTION_LIBRARY_URL)
                         .setResponseListener(mResponseItemLibraryListener).build();
-                new NetworkTask(mApiRequestBuilder, commandType).execute(CommandConstant.QUESTION_LIBRARY_URL);
+                new NetworkTask(apiRequestBuilder, commandType).execute(CommandConstant.QUESTION_LIBRARY_URL);
                 break;
             default:
         }

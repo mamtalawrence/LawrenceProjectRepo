@@ -11,14 +11,14 @@
 
     <RelativeLayout android:layout_width="match_parent"
                     android:id="@+id/lay_btn"
-                    android:background="@android:drawable/alert_light_frame"
-                    android:layout_height="wrap_content">
+                    android:background="@drawable/cloud"
+                    android:layout_height="250dp">
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/text_result_state"
                 android:text="@string/failed"
-                android:textColor="@android:color/black"
+                android:textColor="@android:color/white"
                 android:textStyle="bold|normal"
                 android:textSize="26sp"
                 android:layout_margin="15dp"
@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/text_result_instruction"
                 android:text="@string/result_failed_suggestion_label"
-                android:textColor="@android:color/black"
+                android:textColor="@android:color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:gravity="center_horizontal"/>
@@ -39,9 +39,8 @@
                 android:layout_below="@+id/text_result_instruction">
             <Button
                     android:id="@+id/button_home1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:text="@string/home"
                     android:textColor="@android:color/white"
                     android:background="@color/colorPrimaryDark"
@@ -52,9 +51,8 @@
                     style="?android:attr/buttonBarButtonStyle"/>
             <Button
                     android:id="@+id/button_score_card"
-                    android:layout_width="wrap_content"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:text="@string/score_card_label"
                     android:textColor="@android:color/white"
                     android:background="@color/colorPrimaryDark"

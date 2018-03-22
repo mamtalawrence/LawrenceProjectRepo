@@ -17,6 +17,7 @@ import java.lang.reflect.Field;
 public class NonSwappableViewPager extends ViewPager {
 
     private boolean enabled;
+
     public NonSwappableViewPager(Context context) {
         super(context);
         this.enabled = true;
@@ -64,7 +65,7 @@ public class NonSwappableViewPager extends ViewPager {
     }
 
     public class MyScroller extends Scroller {
-        public MyScroller(Context context) {
+        MyScroller(Context context) {
             super(context, new DecelerateInterpolator());
         }
 

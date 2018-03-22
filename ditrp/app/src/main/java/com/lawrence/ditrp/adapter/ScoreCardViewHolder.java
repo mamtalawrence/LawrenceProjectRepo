@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.lawrence.ditrp.R;
 
-public class ScoreCardViewHolder extends RecyclerView.ViewHolder {
+class ScoreCardViewHolder extends RecyclerView.ViewHolder {
 
     CardView mCardView;
     ImageView mImageViewAnswerState;

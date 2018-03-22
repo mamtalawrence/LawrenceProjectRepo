@@ -1,14 +1,10 @@
 package com.lawrence.ditrp.dataModel;
 
-import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-/**
- * Created by Anagha.Mahajan on 07-Nov-17.
- */
 public class QuestionBank implements Serializable {
     @SerializedName("QUESTION_ID")
     @Expose

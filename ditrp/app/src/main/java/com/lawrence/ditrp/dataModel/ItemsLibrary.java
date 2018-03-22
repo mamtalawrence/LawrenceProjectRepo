@@ -5,9 +5,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-/**
- * Created by Prateek.Patel on 16-Mar-18.
- */
 public class ItemsLibrary implements Serializable {
 
 

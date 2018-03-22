@@ -30,13 +30,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-/**
- * Created by mamta.lawrence on 11/6/2017.
- */
-
 public class Utils {
-
-    private View mActionBarView;
 
     public static boolean isNetworkAvailable(Context context) {
         final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context
@@ -73,8 +67,8 @@ public class Utils {
     /**
      * Save Questions into DB
      *
-     * @param context
-     * @param mQuestionBank
+     * @param context       context
+     * @param mQuestionBank Question Bank
      */
     public static void saveQuestionIntoDB(Context context, List<QuestionBank> mQuestionBank) {
         DatabaseHelper databaseHelper = new DatabaseHelper(context);
@@ -125,9 +119,8 @@ public class Utils {
         return itemsLibraryList;
     }
 
-    public static void saveStudentData(Context mContext, CustomSharedPreferences sharedPreferences, StudentData
-            studentData) {
-        sharedPreferences = CustomSharedPreferences.getInstance(mContext);
+    public static void saveStudentData(Context mContext, StudentData studentData) {
+        CustomSharedPreferences sharedPreferences = CustomSharedPreferences.getInstance(mContext);
         sharedPreferences.saveStringData(CommandConstant.STD_ID, studentData.getSTUDENTID());
         sharedPreferences.saveStringData(CommandConstant.STD_FIRST_NAME, studentData.getSTUDENTFNAME());
         sharedPreferences.saveStringData(CommandConstant.STD_MIDDLE_NAME, studentData.getSTUDENTMNAME());
@@ -139,6 +132,7 @@ public class Utils {
         sharedPreferences.saveStringData(CommandConstant.STD_INSTITUTE_NAME, studentData.getINSTITUTENAME());
         sharedPreferences.saveStringData(CommandConstant.INSTITUTE_MOBILE_NO, studentData.getINSTITUTEMOBILE());
         sharedPreferences.saveStringData(CommandConstant.INSTITUTE_ADDRESS, getFullAddress(studentData));
+        sharedPreferences.saveStringData(CommandConstant.INSTITUTE_CODE, studentData.getINSTITUTECODE());
     }
 
     private static String getFullAddress(StudentData studentData) {
@@ -158,16 +152,14 @@ public class Utils {
         return address;
     }
 
-    public static void saveStudentCourseData(Context context, List<StudentCourse> studentCourses,
-                                             CustomSharedPreferences sharedPreferences) {
+    public static void saveStudentCourseData(Context context, List<StudentCourse> studentCourses) {
         for (StudentCourse studentCourse : studentCourses) {
-            insertCourse(context, sharedPreferences, studentCourse);
+            insertCourse(context, studentCourse);
         }
     }
 
-    private static void insertCourse(Context mContext, CustomSharedPreferences sharedPreferences, StudentCourse
-            studentCourse) {
-        sharedPreferences = CustomSharedPreferences.getInstance(mContext);
+    private static void insertCourse(Context mContext, StudentCourse studentCourse) {
+        CustomSharedPreferences sharedPreferences = CustomSharedPreferences.getInstance(mContext);
         sharedPreferences.saveStringData(CommandConstant.COURSE_ID, studentCourse.getCourseId());
         sharedPreferences.saveStringData(CommandConstant.COURSE_NAME, studentCourse.getCourseName());
         sharedPreferences.saveStringData(CommandConstant.COURSE_AWARD, studentCourse.getCourseAward());
@@ -178,13 +170,13 @@ public class Utils {
     /**
      * Get random 50 number between 0 and max number provided by user
      *
-     * @param minRange
-     * @param maxRange
+     * @param minRange min Range
+     * @param maxRange max Range
      * @return list of random numbers
      */
     private static ArrayList<Integer> getRandom50(int minRange, int maxRange) {
 
-        ArrayList<Integer> random = new ArrayList<Integer>();
+        ArrayList<Integer> random = new ArrayList<>();
         for (int i = 0; i < 1000; i++) {
             int randomNum = ThreadLocalRandom.current().nextInt(minRange, maxRange + 1);
             if (!random.contains(randomNum)) {
@@ -200,7 +192,7 @@ public class Utils {
     /**
      * Added custom action bar to view
      *
-     * @param context
+     * @param context context
      */
     public static void setCustomActionBar(Context context, @NonNull String titleText, boolean
             shouldVisibleQuestionCount, boolean shouldVisibleTimer) {
@@ -233,8 +225,8 @@ public class Utils {
     /**
      * Save practice and exam session question id list
      *
-     * @param context
-     * @param size
+     * @param context context
+     * @param size    size
      */
     public static void setPracticeListKey(Context context, int size) {
         LinkedHashMap<Integer, ArrayList<Integer>> questionListKey = new LinkedHashMap<>();
@@ -251,11 +243,11 @@ public class Utils {
     /**
      * Get practice and exam session question id list
      *
-     * @param context
+     * @param context context
      */
     public static LinkedHashMap<Integer, ArrayList<Integer>> getPracticeListKey(Context context) {
 
-        LinkedHashMap<Integer, ArrayList<Integer>> questionListKey = new LinkedHashMap<Integer, ArrayList<Integer>>();
+        LinkedHashMap<Integer, ArrayList<Integer>> questionListKey;
         Gson gson = new Gson();
         Type type = new TypeToken<LinkedHashMap<Integer, ArrayList<Integer>>>() {
         }.getType();

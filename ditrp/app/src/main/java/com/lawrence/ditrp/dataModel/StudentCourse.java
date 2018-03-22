@@ -5,9 +5,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-/**
- * Created by Anagha.Mahajan on 07-Nov-17.
- */
 public class StudentCourse {
 
     @SerializedName("COURSE_ID")

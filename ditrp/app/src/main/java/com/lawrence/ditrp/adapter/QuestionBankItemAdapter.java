@@ -14,12 +14,12 @@ import com.squareup.picasso.Picasso;
 import java.util.Collections;
 import java.util.List;
 
-public class ItemDetailsAdapter extends RecyclerView.Adapter<ItemDetailsViewHolder> {
+public class QuestionBankItemAdapter extends RecyclerView.Adapter<ItemDetailsViewHolder> {
 
     List<ItemsLibrary> list = Collections.emptyList();
     Context context;
 
-    public ItemDetailsAdapter(List<ItemsLibrary> list, Context context) {
+    public QuestionBankItemAdapter(List<ItemsLibrary> list, Context context) {
         this.list = list;
         this.context = context;
     }

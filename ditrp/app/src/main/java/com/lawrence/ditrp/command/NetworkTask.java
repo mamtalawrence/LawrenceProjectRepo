@@ -23,7 +23,7 @@ import java.net.URL;
 /**
  * Class to perform network related task.
  */
-public class NetworkTask extends AsyncTask<String, Void, Boolean> {
+class NetworkTask extends AsyncTask<String, Void, Boolean> {
 
     private ProgressDialog progressDialog;
     private APIRequestBuilder mApiRequestBuilder = null;
@@ -43,6 +43,8 @@ public class NetworkTask extends AsyncTask<String, Void, Boolean> {
         progressDialog = new ProgressDialog(mContext, R.style.AppCompatAlertDialogStyle);
         if (mCommandType == CommandType.LOGIN) {
             progressDialog.setMessage("Login...");
+        } else if (mCommandType == CommandType.VALIDATION) {
+            progressDialog.setMessage("Checking Validation...");
         } else {
             progressDialog.setMessage("Fetching Data...");
         }
@@ -52,7 +54,7 @@ public class NetworkTask extends AsyncTask<String, Void, Boolean> {
 
     @Override
     protected Boolean doInBackground(String... url) {
-        final String jsonString = sendPostRequestToConnectLoginAPI(url[0]);
+        final String jsonString = sendPostRequestToConnectAPI(url[0]);
         if (mCommandType == CommandType.LOGIN) {
             try {
                 JSONObject responseObject = new JSONObject(jsonString);
@@ -64,6 +66,7 @@ public class NetworkTask extends AsyncTask<String, Void, Boolean> {
                 e.printStackTrace();
             }
         }
+
         if (!TextUtils.isEmpty(jsonString)) {
             Log.v("json response :-", jsonString + "");
             mApiRequestBuilder.mResponseListener.onSuccess(jsonString);
@@ -86,7 +89,7 @@ public class NetworkTask extends AsyncTask<String, Void, Boolean> {
      *
      * @return response
      */
-    private String sendPostRequestToConnectLoginAPI(String serverUrl) {
+    private String sendPostRequestToConnectAPI(String serverUrl) {
         String responseJsonData = null;
         HttpURLConnection urlConnection = null;
         try {
@@ -102,6 +105,9 @@ public class NetworkTask extends AsyncTask<String, Void, Boolean> {
             } else if (mCommandType == CommandType.DATA_REQUEST) {
                 urlConnection.setRequestMethod(NetworkRequestType.GET.toString());
                 urlConnection.setRequestProperty("Content-length", "0");
+            } else if (mCommandType == CommandType.VALIDATION) {
+                urlConnection.setRequestMethod(NetworkRequestType.GET.toString());
+                //urlConnection.setRequestProperty("Content-type", "application/txt");
             }
             urlConnection.setUseCaches(false);
             urlConnection.setAllowUserInteraction(false);
@@ -114,6 +120,14 @@ public class NetworkTask extends AsyncTask<String, Void, Boolean> {
                 DataOutputStream dos = new DataOutputStream(urlConnection.getOutputStream());
                 // writing your data which you post
                 dos.writeBytes(getPostRequestQuery());
+                //flushes data output stream.
+                dos.flush();
+                dos.close();
+            } else if (mCommandType == CommandType.VALIDATION) {
+                //Writing data (bytes) to the data output stream
+                DataOutputStream dos = new DataOutputStream(urlConnection.getOutputStream());
+                // writing your data which you post
+                dos.writeBytes(getValidationPostRequestQuery());
                 //flushes data output stream.
                 dos.flush();
                 dos.close();
@@ -130,7 +144,11 @@ public class NetworkTask extends AsyncTask<String, Void, Boolean> {
                     response.append(inputLine);
                 }
                 inputBufferedReader.close();// close the buffer reader stream
-                responseJsonData = proceedForParsing(response.toString());
+                if (mCommandType != CommandType.VALIDATION) {
+                    responseJsonData = proceedForParsing(response.toString());
+                } else {
+                    responseJsonData = response.toString();
+                }
             } else {
                 Exception exception = new RuntimeException("Sorry, could not connect to server.\nPlease try again " +
                         "later!");
@@ -167,9 +185,23 @@ public class NetworkTask extends AsyncTask<String, Void, Boolean> {
                 .appendQueryParameter("service", mApiRequestBuilder.mCommandName)
                 .appendQueryParameter("uname", mApiRequestBuilder.mUserName)
                 .appendQueryParameter("pword", mApiRequestBuilder.mPassword)
-                .appendQueryParameter("deviceid", Settings.Secure.getString(mContext.getContentResolver(),
-                        Settings.Secure.ANDROID_ID))
+                .appendQueryParameter("deviceid", Settings.Secure.getString(mContext.getContentResolver(), Settings
+                        .Secure.ANDROID_ID))
                 .appendQueryParameter("service", "login");
+        return builder.build().getEncodedQuery();
+    }
+
+    /**
+     * Getting parameters data string to POST request
+     *
+     * @return request parameter as string
+     */
+    private String getValidationPostRequestQuery() {
+
+        Uri.Builder builder = new Uri.Builder()
+                .appendQueryParameter("service", mApiRequestBuilder.mCommandName)
+                .appendQueryParameter("student_id", mApiRequestBuilder.mStudentId)
+                .appendQueryParameter("institute_id", mApiRequestBuilder.mInstituteId);
         return builder.build().getEncodedQuery();
     }
 

@@ -15,13 +15,9 @@ import com.lawrence.ditrp.interfaces.ITestAdapterEventHandler;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * Created by Anagha.Mahajan on 10-Nov-17.
- */
 public class ExamPracticeQuestionAdapter extends PagerAdapter implements ITestAdapterEventHandler {
 
     private static final String EMPTY_STRING = "";
-    private Context context;
     private LayoutInflater inflater;
     private List<QuestionBank> mQuestionBanksObjectList;
     private ViewHolder viewHolder;
@@ -29,7 +25,6 @@ public class ExamPracticeQuestionAdapter extends PagerAdapter implements ITestAd
     private int totalIncorrectAnswer = 0;
 
     public ExamPracticeQuestionAdapter(Context context, List<QuestionBank> questionBanks) {
-        this.context = context;
         this.mQuestionBanksObjectList = questionBanks;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -142,7 +137,6 @@ public class ExamPracticeQuestionAdapter extends PagerAdapter implements ITestAd
 
     @Override
     public int getItemPosition(Object object) {
-        //int position = ((ViewHolderMain) object).position;
         return POSITION_NONE;
     }
 

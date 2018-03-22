@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.lawrence.ditrp.R;
 
-public class ItemDetailsViewHolder extends RecyclerView.ViewHolder {
+class ItemDetailsViewHolder extends RecyclerView.ViewHolder {
 
     CardView mCardView;
     ImageView mImageViewItem;

@@ -6,16 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
-
 import com.lawrence.ditrp.R;
 import com.lawrence.ditrp.dataModel.DashBoardData;
 
 import java.util.Collections;
 import java.util.List;
-
-/**
- * Created by mamta.lawrence on 11/8/2017.
- */
 
 public class DashBoardAdapter extends RecyclerView.Adapter<CommonViewHolder> {
 
@@ -43,8 +38,8 @@ public class DashBoardAdapter extends RecyclerView.Adapter<CommonViewHolder> {
         holder.mLogo.setImageResource(list.get(position).imageId);
 
         //animation
-        holder.mCardView.setAnimation(AnimationUtils.loadAnimation(context,R.anim.zoom_in));
-        }
+        holder.mCardView.setAnimation(AnimationUtils.loadAnimation(context, R.anim.zoom_in));
+    }
 
     @Override
     public int getItemCount() {
@@ -56,18 +51,4 @@ public class DashBoardAdapter extends RecyclerView.Adapter<CommonViewHolder> {
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
     }
-
-    // Insert a new item to the RecyclerView on a predefined position
-    public void insert(int position, DashBoardData dashBoardData) {
-        list.add(position, dashBoardData);
-        notifyItemInserted(position);
-    }
-
-    // Remove a RecyclerView item containing a specified DashBoardData object
-    public void remove(DashBoardData dashBoardData) {
-        int position = list.indexOf(dashBoardData);
-        list.remove(position);
-        notifyItemRemoved(position);
-    }
-
 }

@@ -1,20 +1,15 @@
-package com.lawrence.ditrp.adapter;
+package com.lawrence.ditrp.listener;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import com.lawrence.ditrp.listener.RecyclerViewItemClickListener;
-
-/**
- * Created by mamta.lawrence on 11/8/2017.
- */
 
 public class CustomRVItemTouchListener implements RecyclerView.OnItemTouchListener {
 
     //GestureDetector to intercept touch events
-    GestureDetector gestureDetector;
+    private GestureDetector gestureDetector;
     private RecyclerViewItemClickListener clickListener;
 
     public CustomRVItemTouchListener(Context context, final RecyclerView recyclerView, final

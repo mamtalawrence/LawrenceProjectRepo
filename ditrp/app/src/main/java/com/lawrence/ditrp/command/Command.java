@@ -2,10 +2,6 @@ package com.lawrence.ditrp.command;
 
 import com.lawrence.ditrp.Enums.CommandType;
 
-/**
- * Created by mamta.lawrence on 11/6/2017.
- */
-
 public interface Command {
 
     /**
@@ -13,5 +9,5 @@ public interface Command {
      *
      * @param commandType command type
      */
-    public void execute(CommandType commandType);
+    void execute(CommandType commandType);
 }

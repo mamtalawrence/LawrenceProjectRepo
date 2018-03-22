@@ -21,25 +21,24 @@ import com.lawrence.ditrp.command.WebCallCommand;
 public class LoginActivity extends AppCompatActivity {
 
     private EditText mUserNameEditText, mPasswordEditText;
-    private Button mLoginButton;
     private CoordinatorLayout mCoordinatorLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        init();
+        initializeView();
     }
 
     /**
      * Initialize variables
      */
-    private void init() {
+    private void initializeView() {
         mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
         mUserNameEditText = (EditText) findViewById(R.id.input_uname);
         mPasswordEditText = (EditText) findViewById(R.id.input_password);
-        mLoginButton = (Button) findViewById(R.id.btn_login);
-        mLoginButton.setOnClickListener(new View.OnClickListener() {
+        Button loginButton = (Button) findViewById(R.id.btn_login);
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptToLogin();
@@ -48,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     *
+     * login command execution
      */
     private void attemptToLogin() {
         String userName = mUserNameEditText.getText().toString();

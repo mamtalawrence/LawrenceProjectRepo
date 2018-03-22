@@ -1,10 +1,6 @@
 package com.lawrence.ditrp.command;
 
-/**
- * Created by mamta.lawrence on 11/6/2017.
- */
-
-public interface ResponseListener {
+interface ResponseListener {
 
     /**
      * This method will be invoked if API request is Success.
