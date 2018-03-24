@@ -1,0 +1,20 @@
+ditrp keystore details
+
+password = "lawrence15#"
+
+Alias Name = ditrpAlias
+password = "lawrence15#"
+
+Validity = 25years
+
+First Last Name = Mamta Lawrence
+
+Organization Unit = Software Development
+
+Organization = Lawrence
+
+City = Nagpur
+
+State = Maharashtra
+
+CC = IN

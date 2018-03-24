@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DITRP</string>
+    <string name="app_name">DITRP Exam</string>
     <string name="title_activity_login2">Sign in</string>
     <string name="practice_session_name">Practice</string>
     <string name="exam_practice_name">Exam</string>
