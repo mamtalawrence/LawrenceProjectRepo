@@ -132,7 +132,7 @@ public class Utils {
         sharedPreferences.saveStringData(CommandConstant.STD_INSTITUTE_NAME, studentData.getINSTITUTENAME());
         sharedPreferences.saveStringData(CommandConstant.INSTITUTE_MOBILE_NO, studentData.getINSTITUTEMOBILE());
         sharedPreferences.saveStringData(CommandConstant.INSTITUTE_ADDRESS, getFullAddress(studentData));
-        sharedPreferences.saveStringData(CommandConstant.INSTITUTE_CODE, studentData.getINSTITUTECODE());
+        sharedPreferences.saveStringData(CommandConstant.INSTITUTE_ID, studentData.getINSTITUTEID());
     }
 
     private static String getFullAddress(StudentData studentData) {

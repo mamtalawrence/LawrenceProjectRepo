@@ -29,10 +29,10 @@ public class ValidationCommand implements Command {
                 .setContext(mContext)
                 .setCommandName(CommandConstant.MODULE_VALIDATION)
                 .setURL(CommandConstant.SERVER_URL)
-                /*.setStudentId(mStudentId)
-                .setInstituteId(mInstituteId)*/
-                .setStudentId("8")
-                .setInstituteId("5")
+                .setStudentId(mStudentId)
+                .setInstituteId(mInstituteId)
+                /*.setStudentId("8")
+                .setInstituteId("5")*/
                 .setResponseListener(mResponseListener).build();
         new NetworkTask(apiRequestBuilder, commandType).execute(CommandConstant.SERVER_URL);
     }

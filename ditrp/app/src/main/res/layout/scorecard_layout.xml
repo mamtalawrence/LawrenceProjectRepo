@@ -10,7 +10,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="15dp"
-            android:background="@android:color/white"
             android:visibility="gone">
         <RelativeLayout android:layout_width="match_parent"
                         android:id="@+id/lay_btn"
@@ -21,7 +20,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/text_result_state"
                     android:text="@string/failed"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textStyle="bold|normal"
                     android:textSize="26sp"
                     android:layout_margin="15dp"
@@ -32,7 +31,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/text_result_instruction"
                     android:text="@string/result_failed_suggestion_label"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:gravity="center_horizontal"/>
@@ -68,11 +67,6 @@
                         style="?android:attr/buttonBarButtonStyle"/>
             </LinearLayout>
         </RelativeLayout>
-        <ImageView android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:id="@+id/img_boy"
-                   android:layout_below="@+id/lay_btn"
-                   android:background="@drawable/happy_boy"/>
     </RelativeLayout>
     <RelativeLayout android:id="@+id/layout_display_result"
                     android:layout_width="match_parent"

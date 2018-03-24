@@ -13,7 +13,7 @@ import com.lawrence.ditrp.command.ValidationCommand;
 import com.lawrence.ditrp.command.WebCallCommand;
 import com.lawrence.ditrp.dataModel.CustomSharedPreferences;
 
-import static com.lawrence.ditrp.Constants.CommandConstant.INSTITUTE_CODE;
+import static com.lawrence.ditrp.Constants.CommandConstant.INSTITUTE_ID;
 import static com.lawrence.ditrp.Constants.CommandConstant.STD_ID;
 
 public class SplashActivity extends AppCompatActivity {
@@ -34,12 +34,12 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void validationCheck() {
-        if (Utils.isNetworkAvailable(this) && !mSharedPreferences.getStringData(INSTITUTE_CODE).isEmpty()
+        if (Utils.isNetworkAvailable(this) && !mSharedPreferences.getStringData(INSTITUTE_ID).isEmpty()
                 && !mSharedPreferences.getStringData(STD_ID).isEmpty()) {
             WebCallCommand control = new WebCallCommand();
 
             Command validationCommand = new ValidationCommand(this, mSharedPreferences.getStringData(STD_ID),
-                    mSharedPreferences.getStringData(INSTITUTE_CODE));
+                    mSharedPreferences.getStringData(INSTITUTE_ID));
             control.setCommand(validationCommand);
             control.executeCommand(CommandType.VALIDATION);
         } else {

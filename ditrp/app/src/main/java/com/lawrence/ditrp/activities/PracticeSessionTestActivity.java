@@ -59,7 +59,7 @@ public class PracticeSessionTestActivity extends AppCompatActivity implements Vi
         mViewPager.setPagingEnabled(true);
         mPracticeTestQuestionAdapter = new PracticeTestQuestionAdapter(this, getPracticeSessionList());
         mViewPager.setAdapter(mPracticeTestQuestionAdapter);
-        //mViewPager.setCurrentItem(58, true);   //for testing only
+        //mViewPager.setCurrentItem(49, true);   //for testing only
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @SuppressLint("DefaultLocale")
             @Override
@@ -174,15 +174,14 @@ public class PracticeSessionTestActivity extends AppCompatActivity implements Vi
     private void showResultStatus(boolean resultStatus) {
         TextView mTextResultStatus = (TextView) findViewById(R.id.text_result_state);
         TextView mTextResultInstruction = (TextView) findViewById(R.id.text_result_instruction);
-        ImageView mBoyImage = (ImageView)findViewById(R.id.img_boy);
         if (resultStatus) {
             mTextResultStatus.setText(getString(R.string.passed_label));
             mTextResultInstruction.setText(getString(R.string.result_passed_suggestion_label));
-            mBoyImage.setImageResource(R.drawable.happy_boy);
+            mScoreLayout.setBackgroundResource(R.drawable.happy_boy_view);
         } else {
             mTextResultStatus.setText(getString(R.string.failed_label));
             mTextResultInstruction.setText(getString(R.string.result_failed_suggestion_label));
-            mBoyImage.setImageResource(R.drawable.sad_boy);
+            mScoreLayout.setBackgroundResource(R.drawable.sad_boy_view);
         }
     }
 

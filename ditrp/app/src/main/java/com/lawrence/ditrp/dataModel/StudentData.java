@@ -5,11 +5,10 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-/**
- * Created by Anagha.Mahajan on 07-Nov-17.
- */
 public class StudentData {
-
+    @SerializedName("INSTITUTE_ID")
+    @Expose
+    private String sINSTITUTEID;
     @SerializedName("STUDENT_ID")
     @Expose
     private String sTUDENTID;
@@ -67,6 +66,10 @@ public class StudentData {
     @SerializedName("STUDENT_COURSES")
     @Expose
     private List<StudentCourse> sTUDENTCOURSES = null;
+
+    public String getINSTITUTEID() {
+        return sINSTITUTEID;
+    }
 
     public String getSTUDENTID() {
         return sTUDENTID;
