@@ -11,9 +11,6 @@ import java.util.LinkedHashMap;
 
 public class SettingActivity extends AppCompatActivity {
 
-    private ListView mSettingsListView;
-    private LinkedHashMap<String, String> studentDataList;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,10 +23,10 @@ public class SettingActivity extends AppCompatActivity {
      * Set View with adapter
      */
     private void initializeView() {
-        mSettingsListView = (ListView) findViewById(R.id.settings_listview);
-        studentDataList = Utils.getStudentData(getApplicationContext());
+        ListView settingsListView = (ListView) findViewById(R.id.settings_listview);
+        LinkedHashMap<String, String> studentDataList = Utils.getStudentData(getApplicationContext());
         SettingsAdapter settingsAdapter = new SettingsAdapter(this, studentDataList);
-        mSettingsListView.setAdapter(settingsAdapter);
+        settingsListView.setAdapter(settingsAdapter);
     }
 
     @Override

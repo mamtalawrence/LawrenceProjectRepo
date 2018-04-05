@@ -16,7 +16,7 @@ public class QuestionBank implements Serializable {
 
     @SerializedName("QUESTION")
     @Expose
-    public String mQuestion;
+    private String mQuestion;
 
     @SerializedName("IMAGE")
     @Expose

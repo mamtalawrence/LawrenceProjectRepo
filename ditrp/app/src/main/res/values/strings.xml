@@ -72,6 +72,6 @@
     <string name="institute_name">Institute Name</string>
     <string name="address">Address</string>
     <string name="login_fail">Sorry, could not connect to server.\nPlease try again later!</string>
-    <string name="invalid_user">You do\'nt have rights to access this app!</string>
+    <string name="invalid_user">You don\'t have rights to access this app! Please contact to Administrator.</string>
 
 </resources>

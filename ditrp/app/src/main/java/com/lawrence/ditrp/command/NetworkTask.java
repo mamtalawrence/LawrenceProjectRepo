@@ -19,17 +19,19 @@ import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Arrays;
 
 /**
  * Class to perform network related task.
  */
 class NetworkTask extends AsyncTask<String, Void, Boolean> {
 
+    private static final String TAG = NetworkTask.class.getSimpleName();
     private ProgressDialog progressDialog;
     private APIRequestBuilder mApiRequestBuilder = null;
     private CommandType mCommandType;
     private Context mContext;
-    private boolean isSuccess;
+    private boolean isSuccess = false;
 
     NetworkTask(APIRequestBuilder apiRequestBuilder, CommandType requestType) {
         mApiRequestBuilder = apiRequestBuilder;
@@ -55,7 +57,7 @@ class NetworkTask extends AsyncTask<String, Void, Boolean> {
     @Override
     protected Boolean doInBackground(String... url) {
         final String jsonString = sendPostRequestToConnectAPI(url[0]);
-        if (mCommandType == CommandType.LOGIN && jsonString != null ) {
+        if (!TextUtils.isEmpty(jsonString) && mCommandType == CommandType.LOGIN) {
             try {
                 JSONObject responseObject = new JSONObject(jsonString);
                 String status = responseObject.get("success").toString();
@@ -63,7 +65,7 @@ class NetworkTask extends AsyncTask<String, Void, Boolean> {
                     isSuccess = status.equalsIgnoreCase("true");
                 }
             } catch (JSONException e) {
-                e.printStackTrace();
+                Log.e(TAG, Arrays.toString(e.getStackTrace()));
             }
         }
 
@@ -99,40 +101,41 @@ class NetworkTask extends AsyncTask<String, Void, Boolean> {
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setReadTimeout(15000 /* milliseconds */);
             urlConnection.setConnectTimeout(15000 /* milliseconds */);
-            if (mCommandType == CommandType.LOGIN) {
-                urlConnection.setRequestMethod(NetworkRequestType.POST.toString());
-                urlConnection.setRequestProperty("Accept", "application/json");
-            } else if (mCommandType == CommandType.DATA_REQUEST) {
-                urlConnection.setRequestMethod(NetworkRequestType.GET.toString());
-                urlConnection.setRequestProperty("Content-length", "0");
-            } else if (mCommandType == CommandType.VALIDATION) {
-                urlConnection.setRequestMethod(NetworkRequestType.GET.toString());
-                //urlConnection.setRequestProperty("Content-type", "application/txt");
+            switch (mCommandType) {
+                case LOGIN:
+                    urlConnection.setRequestMethod(NetworkRequestType.POST.toString());
+                    urlConnection.setRequestProperty("Accept", "application/json");
+                    break;
+                case VALIDATION:
+                    urlConnection.setRequestMethod(NetworkRequestType.GET.toString());
+                    break;
+                case DATA_REQUEST:
+                    urlConnection.setRequestMethod(NetworkRequestType.GET.toString());
+                    urlConnection.setRequestProperty("Content-length", "0");
+                    break;
             }
             urlConnection.setUseCaches(false);
             urlConnection.setAllowUserInteraction(false);
             urlConnection.setDoInput(true);
             urlConnection.setDoOutput(true);
             urlConnection.connect();// setting the connection
-
-            if (mCommandType == CommandType.LOGIN) {
-                //Writing data (bytes) to the data output stream
-                DataOutputStream dos = new DataOutputStream(urlConnection.getOutputStream());
-                // writing your data which you post
-                dos.writeBytes(getPostRequestQuery());
-                //flushes data output stream.
-                dos.flush();
-                dos.close();
-            } else if (mCommandType == CommandType.VALIDATION) {
-                //Writing data (bytes) to the data output stream
-                DataOutputStream dos = new DataOutputStream(urlConnection.getOutputStream());
-                // writing your data which you post
-                dos.writeBytes(getValidationPostRequestQuery());
-                //flushes data output stream.
-                dos.flush();
-                dos.close();
+            //Writing data (bytes) to the data output stream
+            DataOutputStream dos = new DataOutputStream(urlConnection.getOutputStream());
+            switch (mCommandType) {
+                case LOGIN:
+                    // writing your data which you post for login
+                    dos.writeBytes(getPostRequestQuery());
+                    break;
+                case VALIDATION:
+                    // writing your data which you post for validation
+                    dos.writeBytes(getValidationPostRequestQuery());
+                    break;
             }
+            //flushes data output stream.
+            dos.flush();
+            dos.close();
             int responseCode = urlConnection.getResponseCode();
+            Log.d(TAG, "Connection Response Code: " + responseCode);
             if (responseCode == HttpsURLConnection.HTTP_OK) {
                 // Getting input stream from the connection to reader the response from the buffer.
                 InputStreamReader inputStreamReader = new InputStreamReader(urlConnection.getInputStream());
@@ -149,29 +152,29 @@ class NetworkTask extends AsyncTask<String, Void, Boolean> {
                 } else {
                     responseJsonData = response.toString();
                 }
+                Log.d(TAG, "ResponseJsonData: " + responseJsonData);
             } else {
-                Exception exception = new RuntimeException("Sorry, could not connect to server.\nPlease try again " +
-                        "later!");
-                mApiRequestBuilder.mResponseListener.onError(exception);
+                showExceptionMessage();
             }
-        } catch (Exception e) {
-            //mApiRequestBuilder.mResponseListener.onError(e);
-            Exception exception = new RuntimeException("Sorry, could not connect to server.\nPlease try again later!");
-            mApiRequestBuilder.mResponseListener.onError(exception);
-            if (e.getMessage() != null) {
-                responseJsonData = "Exception Details:".concat(e.getLocalizedMessage().concat(responseJsonData
-                        .substring(0, 10)));
-            } else {
-                responseJsonData = "Exception Details: UnKnown Exception";
-            }
-            return responseJsonData;
+        } catch (Exception exception) {
+            Log.e(TAG, "Exception Stack Trace: " + Arrays.toString(exception.getStackTrace()));
+            showExceptionMessage();
         } finally {
             // close your connection
             if (urlConnection != null) {
                 urlConnection.disconnect();
+                Log.d(TAG, "Connection Disconnected");
             }
         }
         return responseJsonData;
+    }
+
+    /**
+     * To show exception error message to user.
+     */
+    private void showExceptionMessage() {
+        Exception exception = new RuntimeException("Sorry, could not connect to server.\nPlease try again later!");
+        mApiRequestBuilder.mResponseListener.onError(exception);
     }
 
     /**
@@ -214,6 +217,7 @@ class NetworkTask extends AsyncTask<String, Void, Boolean> {
      */
     private String proceedForParsing(String responseData) throws JSONException {
         if (!TextUtils.isEmpty(responseData)) {
+            Log.d(TAG, "Json Response: " + responseData);
             JSONObject responseObject = new JSONObject(responseData);
             return responseObject.toString();
         }

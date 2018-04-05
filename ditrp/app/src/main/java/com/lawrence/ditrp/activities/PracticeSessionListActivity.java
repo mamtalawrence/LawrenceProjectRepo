@@ -29,7 +29,7 @@ public class PracticeSessionListActivity extends AppCompatActivity {
      */
     private void initializeView() {
         RecyclerView practiceSessionRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
-        PracticeSessionListAdapter adapter = new PracticeSessionListAdapter(this);
+        PracticeSessionListAdapter adapter = new PracticeSessionListAdapter();
         practiceSessionRecyclerView.setAdapter(adapter);
         practiceSessionRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 

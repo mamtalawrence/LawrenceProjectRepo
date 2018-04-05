@@ -57,7 +57,7 @@ public class Utils {
                 } else {
                     sbView.setBackgroundColor(Color.RED);
                 }
-                TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                TextView textView = sbView.findViewById(android.support.design.R.id.snackbar_text);
                 textView.setTextColor(Color.WHITE);
                 snackbar.show();
             }

@@ -10,7 +10,7 @@ import com.lawrence.ditrp.R;
 
 public class ExamPracticeListAdapter extends RecyclerView.Adapter<CommonViewHolder> {
 
-    Context context;
+    private Context context;
 
     public ExamPracticeListAdapter(Context context) {
         this.context = context;

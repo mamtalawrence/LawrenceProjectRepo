@@ -17,10 +17,10 @@ class ScoreCardViewHolder extends RecyclerView.ViewHolder {
 
     ScoreCardViewHolder(View itemView) {
         super(itemView);
-        mCardView = (CardView) itemView.findViewById(R.id.cardView);
-        mImageViewAnswerState = (ImageView) itemView.findViewById(R.id.imageView_answer_state);
-        mViewQuestion = (TextView) itemView.findViewById(R.id.text_view_question);
-        mViewActualAnswer = (TextView) itemView.findViewById(R.id.text_view_actual_answer);
-        mViewExpectedAnswer = (TextView) itemView.findViewById(R.id.text_view_expected_answer);
+        mCardView = itemView.findViewById(R.id.cardView);
+        mImageViewAnswerState = itemView.findViewById(R.id.imageView_answer_state);
+        mViewQuestion = itemView.findViewById(R.id.text_view_question);
+        mViewActualAnswer = itemView.findViewById(R.id.text_view_actual_answer);
+        mViewExpectedAnswer = itemView.findViewById(R.id.text_view_expected_answer);
     }
 }

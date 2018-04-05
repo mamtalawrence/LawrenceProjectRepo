@@ -31,8 +31,6 @@ public class ValidationCommand implements Command {
                 .setURL(CommandConstant.SERVER_URL)
                 .setStudentId(mStudentId)
                 .setInstituteId(mInstituteId)
-                /*.setStudentId("8")
-                .setInstituteId("5")*/
                 .setResponseListener(mResponseListener).build();
         new NetworkTask(apiRequestBuilder, commandType).execute(CommandConstant.SERVER_URL);
     }

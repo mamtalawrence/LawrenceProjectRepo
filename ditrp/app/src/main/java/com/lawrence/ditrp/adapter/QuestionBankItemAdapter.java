@@ -16,8 +16,8 @@ import java.util.List;
 
 public class QuestionBankItemAdapter extends RecyclerView.Adapter<ItemDetailsViewHolder> {
 
-    List<ItemsLibrary> list = Collections.emptyList();
-    Context context;
+    private List<ItemsLibrary> list = Collections.emptyList();
+    private Context context;
 
     public QuestionBankItemAdapter(List<ItemsLibrary> list, Context context) {
         this.list = list;
@@ -36,11 +36,11 @@ public class QuestionBankItemAdapter extends RecyclerView.Adapter<ItemDetailsVie
     public void onBindViewHolder(ItemDetailsViewHolder holder, int position) {
         //Use the provided View Holder on the onCreateViewHolder method to populate the current row on the RecyclerView
         String imageUrl = list.get(position).getImage();
-        if(!TextUtils.isEmpty(imageUrl)) {
+        if (!TextUtils.isEmpty(imageUrl)) {
             Picasso.with(context)
                     .load(imageUrl)
                     .into(holder.mImageViewItem);
-        }else{
+        } else {
             holder.mImageViewItem.setVisibility(View.GONE);
             Picasso.with(context)
                     .load(android.R.drawable.ic_menu_gallery)

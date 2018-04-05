@@ -1,14 +1,12 @@
 package com.lawrence.ditrp.activities;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -41,7 +39,7 @@ public class PracticeSessionTestActivity extends AppCompatActivity implements Vi
         setContentView(R.layout.common_session_layout);
         Utils.setCustomActionBar(this, getResources().getString(R.string.practice_session_name), true, false);
         View view = getSupportActionBar().getCustomView();
-        mQuestionCountView = (TextView) view.findViewById(R.id.action_bar_question_count);
+        mQuestionCountView = view.findViewById(R.id.action_bar_question_count);
         mPosition = getIntent().getIntExtra("position", 0);
         mLayoutPracticeTest = (RelativeLayout) findViewById(R.id.practice_test_layout);
         mScoreLayout = findViewById(R.id.score_layout);

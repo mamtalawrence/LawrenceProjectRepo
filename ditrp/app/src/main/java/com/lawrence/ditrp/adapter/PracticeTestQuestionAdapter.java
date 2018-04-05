@@ -35,19 +35,19 @@ public class PracticeTestQuestionAdapter extends PagerAdapter implements ITestAd
 
         viewHolder.view3 = itemView.findViewById(R.id.view3);
         viewHolder.view4 = itemView.findViewById(R.id.view4);
-        viewHolder.questionTextView = (TextView) itemView.findViewById(R.id.text_question);
+        viewHolder.questionTextView = itemView.findViewById(R.id.text_question);
         viewHolder.questionTextView.setText(String.format("Q. %s", mQuestionBanksObjectList.get(position)
                 .getQuestion()));
 
         String studentAns = mQuestionBanksObjectList.get(position).getStudentAns();
 
-        viewHolder.answerATextView = (TextView) itemView.findViewById(R.id.text_answer_a);
+        viewHolder.answerATextView = itemView.findViewById(R.id.text_answer_a);
         viewHolder.answerATextView.setText(String.format("A. %s", mQuestionBanksObjectList.get(position).getOptionA()));
 
-        viewHolder.answerBTextView = (TextView) itemView.findViewById(R.id.text_answer_b);
+        viewHolder.answerBTextView = itemView.findViewById(R.id.text_answer_b);
         viewHolder.answerBTextView.setText(String.format("B. %s", mQuestionBanksObjectList.get(position).getOptionB()));
 
-        viewHolder.answerCTextView = (TextView) itemView.findViewById(R.id.text_answer_c);
+        viewHolder.answerCTextView = itemView.findViewById(R.id.text_answer_c);
         if (!TextUtils.isEmpty(mQuestionBanksObjectList.get(position).getOptionC())) {
             viewHolder.answerCTextView.setText(String.format("C. %s", mQuestionBanksObjectList.get(position)
                     .getOptionC()));
@@ -55,7 +55,7 @@ public class PracticeTestQuestionAdapter extends PagerAdapter implements ITestAd
             viewHolder.answerCTextView.setVisibility(View.VISIBLE);
         }
 
-        viewHolder.answerDTextView = (TextView) itemView.findViewById(R.id.text_answer_d);
+        viewHolder.answerDTextView = itemView.findViewById(R.id.text_answer_d);
         if (!TextUtils.isEmpty(mQuestionBanksObjectList.get(position).getOptionD())) {
             viewHolder.answerDTextView.setText(String.format("D. %s", mQuestionBanksObjectList.get(position)
                     .getOptionD()));

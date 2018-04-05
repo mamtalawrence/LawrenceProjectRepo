@@ -30,9 +30,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by Anagha.Mahajan on 10-Nov-17.
- */
 public class ExamPracticeTestActivity extends AppCompatActivity implements View.OnClickListener,
         IExamSessionNavigationHandler {
 
@@ -74,9 +71,9 @@ public class ExamPracticeTestActivity extends AppCompatActivity implements View.
         setContentView(R.layout.exam_practice_layout);
         Utils.setCustomActionBar(this, getResources().getString(R.string.exam_practice_name), false, false);
         View view = getSupportActionBar().getCustomView();
-        mQuestionCountView = (TextView) view.findViewById(R.id.action_bar_question_count);
+        mQuestionCountView = view.findViewById(R.id.action_bar_question_count);
         mTimerLayout = view.findViewById(R.id.action_bar_timer_layout);
-        mTimerView = (TextView) view.findViewById(R.id.action_bar_timer);
+        mTimerView = view.findViewById(R.id.action_bar_timer);
         mLayoutInstruction = (RelativeLayout) findViewById(R.id.layout_instructions);
         mLayoutInstruction.setVisibility(View.VISIBLE);
         mLayoutQuestions = (FrameLayout) findViewById(R.id.layout_questions);

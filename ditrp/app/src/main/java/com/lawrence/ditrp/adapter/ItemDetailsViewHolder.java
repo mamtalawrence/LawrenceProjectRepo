@@ -16,9 +16,9 @@ class ItemDetailsViewHolder extends RecyclerView.ViewHolder {
 
     ItemDetailsViewHolder(View itemView) {
         super(itemView);
-        mCardView = (CardView) itemView.findViewById(R.id.cardView);
-        mImageViewItem = (ImageView) itemView.findViewById(R.id.imageView_item);
-        mViewTitle = (TextView) itemView.findViewById(R.id.text_view_Title);
-        mViewDescription = (TextView) itemView.findViewById(R.id.text_view_description);
+        mCardView = itemView.findViewById(R.id.cardView);
+        mImageViewItem = itemView.findViewById(R.id.imageView_item);
+        mViewTitle = itemView.findViewById(R.id.text_view_Title);
+        mViewDescription = itemView.findViewById(R.id.text_view_description);
     }
 }

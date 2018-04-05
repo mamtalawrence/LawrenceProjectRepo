@@ -12,7 +12,7 @@ class SettingsViewHolder extends RecyclerView.ViewHolder {
 
     SettingsViewHolder(View itemView) {
         super(itemView);
-        mSettingsTitle = (TextView) itemView.findViewById(R.id.setting_text);
-        mSettingsDescription = (TextView) itemView.findViewById(R.id.settings_description);
+        mSettingsTitle = itemView.findViewById(R.id.setting_text);
+        mSettingsDescription = itemView.findViewById(R.id.settings_description);
     }
 }
