@@ -6,7 +6,7 @@ android {
     useLibrary 'org.apache.http.legacy'
     defaultConfig {
         applicationId "com.lawrence.ditrp"
-        minSdkVersion 21
+        minSdkVersion 14
         targetSdkVersion 27
         versionCode 3
         versionName "1.3"

@@ -286,7 +286,6 @@ public class Utils {
     public static void exitDialog(final Context context, String title, String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(title);
-        builder.setIcon(android.R.drawable.ic_dialog_alert);
         builder.setMessage(message)
                 .setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
