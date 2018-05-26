@@ -46,7 +46,7 @@ public class ValidationCommand implements Command {
         boolean isAppeared;
         @Override
         public void onSuccess(String response) {
-            isAppeared = response.equalsIgnoreCase(EXAM_APPEARED);
+            isAppeared = response.contains(EXAM_APPEARED);
         }
 
         @Override
