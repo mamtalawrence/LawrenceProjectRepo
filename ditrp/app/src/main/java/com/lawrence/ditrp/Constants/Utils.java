@@ -17,11 +17,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lawrence.ditrp.R;
-import com.lawrence.ditrp.dataModel.CustomSharedPreferences;
-import com.lawrence.ditrp.dataModel.ItemsLibrary;
-import com.lawrence.ditrp.dataModel.QuestionBank;
-import com.lawrence.ditrp.dataModel.StudentCourse;
-import com.lawrence.ditrp.dataModel.StudentData;
+import com.lawrence.ditrp.dataModel.*;
 import com.lawrence.ditrp.db.DatabaseHelper;
 
 import java.lang.reflect.Type;
@@ -300,5 +296,17 @@ public class Utils {
                 });
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    /**
+     * Delete all the data from the tables.
+     *
+     * @param context context
+     */
+    public static void deleteDataFromDatabase(Context context) {
+        DatabaseHelper databaseHelper = new DatabaseHelper(context);
+        databaseHelper.deleteTable();
+        // Don't forget to close database connection
+        databaseHelper.closeDB();
     }
 }

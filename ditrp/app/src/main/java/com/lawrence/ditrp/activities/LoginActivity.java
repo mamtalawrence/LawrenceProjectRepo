@@ -29,6 +29,13 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         Utils.setCustomActionBar(this, getString(R.string.app_name), false, false);
         initializeView();
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            boolean isExamAppeared = bundle.getBoolean("IsExamAppeared");
+            if (isExamAppeared) {
+                Utils.showToast(this, getString(R.string.invalid_user), false);
+            }
+        }
     }
 
     /**

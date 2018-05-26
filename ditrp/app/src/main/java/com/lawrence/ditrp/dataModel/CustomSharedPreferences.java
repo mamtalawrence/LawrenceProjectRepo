@@ -84,4 +84,14 @@ public class CustomSharedPreferences {
     public boolean getBoolean(String key) {
         return sharedPreferences.getBoolean(key, false);
     }
+
+    /**
+     * Clear stored user data from the shared preference
+     */
+    public void clearSharedPreferenceData() {
+        if (sharedPreferences != null && mEditor != null) {
+            mEditor.clear();
+            mEditor.commit();
+        }
+    }
 }

@@ -290,12 +290,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    /*public void deleteTable() {
+    // Deleted tables from database.
+    public void deleteTable() {
         SQLiteDatabase db = this.getReadableDatabase();
-        db.execSQL("DROP TABLE IF EXISTS " + QUESTION_BANK);
-        db.execSQL("DROP TABLE IF EXISTS " + PRACTICE_QUESTION);
-        db.execSQL("DROP TABLE IF EXISTS " + QUESTION_LIBRARY);
-    }*/
+        db.delete(QUESTION_BANK, null, null);
+        db.delete(PRACTICE_QUESTION, null, null);
+        db.delete(QUESTION_LIBRARY, null, null);
+    }
 }
 
 

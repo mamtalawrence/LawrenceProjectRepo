@@ -6,14 +6,18 @@ import android.content.Intent;
 import com.lawrence.ditrp.Constants.CommandConstant;
 import com.lawrence.ditrp.Constants.Utils;
 import com.lawrence.ditrp.Enums.CommandType;
-import com.lawrence.ditrp.R;
 import com.lawrence.ditrp.activities.DashBoardActivity;
+import com.lawrence.ditrp.activities.LoginActivity;
 import com.lawrence.ditrp.dataModel.CustomSharedPreferences;
 
 public class ValidationCommand implements Command {
     private Context mContext;
     private String mStudentId;
     private String mInstituteId;
+    /**
+     * Holds the validation status of exam appearance.
+     */
+    private final String EXAM_APPEARED = "3";
 
     public ValidationCommand(Context context, String student_id, String institute_id) {
         mContext = context;
@@ -39,13 +43,10 @@ public class ValidationCommand implements Command {
      * Response Listener to set the data into shared preference and database.
      */
     private ResponseListener mResponseListener = new ResponseListener() {
+        boolean isAppeared;
         @Override
         public void onSuccess(String response) {
-            if (response.contains("3")) {
-                showDashBoardActivity();
-            } else {
-                Utils.showToast(mContext, mContext.getString(R.string.invalid_user), false);
-            }
+            isAppeared = response.equalsIgnoreCase(EXAM_APPEARED);
         }
 
         @Override
@@ -55,6 +56,12 @@ public class ValidationCommand implements Command {
 
         @Override
         public void onComplete(boolean status) {
+            // To avoid the memory leak launch the activity from here.
+            if (isAppeared) {
+                redirectToLogin();
+            } else {
+                showDashBoardActivity();
+            }
         }
     };
 
@@ -66,6 +73,19 @@ public class ValidationCommand implements Command {
         customSharedPreferences.saveBoolean(CommandConstant.IS_LOGIN_DONE, true);
         Intent dashBoardLunchIntent = new Intent(mContext, DashBoardActivity.class);
         mContext.startActivity(dashBoardLunchIntent);
+        ((Activity) mContext).finish();
+    }
+
+    /**
+     * Redirect to Login screen if user credential were invalid.
+     */
+    private void redirectToLogin() {
+        CustomSharedPreferences customSharedPreferences = CustomSharedPreferences.getInstance(mContext);
+        customSharedPreferences.clearSharedPreferenceData();
+        Utils.deleteDataFromDatabase(mContext);
+        Intent loginPageLaunch = new Intent(mContext, LoginActivity.class);
+        loginPageLaunch.putExtra("IsExamAppeared", true);
+        mContext.startActivity(loginPageLaunch);
         ((Activity) mContext).finish();
     }
 }

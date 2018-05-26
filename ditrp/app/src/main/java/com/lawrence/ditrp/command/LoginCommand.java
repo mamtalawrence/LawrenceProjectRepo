@@ -28,6 +28,7 @@ public class LoginCommand implements Command {
      * Response Listener to set the item data into library i.e., database.
      */
     private ResponseListener mResponseItemLibraryListener = new ResponseListener() {
+        boolean isSuccess;
         @Override
         public void onSuccess(String response) {
             JSONObject jsonBodyObject;
@@ -43,12 +44,14 @@ public class LoginCommand implements Command {
                                 ItemsLibrary.class));
                     }
                     Utils.saveItemsDetailInLibrary(mContext, itemsLibraryList);
-                    showDashBoardActivity();
+                    isSuccess = true;
                 } else {
+                    isSuccess = false;
                     // fail handling
                     Utils.showToast(mContext, mContext.getString(R.string.login_fail), false);
                 }
             } catch (JSONException e) {
+                isSuccess = false;
                 e.printStackTrace();
             }
         }
@@ -60,7 +63,10 @@ public class LoginCommand implements Command {
 
         @Override
         public void onComplete(boolean status) {
-
+            // To avoid the memory leak launch the activity from here.
+            if (isSuccess) {
+                showDashBoardActivity();
+            }
         }
     };
 
