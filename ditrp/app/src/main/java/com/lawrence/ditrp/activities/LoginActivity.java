@@ -45,9 +45,9 @@ public class LoginActivity extends AppCompatActivity {
     private void initializeView() {
         mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
         mUserNameEditText = (EditText) findViewById(R.id.input_uname);
-        mUserNameEditText.setText(ServerUrls.NAME);
+        //mUserNameEditText.setText(ServerUrls.NAME);
         mPasswordEditText = (EditText) findViewById(R.id.input_password);
-        mPasswordEditText.setText(ServerUrls.PASSWORD);
+        //mPasswordEditText.setText(ServerUrls.PASSWORD);
         Button loginButton = (Button) findViewById(R.id.btn_login);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
