@@ -13,9 +13,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.lawrence.ditrp.BuildConfig;
 import com.lawrence.ditrp.R;
 import com.lawrence.ditrp.dataModel.*;
 import com.lawrence.ditrp.db.DatabaseHelper;
@@ -28,6 +30,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Utils {
 
+    public static final String APPLICATION_ID = BuildConfig.APPLICATION_ID;
     public static boolean isNetworkAvailable(Context context) {
         final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context
                 .CONNECTIVITY_SERVICE));
@@ -196,6 +199,7 @@ public class Utils {
         ((AppCompatActivity) context).getSupportActionBar().setDisplayShowCustomEnabled(true);
         ((AppCompatActivity) context).getSupportActionBar().setCustomView(R.layout.custom_action_bar_layout);
 
+
         ActionBar actionBar = ((AppCompatActivity) context).getSupportActionBar();
         Toolbar toolbar = (Toolbar) actionBar.getCustomView().getParent();
         toolbar.setContentInsetsAbsolute(0, 0);
@@ -206,6 +210,8 @@ public class Utils {
         View actionBarView;
         actionBarView = ((AppCompatActivity) context).getSupportActionBar().getCustomView();
         ((TextView) actionBarView.findViewById(R.id.action_bar_title)).setText(titleText);
+        ImageView imageView = actionBarView.findViewById(R.id.action_bar_icon);
+        setAppIcon(imageView);
         if (shouldVisibleQuestionCount) {
             actionBarView.findViewById(R.id.action_bar_question_count).setVisibility(View.VISIBLE);
         } else {
@@ -308,5 +314,20 @@ public class Utils {
         databaseHelper.deleteTable();
         // Don't forget to close database connection
         databaseHelper.closeDB();
+    }
+
+    /**
+     * Set Application Icon
+     */
+    public static void setAppIcon(View appIcon) {
+        if (APPLICATION_ID.equalsIgnoreCase("com.lawrence.ditrp.contest")) {
+            appIcon.setBackgroundResource(R.mipmap.ic_launcher_contest);
+        } else if (APPLICATION_ID.equalsIgnoreCase("com.lawrence.ditrp.pro")) {
+            appIcon.setBackgroundResource(R.mipmap.ic_launcher_pro);
+        } else if (APPLICATION_ID.equalsIgnoreCase("com.lawrence.ditrp.india")) {
+            appIcon.setBackgroundResource(R.mipmap.ic_launcher);
+        } else {
+            throw new RuntimeException("Invalid Package");
+        }
     }
 }

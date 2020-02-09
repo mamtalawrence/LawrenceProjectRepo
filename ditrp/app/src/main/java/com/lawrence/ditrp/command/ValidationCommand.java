@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import com.lawrence.ditrp.Constants.CommandConstant;
+import com.lawrence.ditrp.Constants.ServerUrls;
 import com.lawrence.ditrp.Constants.Utils;
 import com.lawrence.ditrp.Enums.CommandType;
 import com.lawrence.ditrp.activities.DashBoardActivity;
@@ -32,11 +33,11 @@ public class ValidationCommand implements Command {
         apiRequestBuilder = new APIRequestBuilder.Builder()
                 .setContext(mContext)
                 .setCommandName(CommandConstant.MODULE_VALIDATION)
-                .setURL(CommandConstant.SERVER_URL)
+                .setURL(ServerUrls.SERVER_URL)
                 .setStudentId(mStudentId)
                 .setInstituteId(mInstituteId)
                 .setResponseListener(mResponseListener).build();
-        new NetworkTask(apiRequestBuilder, commandType).execute(CommandConstant.SERVER_URL);
+        new NetworkTask(apiRequestBuilder, commandType).execute(ServerUrls.SERVER_URL);
     }
 
     /**

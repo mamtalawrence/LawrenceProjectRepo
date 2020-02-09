@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
 import com.lawrence.ditrp.Constants.CommandConstant;
 import com.lawrence.ditrp.Constants.Utils;
 import com.lawrence.ditrp.Enums.CommandType;
@@ -23,6 +24,8 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        ImageView splashIcon = (ImageView) findViewById(R.id.splash_icon);
+        Utils.setAppIcon(splashIcon);
 
         mSharedPreferences = CustomSharedPreferences.getInstance(SplashActivity.this);
         if (mSharedPreferences.getBoolean(CommandConstant.IS_LOGIN_DONE)) {

@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import com.lawrence.ditrp.Constants.ServerUrls;
 import com.lawrence.ditrp.Constants.Utils;
 import com.lawrence.ditrp.Enums.CommandType;
 import com.lawrence.ditrp.R;
@@ -44,7 +45,9 @@ public class LoginActivity extends AppCompatActivity {
     private void initializeView() {
         mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
         mUserNameEditText = (EditText) findViewById(R.id.input_uname);
+        mUserNameEditText.setText(ServerUrls.NAME);
         mPasswordEditText = (EditText) findViewById(R.id.input_password);
+        mPasswordEditText.setText(ServerUrls.PASSWORD);
         Button loginButton = (Button) findViewById(R.id.btn_login);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -8,8 +8,6 @@ android {
         applicationId "com.lawrence.ditrp"
         minSdkVersion 14
         targetSdkVersion 27
-        versionCode 6
-        versionName "1.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -24,8 +22,51 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
     }
+    flavorDimensions "type"
     productFlavors {
+        india{
+            versionCode 7
+            versionName "1.7"
+            dimension "type"
+            applicationIdSuffix ".india"
+            resValue "string", "app_name", "DITRP PRACTICE EXAM"
+            manifestPlaceholders = [
+                    appIcon: "@mipmap/ic_launcher"
+            ]
+        }
+        pro{
+            versionCode 1
+            versionName "1.0"
+            dimension "type"
+            applicationIdSuffix ".pro"
+            resValue "string", "app_name", "DITRP PRO"
+            manifestPlaceholders = [
+                    appIcon: "@mipmap/ic_launcher_pro"
+            ]
+        }
+        contest{
+            versionCode 1
+            versionName "1.0"
+            dimension "type"
+            applicationIdSuffix ".contest"
+            resValue "string", "app_name", "DITRP CONTEST"
+            manifestPlaceholders = [
+                    appIcon: "@mipmap/ic_launcher_contest"
+            ]
+        }
     }
+}
+
+configurations {
+    indiaDebugCompile
+    indiaReleaseCompile
+    indiaLintOptionsCompile
+    proDebugCompile
+    proReleaseCompile
+    proLintOptionsCompile
+    contestDebugCompile
+    contestReleaseCompile
+    contestLintOptionsCompile
 }
 
 dependencies {

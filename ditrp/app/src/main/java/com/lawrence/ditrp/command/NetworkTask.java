@@ -56,7 +56,9 @@ class NetworkTask extends AsyncTask<String, Void, Boolean> {
 
     @Override
     protected Boolean doInBackground(String... url) {
+        Log.d("URL", url[0]);
         final String jsonString = sendPostRequestToConnectAPI(url[0]);
+        Log.d("jsonString", jsonString);
         if (!TextUtils.isEmpty(jsonString) && mCommandType == CommandType.LOGIN) {
             try {
                 JSONObject responseObject = new JSONObject(jsonString);

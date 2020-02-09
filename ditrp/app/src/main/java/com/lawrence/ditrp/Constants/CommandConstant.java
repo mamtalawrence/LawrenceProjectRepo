@@ -5,10 +5,7 @@ public class CommandConstant {
     // String Module Name Constants
     public static final String MODULE_LOGIN = "login";
     public static final String MODULE_VALIDATION = "check-exam-status";
-    public static final String SERVER_URL = "http://ditrpindia.com/app/WebService/server.php?";
     public static final String MODULE_QUESTION_BANK = "question_bank";
-    public static final String QUESTION_LIBRARY_URL = "http://ditrpindia.com/app/WebService/static.php";
-
 
     //sharedPreference key
     public static final String STD_ID = "std_id";

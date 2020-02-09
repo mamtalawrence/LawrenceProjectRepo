@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.lawrence.ditrp.Constants.CommandConstant;
+import com.lawrence.ditrp.Constants.ServerUrls;
 import com.lawrence.ditrp.Constants.Utils;
 import com.lawrence.ditrp.Enums.CommandType;
 import com.lawrence.ditrp.R;
@@ -125,19 +126,19 @@ public class LoginCommand implements Command {
                 apiRequestBuilder = new APIRequestBuilder.Builder()
                         .setContext(mContext)
                         .setCommandName(CommandConstant.MODULE_LOGIN)
-                        .setURL(CommandConstant.SERVER_URL)
+                        .setURL(ServerUrls.SERVER_URL)
                         .setUserName(mUserName)
                         .setPassword(mPassword)
                         .setResponseListener(mResponseListener).build();
-                new NetworkTask(apiRequestBuilder, commandType).execute(CommandConstant.SERVER_URL);
+                new NetworkTask(apiRequestBuilder, commandType).execute(ServerUrls.SERVER_URL);
                 break;
             case DATA_REQUEST:
                 apiRequestBuilder = new APIRequestBuilder.Builder()
                         .setContext(mContext)
                         .setCommandName(CommandConstant.MODULE_QUESTION_BANK)
-                        .setURL(CommandConstant.QUESTION_LIBRARY_URL)
+                        .setURL(ServerUrls.QUESTION_LIBRARY_URL)
                         .setResponseListener(mResponseItemLibraryListener).build();
-                new NetworkTask(apiRequestBuilder, commandType).execute(CommandConstant.QUESTION_LIBRARY_URL);
+                new NetworkTask(apiRequestBuilder, commandType).execute(ServerUrls.QUESTION_LIBRARY_URL);
                 break;
             default:
         }
