@@ -1,13 +1,21 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+    signingConfigs {
+        config {
+            keyAlias 'ditrpAlias'
+            keyPassword 'lawrence15#'
+            storeFile file('C:/adrive/personal/BackUp/code/LawrenceProjectRepo/ditrp/app/keystore/ditrpIndiaKeystore.jks')
+            storePassword 'lawrence15#'
+        }
+    }
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
     useLibrary 'org.apache.http.legacy'
     defaultConfig {
         applicationId "com.lawrence.ditrp"
         minSdkVersion 14
-        targetSdkVersion 27
+        targetSdkVersion 28
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -16,6 +24,10 @@ android {
             testCoverageEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             debuggable false
+            signingConfig signingConfigs.config
+        }
+        debug {
+            signingConfig signingConfigs.config
         }
     }
     compileOptions {
@@ -24,17 +36,18 @@ android {
     }
     flavorDimensions "type"
     productFlavors {
-        india{
-            versionCode 7
-            versionName "1.7"
+        india {
+            versionCode 1
+            versionName "1.0"
             dimension "type"
             applicationIdSuffix ".india"
-            resValue "string", "app_name", "DITRP PRACTICE EXAM"
+            resValue "string", "app_name", "DITRP INDIA"
             manifestPlaceholders = [
                     appIcon: "@mipmap/ic_launcher"
             ]
+            minSdkVersion 15
         }
-        pro{
+        pro {
             versionCode 1
             versionName "1.0"
             dimension "type"
@@ -44,7 +57,7 @@ android {
                     appIcon: "@mipmap/ic_launcher_pro"
             ]
         }
-        contest{
+        contest {
             versionCode 1
             versionName "1.0"
             dimension "type"
@@ -70,15 +83,15 @@ configurations {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:+'
-    compile 'com.google.code.gson:gson:2.7'
-    compile 'com.android.support:cardview-v7:+'
-    compile 'com.android.support:recyclerview-v7:+'
-    compile 'com.android.support:design:+'
-    compile 'com.squareup.picasso:picasso:2.5.2'
-    testCompile 'junit:junit:4.12'
+    implementation 'com.android.support:appcompat-v7:+'
+    implementation 'com.google.code.gson:gson:2.7'
+    implementation 'com.android.support:cardview-v7:+'
+    implementation 'com.android.support:recyclerview-v7:+'
+    implementation 'com.android.support:design:+'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    testImplementation 'junit:junit:4.12'
 }
